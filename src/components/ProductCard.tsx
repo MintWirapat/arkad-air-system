@@ -132,9 +132,9 @@ const ProductCard = () => {
                     <div className="grid grid-cols-3 gap-8 items-center">
                         {/* Left Section */}
                         <div className="text-xs text-gray-600 leading-tight">
-                            <p>บริษัท วินแอนด์ อ้อโพเธนเซีย อำเภอ</p>
-                            <p>178/13 หมู่ 1 ต.แพงส อ.แพงส</p>
-                            <p>อ.เชียงใหม่ 50230</p>
+                            <p>บริษัท วินเซนต์ ออโตเมชั่น จำกัด</p>
+                            <p>178/13 หมู่ 1 ต.หางดง อ.หางดง</p>
+                            <p>จ.เชียงใหม่ 50230</p>
                         </div>
 
                         {/* Center Section - Logo */}
@@ -173,8 +173,8 @@ const ProductCard = () => {
 
                     {/* Copyright */}
                     <div className="mt-3 pt-3 text-center text-xs text-gray-600">
-                        <p>© 2025 บริษัท วินแอนด์ อ้อโพเธนเซีย อำเภอ. สวนสิริสัณฑ์</p>
-                        <p>ปไมนเความเป็นเจ้าของ | อีกที่หนึ่งการใช้เอกสาร</p>
+                        <p>© 2025 บริษัท วินเซนต์ ออโตเมชั่น จำกัด. สงวนลิขสิทธิ์.</p>
+                        <p>นโยบายความเป็นส่วนตัว | ข้อกำหนดการใช้งาน</p>
                     </div>
                 </div>
             </footer>
