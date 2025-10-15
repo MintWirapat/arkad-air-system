@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
-import image1 from '../images/image1.png';
+import image1 from '../images/Banner1.png';
 import Navbar from '../components/Navbar.tsx';
 import DownloadButton from '../components/DownloadApp.tsx';
 import ProductCard from '../components/ProductCard.tsx'; // ปรับ path ให้ถูก
-
 
 
 
@@ -15,14 +14,14 @@ const HomePage = () => {
       name: 'Arkad PPV',
       subtitle: 'เครื่องเติมอากาศสะอาด',
       description: 'เติมอากาศสะอาด ป้องกันฝุ่น PM2.5 เชื้อโรค สารก่อภูมิแพ้ ลดคาร์บอนสะสม ควบคุมผ่านมือถือ',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',
+      image: require("../images/ArkadPPV.png"),
       price: '฿23,400',
     },
     {
       name: 'Arkad ERV',
       subtitle: 'เครื่องเติมอากาศสะอาด',
       description: 'เติมอากาศสะอาด ป้องกันฝุ่น PM2.5 เชื้อโรค สารก่อภูมิแพ้ ลดคาร์บอนสะสม ควบคุมผ่านมือถือ',
-      image: 'https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=400',
+      image: require("../images/ArkadERV.png"),
       price: '฿34,200',
     },
     {
@@ -30,22 +29,22 @@ const HomePage = () => {
       subtitle: 'เครื่องวัดคุณภาพอากาศพกพา',
       description: 'อุปกรณ์เซนเซอร์ตรวจวัดคุณภาพอากาศแบบพกพา สะดวกใช้งานง่าย3 in 1 : PM2.5 CO2 Temp',
       specs: '3 in 1 : PM2.5 CO₂ Temp',
-      image: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=400',
+      image: require("../images/DustWalker.png"),
       price: '฿3,200',
     },
     {
       name: 'Arkad Mornitor',
       subtitle: 'เครื่องวัดคุณภาพอากาศแบบตั้งโต๊ะ',
       description: 'เครื่องวัดคุณภาพอากาศแบบตั้งโต๊ะ แสดงคุณภาพอากาศแบบเรียลไทม์ พร้อมเซนเซอร์ตรวจคุณภาพอากาศแบบละเอียด ที่สามารถสามารถแสดงข้อมูลสภาพอากาศบน APP ได้',
-      image: 'https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?w=400',
+      image: require("../images/monitor.png"),
       price: '฿6,500',
     },
     {
-      name: 'Arkad Smart Control',
-      subtitle: 'ระบบควบคุมอัจฉริยะ',
+      name: 'Arkad IPV',
+      subtitle: 'เครื่องเติมอากาศสะอาดแบบติดตั้งภายในบ้าน',
       description: 'ควบคุมระบบเติมอากาศผ่านแอพพลิเคชั่น เชื่อมต่อ WiFi และ IoT',
-      image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=400',
-      price: '฿8,500',
+      image: require("../images/ArkadIPV.png"),
+      price: 'Coming Soon...',
     }
   ];
 
@@ -92,28 +91,45 @@ const HomePage = () => {
       {/* Products Section */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="relative px-16">
-          {/* ปุ่มเลื่อนซ้าย */}
+          {/* ปุ่มเลื่อนซ้าย - ซ่อนในมือถือ */}
           <button
             onClick={prevSlide}
             disabled={currentSlide === 0}
-            className={`absolute left-0 top-0 bottom-0 z-10 bg-white rounded-full w-12 flex items-center justify-center shadow-lg border border-gray-200 transition-opacity ${currentSlide === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
+            className={`hidden md:flex absolute left-0 top-0 bottom-0 z-10 bg-white rounded-full w-12 items-center justify-center shadow-lg border border-gray-200 transition-opacity ${currentSlide === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
               }`}
           >
             <ArrowRight size={32} className="rotate-180 text-blue-500" strokeWidth={2.5} />
           </button>
 
-          {/* ปุ่มเลื่อนขวา */}
+          {/* ปุ่มเลื่อนขวา - ซ่อนในมือถือ */}
           <button
             onClick={nextSlide}
             disabled={currentSlide === maxSlide}
-            className={`absolute right-0 top-0 bottom-0 z-10 bg-white rounded-full w-12 flex items-center justify-center shadow-lg border border-gray-200 transition-opacity ${currentSlide === maxSlide ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
+            className={`hidden md:flex absolute right-0 top-0 bottom-0 z-10 bg-white rounded-full w-12 items-center justify-center shadow-lg border border-gray-200 transition-opacity ${currentSlide === maxSlide ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
               }`}
           >
             <ArrowRight size={32} className="text-blue-500" strokeWidth={2.5} />
           </button>
 
           {/* Products Carousel */}
-          <div className="overflow-hidden">
+          <div
+            className="overflow-hidden touch-pan-y"
+            onTouchStart={(e) => {
+              const touch = e.touches[0];
+              (e.currentTarget as HTMLDivElement).dataset.startX = touch.clientX.toString();
+            }}
+            onTouchEnd={(e) => {
+              const startX = parseFloat((e.currentTarget as HTMLDivElement).dataset.startX || '0');
+              const endX = e.changedTouches[0].clientX;
+              const diff = startX - endX;
+
+              if (diff > 50 && currentSlide < maxSlide) {
+                nextSlide();
+              } else if (diff < -50 && currentSlide > 0) {
+                prevSlide();
+              }
+            }}
+          >
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentSlide * (100 / itemsPerPage)}%)` }}
@@ -124,10 +140,12 @@ const HomePage = () => {
                   className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4"
                 >
                   <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden h-full flex flex-col">
-                    <div className="h-64 bg-gray-100 flex items-center justify-center p-8 flex-shrink-0">
-                      <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center">
-                        <span className="text-gray-400 text-sm">Product Image</span>
-                      </div>
+                    <div className="aspect-square bg-gray-100 flex items-center justify-center flex-shrink-0">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-contain"
+                      />
                     </div>
 
                     <div className="p-6 flex-grow flex flex-col">
@@ -231,21 +249,29 @@ const HomePage = () => {
       </section>
 
 
-      {/* รูป image2.png */}
-      <div className="w-full">
+      {/* รูป Banner2.png */}
+      <div className="mb-2 mt-16">
         <div className="text-center">
-          <img src={require("../images/image2.png")} alt="Arkad Positive Pressure System" className="w-full rounded-lg shadow-lg" />
+          <img
+            src={require("../images/Banner2.png")}
+            alt="Arkad Positive Pressure System"
+            className="w-full scale-110 max-w-5xl mx-auto rounded-lg "
+          />
         </div>
       </div>
 
       {/* รูป image3.png */}
-      <div className="w-full">
+      <div className="mb-2 mt-16">
         <div className="text-center">
-          <img src={require("../images/image3.png")} alt="Arkad Positive Pressure System" className="w-full rounded-lg shadow-lg" />
+          <img
+            src={require("../images/Banner3.png")}
+            alt="Arkad Positive Pressure System"
+            className="w-full scale-110 max-w-5xl mx-auto rounded-lg "
+          />
         </div>
       </div>
 
-      <ProductCard/>
+      <ProductCard />
 
 
 
