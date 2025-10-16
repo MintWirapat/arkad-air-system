@@ -26,9 +26,9 @@ const ContactUs: React.FC = () => {
     };
 
     const socialLinks = {
-        facebook: "https://www.facebook.com",
-        tiktok: "https://www.tiktok.com",
-        instagram: "https://www.instagram.com"
+        facebook: "https://www.facebook.com/share/1AFdd1NQC8/",
+        tiktok: "https://www.tiktok.com/@arkadofficial?_t=ZS-90aROr137XM&_r=1",
+        instagram: "https://www.instagram.com/arkadfresh?igsh=MWp1dnhnNm5vNTAwdg=="
     };
 
     return (

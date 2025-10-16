@@ -22,28 +22,28 @@ const ProductCard = () => {
         {
             icon: MessageCircle,
             label: "LINE",
-            url: "https://line.me/",
+            url: "https://lin.ee/VjnF650",
             color: "bg-green-500",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/200px-LINE_logo.svg.png"
         },
         {
             icon: Facebook,
             label: "Facebook",
-            url: "https://facebook.com/",
+            url: "https://www.facebook.com/share/1AFdd1NQC8/",
             color: "bg-blue-600",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/120px-Facebook_Logo_%282019%29.png"
         },
         {
             icon: Music,
             label: "TikTok",
-            url: "https://tiktok.com/",
+            url: "https://www.tiktok.com/@arkadofficial?_t=ZS-90aROr137XM&_r=1",
             color: "bg-black",
             image: require("../images/logotiktok.png")
         },
         {
             icon: Instagram,
             label: "Instagram",
-            url: "https://instagram.com/",
+            url: "https://www.instagram.com/arkadfresh?igsh=MWp1dnhnNm5vNTAwdg==",
             color: "bg-pink-500",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/120px-Instagram_icon.png"
         }
