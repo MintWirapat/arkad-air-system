@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import image1 from '../images/Banner1.png';
-import Navbar from '../components/Navbar.tsx';
 import DownloadButton from '../components/DownloadApp.tsx';
 import ProductCard from '../components/ProductCard.tsx'; // ปรับ path ให้ถูก
+import AirQualityMap from './AirQualityMap.tsx'; // เพิ่มบรรทัดนี้
 
 
 
@@ -61,7 +61,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      
 
       {/* Hero Section */}
       <section className="relative h-[500px] mt-16">
@@ -183,6 +183,8 @@ const HomePage = () => {
 
       <DownloadButton />
 
+      
+
       {/* ระบบเติมอากาศสะอาด Section */}
       <section
         className="relative py-20"
@@ -203,10 +205,12 @@ const HomePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Feature 1 */}
             <div className="text-center text-white bg-white bg-opacity-20 backdrop-blur-md rounded-lg p-6">
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-white flex items-center justify-center">
-                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
+              <div className="w-24 h-24 mx-auto mb-4  flex items-center justify-center ">
+                <img
+                  src={require("../images/icon1.png")}
+                  alt="เติมอากาศสะอาด"
+                  className="w-24 h-24 object-contain"
+                />
               </div>
               <h3 className="font-bold text-lg mb-2">เติมอากาศสะอาด</h3>
               <p className="text-sm">ระบบกรองฝุ่น PM2.5ฝุ่นขนาดเล็ก และสารก่อภูมิแพ้</p>
@@ -214,10 +218,12 @@ const HomePage = () => {
 
             {/* Feature 2 */}
             <div className="text-center text-white bg-white bg-opacity-20 backdrop-blur-md rounded-lg p-6">
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-white flex items-center justify-center">
-                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
-                </svg>
+              <div className="w-24 h-24 mx-auto mb-4  flex items-center justify-center ">
+                <img
+                  src={require("../images/icon2.png")}
+                  alt="อากาศหมุนเวียน"
+                  className="w-24 h-24 object-contain"
+                />
               </div>
               <h3 className="font-bold text-lg mb-2">อากาศหมุนเวียน</h3>
               <p className="text-sm">อากาศภายในบ้านมีการหมุนเวียนแม้จะปิดประตูแหละหน้าต่าง</p>
@@ -225,10 +231,12 @@ const HomePage = () => {
 
             {/* Feature 3 */}
             <div className="text-center text-white bg-white bg-opacity-20 backdrop-blur-md rounded-lg p-6">
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-white flex items-center justify-center">
-                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+              <div className="w-24 h-24 mx-auto mb-4  flex items-center justify-center ">
+                <img
+                  src={require("../images/icon3.png")}
+                  alt="ปกป้องคุณในบ้าน"
+                  className="w-24 h-24 object-contain"
+                />
               </div>
               <h3 className="font-bold text-lg mb-2">ปกป้องคุณในบ้าน</h3>
               <p className="text-sm">แผ่นกรองสามารถกรองเชื้อโรคขนาดเล็กได้ปลอดภัยหายห่วง</p>
@@ -236,10 +244,12 @@ const HomePage = () => {
 
             {/* Feature 4 */}
             <div className="text-center text-white bg-white bg-opacity-20 backdrop-blur-md rounded-lg p-6">
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-white flex items-center justify-center">
-                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
+              <div className="w-24 h-24 mx-auto mb-4  flex items-center justify-center ">
+                <img
+                  src={require("../images/icon4.png")}
+                  alt="บ้านอากาศสะอาด"
+                  className="w-24 h-24 object-contain"
+                />
               </div>
               <h3 className="font-bold text-lg mb-2">บ้านอากาศสะอาด</h3>
               <p className="text-sm">สร้างห้องแรงดันบวกให้กับบ้าน กันฝุ่นเข้าดันฝุ่นในบ้านออก</p>

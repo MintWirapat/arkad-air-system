@@ -1,5 +1,6 @@
 import React from 'react';
 import { MessageCircle, Facebook, Music, Instagram } from 'lucide-react';
+import Footer from '../components/Footer.tsx';
 
 const ProductCard = () => {
     const products = [
@@ -126,58 +127,8 @@ const ProductCard = () => {
                 </div>
             </div>
 
-            {/* Footer */}
-            <footer className="bg-white">
-                <div className="max-w-6xl mx-auto px-4 py-4">
-                    <div className="grid grid-cols-3 gap-8 items-center">
-                        {/* Left Section */}
-                        <div className="text-xs text-gray-600 leading-tight">
-                            <p>บริษัท วินเซนต์ ออโตเมชั่น จำกัด</p>
-                            <p>178/13 หมู่ 1 ต.หางดง อ.หางดง</p>
-                            <p>จ.เชียงใหม่ 50230</p>
-                        </div>
-
-                        {/* Center Section - Logo */}
-                        <div className="flex justify-center">
-                            <img
-                                src={require("../images/logoarkad.png")}
-                                alt="Arkad Logo"
-                                className="h-12 object-contain"
-                            />
-                        </div>
-
-                        {/* Right Section */}
-                        <div className="flex flex-col items-end gap-2">
-                            <p className="text-xs text-gray-600">arkaddee.official@gmail.com</p>
-                            <div className="flex gap-3">
-                                {socialLinks.map((social, index) => {
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={social.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="bg-gray-300 p-2 rounded-lg hover:bg-gray-400 transition-colors border border-gray-400"
-                                        >
-                                            <img
-                                                src={social.image}
-                                                alt={social.label}
-                                                className="w-5 h-5 object-contain grayscale"
-                                            />
-                                        </a>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Copyright */}
-                    <div className="mt-3 pt-3 text-center text-xs text-gray-600">
-                        <p>© 2025 บริษัท วินเซนต์ ออโตเมชั่น จำกัด. สงวนลิขสิทธิ์.</p>
-                        <p>นโยบายความเป็นส่วนตัว | ข้อกำหนดการใช้งาน</p>
-                    </div>
-                </div>
-            </footer>
+            {/* ใช้ Footer component แทน */}
+            <Footer />
 
             {/* Black Bar */}
             <div className="bg-black h-10"></div>
