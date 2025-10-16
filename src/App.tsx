@@ -5,6 +5,7 @@ import AirQualityMap from './pages/AirQualityMap.tsx';
 import AboutUs from './pages/AboutUs.tsx';
 import Navbar from './components/Navbar.tsx';
 import ContactUs from './pages/ContactUs.tsx';
+import ArkadPPV from './pages/ArkadPPV.tsx';
 import './App.css';
 
 const App: React.FC = () => {
@@ -17,6 +18,7 @@ const App: React.FC = () => {
           <Route path="/air-quality" element={<AirQualityMap />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/arkad-ppv" element={<ArkadPPV />} />
         </Routes>
       </div>
     </Router>

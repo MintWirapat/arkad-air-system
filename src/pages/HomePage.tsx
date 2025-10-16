@@ -3,7 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import image1 from '../images/Banner1.png';
 import DownloadButton from '../components/DownloadApp.tsx';
 import ProductCard from '../components/ProductCard.tsx'; // ปรับ path ให้ถูก
-import AirQualityMap from './AirQualityMap.tsx'; // เพิ่มบรรทัดนี้
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -61,7 +62,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      
+
 
       {/* Hero Section */}
       <section className="relative h-[500px] mt-16">
@@ -140,11 +141,11 @@ const HomePage = () => {
                   className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4"
                 >
                   <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden h-full flex flex-col">
-                    <div className="aspect-square bg-gray-100 flex items-center justify-center flex-shrink-0">
+                    <div className="h-64 bg-gray-100 flex items-center justify-center flex-shrink-0 p-8">
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-full object-contain"
+                        className="max-w-full max-h-full object-contain"
                       />
                     </div>
 
@@ -168,9 +169,11 @@ const HomePage = () => {
                         <span className="text-2xl font-bold text-blue-600">
                           {product.price}
                         </span>
-                        <button className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors duration-200">
-                          <ArrowRight size={20} />
-                        </button>
+                        <Link to="/arkad-ppv">
+                          <button className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors duration-200">
+                            <ArrowRight size={20} />
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -183,7 +186,7 @@ const HomePage = () => {
 
       <DownloadButton />
 
-      
+
 
       {/* ระบบเติมอากาศสะอาด Section */}
       <section

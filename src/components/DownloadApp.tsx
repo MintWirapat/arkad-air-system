@@ -80,7 +80,7 @@ export default function DownloadButton() {
                   className="flex items-center justify-center gap-3 w-full h-12 bg-blue-500 text-white rounded-lg font-medium text-base hover:bg-blue-600 transition-colors"
                 >
                   <img
-                    src="/ARKAD-01.png"
+                    src={require("../images/App_Store.png")}
                     alt="iOS"
                     className="w-6 h-6"
                   />
@@ -93,7 +93,7 @@ export default function DownloadButton() {
                   className="flex items-center justify-center gap-3 w-full h-12 bg-blue-500 text-white rounded-lg font-medium text-base hover:bg-blue-600 transition-colors"
                 >
                   <img
-                    src="/ARKAD-01.png"
+                    src={require("../images/playstore.png")}
                     alt="Android"
                     className="w-6 h-6"
                   />
