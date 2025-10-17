@@ -246,7 +246,10 @@ const AirQualityMap = () => {
         )}
 
         <div style={styles.dustboyLogo}>
-          <img src="https://via.placeholder.com/200x80/004466/FFFFFF?text=CMUCCDC" width="200px" alt="CMUCCDC" />
+          <img src=
+          {
+            require("../images/cmu-ccdc.png")
+          } width="200px" alt="CMUCCDC" />
         </div>
 
         <button onClick={goToUserLocation} style={styles.locationButton} title="ไปยังตำแหน่งของฉัน">
@@ -267,20 +270,21 @@ const AirQualityMap = () => {
 
         <div style={styles.pm25LevelBar}>
           {[
-            { value: '0-15.0', color: 'rgb(0,191,243)' },
-            { value: '15.1-25.0', color: 'rgb(0,166,81)' },
-            { value: '25.1-37.5', color: 'rgb(253,192,78)' },
-            { value: '37.6-75.0', color: 'rgb(242,101,34)' },
-            { value: '>75.0', color: 'rgb(205,0,0)' }
+            { value: '0-15.0', color: 'rgb(0,191,243)', Image: require("../images/DUST_GIRL3.png") },
+            { value: '15.1-25.0', color: 'rgb(0,166,81)', Image: require("../images/DUST_GIRL2.png") },
+            { value: '25.1-37.5', color: 'rgb(253,192,78)', Image: require("../images/DUST_GIRL.png") },
+            { value: '37.6-75.0', color: 'rgb(242,101,34)', Image: require("../images/DUST_GIRL5.png") },
+            { value: '>75.0', color: 'rgb(205,0,0)', Image: require("../images/DUST_GIRL4.png") }
           ].map((item, index) => (
             <div key={index} style={{ ...styles.levelItem, backgroundColor: item.color }}>
               <div style={styles.levelValue}>{item.value}</div>
-              <div style={styles.dustboyIcon}>🌫️</div>
+              {/* ✅ ใช้รูปภาพแทน emoji */}
+              <img src={item.Image} alt="dust level icon" style={styles.dustboyIcon} />
             </div>
           ))}
         </div>
 
-        
+
       </div>
 
       <Footer />
@@ -419,8 +423,9 @@ const styles = {
     fontSize: '14px'
   },
   dustboyIcon: {
-    fontSize: '24px',
-    marginTop: '5px'
+
+    width: '20px',
+    height: '20px'
   },
   copyright: {
     position: 'absolute',
