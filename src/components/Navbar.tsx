@@ -9,7 +9,8 @@ const Navbar: React.FC = () => {
     { name: 'Products', href: '/' },
     { name: 'Air Quality', href: '/air-quality' },
     { name: 'About', href: '/about-us' },
-    { name: 'Contact Us', href: '/contact-us' }
+    { name: 'Contact Us', href: '/contact-us' },
+    
   ];
 
   return (
@@ -40,7 +41,7 @@ const Navbar: React.FC = () => {
             ))}
             
             <a
-              href="#signup"
+              href="/place-Regis"
               className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors duration-200"
             >
               ลงทะเบียนร้านค้า

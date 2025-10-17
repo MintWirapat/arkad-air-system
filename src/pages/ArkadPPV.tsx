@@ -19,7 +19,7 @@ const ArkadPPV: React.FC = () => {
     const next = () => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1));
 
     // รุ่นเครื่อง
-    const [selectedModel, setSelectedModel] = useState("PPV 160T");
+    const [selectedModel, setSelectedModel] = useState("Arkad PPV 160T");
     const models = ["Arkad PPV 160T", "Arkad PPV 250T", "Arkad PPV 350T", "Arkad PPV 440T"];
 
     return (
@@ -156,7 +156,8 @@ const ArkadPPV: React.FC = () => {
                                     />
                                     <div>
                                         <p className="text-sm font-semibold">ระบบกรองอากาศ</p>
-                                        <p className="text-sm text-gray-500 ">3 ชั้น Pre Filter Carbon FilterHEPA H13</p>
+                                        <p className="text-sm font-semibold">3 ชั้น </p>
+                                        <p className="text-sm text-gray-500 ">Pre Filter Carbon FilterHEPA H13</p>
                                     </div>
                                 </div>
 
@@ -228,14 +229,34 @@ const ArkadPPV: React.FC = () => {
                 />
             </div>
 
-            
+            {/* รูป Banner3.png */}
+            <div className="mb-2 mt-16">
+                <div className="text-center">
+                    <img
+                        src={require("../images/infoppv.png")}
+                        alt="Arkad Possitive Pressure Air Ventilation"
+                        className="w-full scale-110 max-w-5xl mx-auto rounded-lg "
+                    />
+                </div>
+            </div>
+
+            {/* รูป Banner4.png */}
+            <div className="mb-2 mt-16">
+                <div className="text-center">
+                    <img
+                        src={require("../images/touchcontroll.png")}
+                        alt="touchcontroll"
+                        className="w-full scale-110 max-w-5xl mx-auto rounded-lg "
+                    />
+                </div>
+            </div>
 
 
 
             {/* Product Bundle */}
-            <div className="flex items-center justify-center gap-6 mb-16 mt-16">
+            <div className="flex items-center justify-center gap-6 mb-2 mt-16">
                 <div className="text-center">
-                    <div className="bg-gray-100 rounded-lg p-6 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                    <div className="bg-gray-100 rounded-lg p-6 mb-2 w-32 h-32 flex items-center justify-center mx-auto border border-gray-100">
                         <div className="text-gray-400 text-xs">
                             <img
                                 src={require("../images/ArkadPPV.png")}
@@ -248,7 +269,7 @@ const ArkadPPV: React.FC = () => {
                 </div>
                 <div className="text-3xl font-bold text-gray-400">+</div>
                 <div className="text-center">
-                    <div className="bg-gray-100 rounded-lg p-6 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                    <div className="bg-gray-100 rounded-lg p-6 mb-2 w-32 h-32 flex items-center justify-center mx-auto ">
                         <div className="text-gray-400 text-xs">
                             <img
                                 src={require("../images/Arkad1440.png")}

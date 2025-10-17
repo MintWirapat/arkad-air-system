@@ -17,6 +17,7 @@ const HomePage = () => {
       description: 'เติมอากาศสะอาด ป้องกันฝุ่น PM2.5 เชื้อโรค สารก่อภูมิแพ้ ลดคาร์บอนสะสม ควบคุมผ่านมือถือ',
       image: require("../images/ArkadPPV.png"),
       price: '฿23,400',
+      link: '/arkad-ppv', // เพิ่ม link
     },
     {
       name: 'Arkad ERV',
@@ -24,6 +25,7 @@ const HomePage = () => {
       description: 'เติมอากาศสะอาด ป้องกันฝุ่น PM2.5 เชื้อโรค สารก่อภูมิแพ้ ลดคาร์บอนสะสม ควบคุมผ่านมือถือ',
       image: require("../images/ArkadERV.png"),
       price: '฿34,200',
+      link: '/arkad-erv',
     },
     {
       name: 'Arkad Dust Walker',
@@ -32,6 +34,7 @@ const HomePage = () => {
       specs: '3 in 1 : PM2.5 CO₂ Temp',
       image: require("../images/DustWalker.png"),
       price: '฿3,200',
+      link: '/arkad-dust-walker',
     },
     {
       name: 'Arkad Mornitor',
@@ -39,6 +42,7 @@ const HomePage = () => {
       description: 'เครื่องวัดคุณภาพอากาศแบบตั้งโต๊ะ แสดงคุณภาพอากาศแบบเรียลไทม์ พร้อมเซนเซอร์ตรวจคุณภาพอากาศแบบละเอียด ที่สามารถสามารถแสดงข้อมูลสภาพอากาศบน APP ได้',
       image: require("../images/monitor.png"),
       price: '฿6,500',
+      link: '/arkad-monitor',
     },
     {
       name: 'Arkad IPV',
@@ -46,6 +50,7 @@ const HomePage = () => {
       description: 'ควบคุมระบบเติมอากาศผ่านแอพพลิเคชั่น เชื่อมต่อ WiFi และ IoT',
       image: require("../images/ArkadIPV.png"),
       price: 'Coming Soon...',
+      link: '/arkad-ipv',
     }
   ];
 
@@ -169,7 +174,7 @@ const HomePage = () => {
                         <span className="text-2xl font-bold text-blue-600">
                           {product.price}
                         </span>
-                        <Link to="/arkad-ppv">
+                        <Link to={product.link}>  
                           <button className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors duration-200">
                             <ArrowRight size={20} />
                           </button>

@@ -15,20 +15,21 @@ const ProductNavBar = () => {
       path: '/arkad-erv',
       image: require('../images/ArkadERV.png')
     },
-    {
-      name: 'IPV',
-      path: '/arkad-ipv',
-      image: require('../images/ArkadIPV.png')
-    },
+    
     {
       name: 'Dust Walker',
-      path: '/dustwalker',
+      path: '/arkad-dust-walker',
       image: require('../images/DustWalker.png')
     },
     {
       name: 'Monitor',
       path: '/arkad-monitor',
       image: require('../images/monitor.png')
+    },
+    {
+      name: 'IPV',
+      path: '/arkad-ipv',
+      image: require('../images/ArkadIPV.png')
     },
     {
       name: 'Equipment',

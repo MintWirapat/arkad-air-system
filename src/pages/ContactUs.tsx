@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, MessageCircle, Search } from 'lucide-react';
+import { MapPin, Phone, Mail,  Search } from 'lucide-react';
 import Footer from '../components/Footer.tsx';
 
 const ContactUs: React.FC = () => {
@@ -43,7 +43,7 @@ const ContactUs: React.FC = () => {
                 <div className="max-w-4xl mx-auto px-4">
                     <h1 className="text-5xl font-bold text-center mb-16">Contact Us</h1>
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 space-y-8">
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-300 p-12 space-y-8">
                         {/* แถวที่ 1: ชื่อ */}
                         <div className="grid grid-cols-[200px_1fr] gap-8 items-center">
                             <label className="text-base text-gray-900">ชื่อ</label>
@@ -97,8 +97,8 @@ const ContactUs: React.FC = () => {
                         </div>
 
                         {/* Subject Radio Buttons */}
-                        <div className="border-t border-gray-200 pt-6">
-                            <label className="block text-base font-normal text-gray-900 mb-4">เลือกหัวข้อ</label>
+                        <div className="border-t border-gray-300 pt-6">
+                            <label className="block text-base font-normal text-gray-900 mb-4 text-left">เลือกหัวข้อ</label>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <label className="flex items-center space-x-3 cursor-pointer">
                                     <input
@@ -149,14 +149,14 @@ const ContactUs: React.FC = () => {
 
                         {/* Message */}
                         <div>
-                            <label className="block text-base text-gray-900 mb-2">รายละเอียด</label>
+                            <label className="block text-base text-gray-900 mb-2 text-left">รายละเอียด</label>
                             <textarea
                                 name="message"
                                 value={formData.message}
                                 onChange={handleChange}
                                 placeholder="รายละเอียด"
                                 rows="6"
-                                className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 resize-none placeholder-gray-300"
+                                className="w-full px-0 py-3 border-0 border-b border-gray-300 focus:outline-none focus:border-gray-400 resize-none placeholder-gray-300"
                             />
                         </div>
 
@@ -229,8 +229,8 @@ const ContactUs: React.FC = () => {
                                 <p className="text-gray-800">@arkad</p>
                             </div>
 
-                            <div className="pt-6 -mx-4 px-0">
-                                <p className="font-semibold text-gray-900 mb-4 ">ข้อมูลติดต่อ</p>
+                            <div className="pt-6 -mx-4 px-0 ">
+                                <p className="font-semibold text-gray-900 mb-4 text-left ">ข้อมูลติดต่อ</p>
                                 <div className="flex space-x-5 ">
                                     {/* Facebook */}
                                     <a
@@ -304,6 +304,7 @@ const ContactUs: React.FC = () => {
 
             {/* Footer */}
             <Footer />
+
         </div >
     );
 };
