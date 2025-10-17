@@ -199,8 +199,10 @@ const ArkadPPV: React.FC = () => {
                             ))}
                         </div>
 
-                        {/* ปุ่ม SHOP NOW */}
-                        <button className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center">
+                        <button
+                            onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                            className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
+                        >
                             SHOP NOW
                         </button>
                     </div>
@@ -289,7 +291,10 @@ const ArkadPPV: React.FC = () => {
                 </div>
             </div>
 
-            <button className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center">
+            <button
+                onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
+            >
                 SHOP NOW
             </button>
             {/* เส้นขีดกั้น */}

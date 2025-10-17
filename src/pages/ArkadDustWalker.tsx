@@ -14,11 +14,11 @@ const ArkadDustWalker: React.FC = () => {
         require("../images/dwb1.png"),
     ];
     const [current, setCurrent] = useState(0);
-        const prev = () => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1));
-        const next = () => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1));
-    
-        const [selectedModel, setSelectedModel] = useState("Dust Walker");
-        const models = ["Dust Walker", "Arkad Mornitor"];
+    const prev = () => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1));
+    const next = () => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1));
+
+    const [selectedModel, setSelectedModel] = useState("Dust Walker");
+    const models = ["Dust Walker", "Arkad Mornitor"];
 
 
     return (
@@ -45,7 +45,7 @@ const ArkadDustWalker: React.FC = () => {
                 <div className="bg-white rounded-2xl shadow-md">
                     <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="relative flex items-center justify-center">
-                             {images.length > 1 && (
+                            {images.length > 1 && (
                                 <>
                                     <button onClick={prev} className="absolute left-3 md:left-6 text-gray-500 hover:text-gray-700">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-8 h-8">
@@ -75,7 +75,7 @@ const ArkadDustWalker: React.FC = () => {
 
                         <div className="flex flex-col text-left">
                             <h2 className="text-2xl font-bold text-gray-900 leading-snug mb-1">
-                                เครื่องวัดคุณภาพอากาศแบบพกพา 
+                                เครื่องวัดคุณภาพอากาศแบบพกพา
                             </h2>
                             <p className="text-sm text-gray-500 mb-4">
                                 (Arkad Dust Walker Meter)
@@ -108,7 +108,7 @@ const ArkadDustWalker: React.FC = () => {
                                     <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
                                     <div>
                                         <p className="text-sm ">PM 2.5</p>
-                                        
+
                                     </div>
                                 </div>
 
@@ -116,7 +116,7 @@ const ArkadDustWalker: React.FC = () => {
                                     <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
                                     <div>
                                         <p className="text-sm ">Temp</p>
-                                        
+
                                     </div>
                                 </div>
 
@@ -124,14 +124,14 @@ const ArkadDustWalker: React.FC = () => {
                                     <div className="w-2 h-2 bg-black rounded-full mt-2"></div>
                                     <div>
                                         <p className="text-sm ">HUM</p>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
 
                     <div className="flex flex-col items-center justify-center py-10">
                         <div className="flex justify-center gap-6 mb-8 flex-wrap">
@@ -147,7 +147,10 @@ const ArkadDustWalker: React.FC = () => {
                             ))}
                         </div>
 
-                        <button className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center">
+                        <button
+                            onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                            className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
+                        >
                             SHOP NOW
                         </button>
                     </div>
@@ -155,29 +158,29 @@ const ArkadDustWalker: React.FC = () => {
             </div>
 
             {/* รูปย่อยด้านล่าง */}
-                <div className="flex justify-center mt-2 gap-6">
-                    <img
-                        src={require("../images/DustWalker.png")}
-                        alt="Arkad preview 1"
-                        className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
-                    />
-                    <img
-                        src={require("../images/dwl1.png")}
-                        alt="Arkad preview 2"
-                        className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
-                    />
-                    <img
-                        src={require("../images/dwb.png")}
-                        alt="Arkad preview 3"
-                        className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
-                    />
-                    <img
-                        src={require("../images/dwb1.png")}
-                        alt="Arkad preview 3"
-                        className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
-                    />
-                </div>
-                {/* รูป Banner3.png */}
+            <div className="flex justify-center mt-2 gap-6">
+                <img
+                    src={require("../images/DustWalker.png")}
+                    alt="Arkad preview 1"
+                    className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
+                />
+                <img
+                    src={require("../images/dwl1.png")}
+                    alt="Arkad preview 2"
+                    className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
+                />
+                <img
+                    src={require("../images/dwb.png")}
+                    alt="Arkad preview 3"
+                    className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
+                />
+                <img
+                    src={require("../images/dwb1.png")}
+                    alt="Arkad preview 3"
+                    className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
+                />
+            </div>
+            {/* รูป Banner3.png */}
             <div className="mb-12 mt-16">
                 <div className="text-center">
                     <img
@@ -188,8 +191,11 @@ const ArkadDustWalker: React.FC = () => {
                 </div>
             </div>
 
-            
-            <button className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center">
+
+            <button
+                onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
+            >
                 SHOP NOW
             </button>
 

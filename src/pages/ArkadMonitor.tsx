@@ -11,7 +11,7 @@ const ArkadMonitor: React.FC = () => {
         require("../images/monitor.png"),
         require("../images/monitorstats.png"),
         require("../images/monitorback.png")
-        
+
     ];
     const [current, setCurrent] = useState(0);
     const prev = () => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1));
@@ -157,7 +157,10 @@ const ArkadMonitor: React.FC = () => {
                             ))}
                         </div>
 
-                        <button className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center">
+                        <button
+                            onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                            className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
+                        >
                             SHOP NOW
                         </button>
                     </div>
@@ -180,7 +183,7 @@ const ArkadMonitor: React.FC = () => {
                     alt="Arkad preview 3"
                     className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
                 />
-                
+
             </div>
 
             {/* รูป Banner3.png */}
@@ -195,7 +198,10 @@ const ArkadMonitor: React.FC = () => {
             </div>
 
 
-            <button className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center">
+            <button
+                onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
+            >
                 SHOP NOW
             </button>
 

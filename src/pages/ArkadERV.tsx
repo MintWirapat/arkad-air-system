@@ -9,7 +9,7 @@ import Footer from "../components/Footer.tsx";
 const ArkadERV: React.FC = () => {
     const images = [
         require("../images/ArkadERV.png")
-        
+
     ];
 
     const [current, setCurrent] = useState(0);
@@ -139,7 +139,10 @@ const ArkadERV: React.FC = () => {
                             ))}
                         </div>
 
-                        <button className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center">
+                        <button
+                            onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                            className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
+                        >
                             SHOP NOW
                         </button>
                     </div>
@@ -151,10 +154,10 @@ const ArkadERV: React.FC = () => {
                         alt="Arkad preview 1"
                         className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
                     />
-                    
+
                 </div>
             </div>
-            
+
             {/* รูป Banner3.png */}
             <div className="mb-2 mt-16">
                 <div className="text-center">
@@ -214,7 +217,10 @@ const ArkadERV: React.FC = () => {
                     *ราคาต่ออุปกรณ์ควรต้องเพิ่มเติมค่าแรงติดตั้ง โปรดติดต่อตัวแทนจำหน่ายสำหรับราคาที่ดีที่สุด*
                 </div>
             </div>
-            <button className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center">
+            <button
+                onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
+            >
                 SHOP NOW
             </button>
             {/* เส้นขีดกั้น */}
