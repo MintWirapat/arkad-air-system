@@ -18,7 +18,7 @@ const ArkadDustWalker: React.FC = () => {
     const next = () => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1));
 
     const [selectedModel, setSelectedModel] = useState("Dust Walker");
-    const models = ["Dust Walker", "Arkad Mornitor"];
+    const models = ["Dust Walker", ];
 
 
     return (

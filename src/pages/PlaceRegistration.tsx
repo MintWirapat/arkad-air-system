@@ -51,17 +51,49 @@ const PlaceRegistration = () => {
   });
 
   const [storeTypes] = useState([
-    { id: 1, name: 'ร้านอาหาร' },
-    { id: 2, name: 'คาเฟ่' },
-    { id: 3, name: 'ห้องเรียน' },
-    { id: 4, name: 'สำนักงาน' }
+    { id: 1, name: 'ร้านกาแฟ', category: 'cafe' },
+    { id: 2, name: 'ร้านอาหาร', category: 'restaurant' },
+    { id: 3, name: 'โรงเรียน', category: 'school' },
+    { id: 4, name: 'โรงแรม', category: 'hotel' },
+    { id: 5, name: 'มหาวิทยาลัย', category: 'university' },
+    { id: 6, name: 'ฟิตเนส', category: 'fitness' },
+    { id: 7, name: 'คลินิก', category: 'clinic' },
+    { id: 8, name: 'อื่นๆ', category: 'other' }
   ]);
 
   const [cuisineTypes] = useState([
-    { id: 1, name: 'ไทย' },
-    { id: 2, name: 'จีน' },
-    { id: 3, name: 'เวียดนาม' },
-    { id: 4, name: 'อิตาลี' }
+    { id: 101, name: 'มินิมอล (Minimalist Style)', category: 'cafe' },
+    { id: 102, name: 'โมเดิร์น (Modern Style)', category: 'cafe' },
+    { id: 103, name: 'อินดัสเทรียลลอฟท์ (Industrial & Loft Style)', category: 'cafe' },
+    { id: 104, name: 'ธรรมชาติ (Natural Cafe)', category: 'cafe' },
+    { id: 105, name: 'วินเทจ / เรโทร (Vintage / Retro Style)', category: 'cafe' },
+    { id: 106, name: 'สไตล์ญี่ปุ่น (Japanese style)', category: 'cafe' },
+    { id: 201, name: 'อาหารไทย (Thai Food)', category: 'restaurant' },
+    { id: 202, name: 'อาหารจีน (Chinese Food)', category: 'restaurant' },
+    { id: 203, name: 'อาหารญี่ปุ่น (Japanese Food)', category: 'restaurant' },
+    { id: 204, name: 'อาหารเกาหลี (Korean Food)', category: 'restaurant' },
+    { id: 205, name: 'อาหารฝรั่ง / ยุโรป (Western / European Food)', category: 'restaurant' },
+    { id: 206, name: 'อาหารสุขภาพ / มังสวิรัติ / Plant-based (Healthy / Vegetarian / Vegan Food)', category: 'restaurant' },
+    { id: 301, name: 'โรงเรียนอนุบาล (Kindergarten / Preschool)', category: 'school' },
+    { id: 302, name: 'โรงเรียนประถมศึกษา (Primary School)', category: 'school' },
+    { id: 303, name: 'โรงเรียนมัธยมศึกษา (Secondary School)', category: 'school' },
+    { id: 304, name: 'โรงเรียนอาชีวศึกษา / เทคนิค (Vocational School)', category: 'school' },
+    { id: 401, name: 'รีสอร์ท (Resort Hotel)', category: 'hotel' },
+    { id: 402, name: 'บูติก (Boutique Hotel)', category: 'hotel' },
+    { id: 403, name: 'โรงแรมหรู (Luxury Hotel)', category: 'hotel' },
+    { id: 404, name: 'วิลล่า (Villa)', category: 'hotel' },
+    { id: 405, name: 'โฮสเทล (Hostel)', category: 'hotel' },
+    { id: 501, name: 'มหาวิทยาลัยของรัฐ (Public University)', category: 'university' },
+    { id: 502, name: 'มหาวิทยาลัยเอกชน (Private University)', category: 'university' },
+    { id: 503, name: 'มหาวิทยาลัยนานาชาติ (International University)', category: 'university' },
+    { id: 601, name: 'ฟิตเนส/สถานที่ออกกำลังกายเพื่อสุขภาพ (Fitness/healthy exercise place)', category: 'fitness' },
+    { id: 701, name: 'คลินิกทั่วไป (General Clinic / Primary Care)', category: 'clinic' },
+    { id: 702, name: 'คลินิกทันตกรรม (Dental Clinic)', category: 'clinic' },
+    { id: 703, name: 'คลินิกผิวหนัง / เลเซอร์ (Dermatology / Aesthetic Clinic)', category: 'clinic' },
+    { id: 704, name: 'คลินิกศัลยกรรม (Plastic Surgery Clinic)', category: 'clinic' },
+    { id: 705, name: 'คลินิกสายตา / ตา (Ophthalmology Clinic)', category: 'clinic' },
+    { id: 706, name: 'คลินิกกายภาพ / ฟื้นฟู (Physiotherapy / Rehab)', category: 'clinic' },
+    { id: 801, name: 'สถานที่อื่นๆ', category: 'other' }
   ]);
 
   const [showTypePopup, setShowTypePopup] = useState(false);
@@ -99,7 +131,7 @@ const PlaceRegistration = () => {
     setFormData(prev => ({ ...prev, [name]: checked }));
   };
 
-  const toggleType = (typeId) => {
+  const selectType = (typeId) => {
     setFormData(prev => ({
       ...prev,
       types: prev.types.includes(typeId)
@@ -108,7 +140,7 @@ const PlaceRegistration = () => {
     }));
   };
 
-  const toggleCuisine = (cuisineId) => {
+  const selectCuisine = (cuisineId) => {
     setFormData(prev => ({
       ...prev,
       cuisines: prev.cuisines.includes(cuisineId)
@@ -120,7 +152,12 @@ const PlaceRegistration = () => {
   const removeType = (typeId) => {
     setFormData(prev => ({
       ...prev,
-      types: prev.types.filter(t => t !== typeId)
+      types: prev.types.filter(t => t !== typeId),
+      cuisines: prev.cuisines.filter(c => {
+        const cuisine = cuisineTypes.find(ct => ct.id === c);
+        const removedType = storeTypes.find(st => st.id === typeId);
+        return cuisine?.category !== removedType?.category;
+      })
     }));
   };
 
@@ -129,6 +166,15 @@ const PlaceRegistration = () => {
       ...prev,
       cuisines: prev.cuisines.filter(c => c !== cuisineId)
     }));
+  };
+
+  const getFilteredCuisines = () => {
+    if (formData.types.length === 0) return [];
+    const categories = formData.types.map(typeId => {
+      const type = storeTypes.find(t => t.id === typeId);
+      return type?.category;
+    });
+    return cuisineTypes.filter(c => categories.includes(c.category));
   };
 
   const getCurrentLocation = () => {
@@ -187,11 +233,11 @@ const PlaceRegistration = () => {
       return;
     }
     if (formData.types.length === 0) {
-      setMessage('กรุณาเลือกประเภทร้านค้า');
+      setMessage('กรุณาเลือกหมวดหมู่สถานที่');
       return;
     }
-    if (!formData.address.houseNo || !formData.address.subDistrict || !formData.address.district || 
-        !formData.address.province || !formData.address.zipCode || !formData.address.mobile) {
+    if (!formData.address.houseNo || !formData.address.subDistrict || !formData.address.district ||
+      !formData.address.province || !formData.address.zipCode || !formData.address.mobile) {
       setMessage('กรุณากรอกข้อมูลที่อยู่ให้ครบถ้วน');
       return;
     }
@@ -222,10 +268,9 @@ const PlaceRegistration = () => {
       )}
 
       <div style={styles.form}>
-        {/* ข้อมูลพื้นฐาน */}
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>ข้อมูลพื้นฐาน</h2>
-          
+
           <div style={styles.formGroup}>
             <label style={styles.label}>ชื่อสถานที่/ร้านค้า *</label>
             <input
@@ -245,7 +290,7 @@ const PlaceRegistration = () => {
               value={formData.description}
               onChange={handleInputChange}
               placeholder="กรุณากรอกรายละเอียดร้านค้า"
-              style={{...styles.input, minHeight: '80px'}}
+              style={{ ...styles.input, minHeight: '80px' }}
               rows="3"
             />
           </div>
@@ -263,17 +308,16 @@ const PlaceRegistration = () => {
           </div>
         </div>
 
-        {/* เวลาเปิด-ปิด แยกจ-อา */}
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>เวลาเปิด-ปิดรายวัน</h2>
-          
+
           <div style={styles.hoursGrid}>
             {formData.openingHours.map((hour, idx) => {
               const day = DAYS_OF_WEEK.find(d => d.value === hour.day_of_week);
               return (
                 <div key={idx} style={styles.dayCard}>
                   <div style={styles.dayName}>{day.label}</div>
-                  
+
                   <div style={styles.dayHourRow}>
                     <label style={styles.smallLabel}>
                       <input
@@ -308,7 +352,7 @@ const PlaceRegistration = () => {
                       </div>
                     </div>
                   )}
-                  
+
                   {!hour.is_open && (
                     <div style={styles.closedLabel}>ปิด</div>
                   )}
@@ -318,92 +362,108 @@ const PlaceRegistration = () => {
           </div>
         </div>
 
-        {/* ประเภทร้านค้าและอาหาร */}
         <div style={styles.section}>
-          <h2 style={styles.sectionTitle}>ประเภทร้านค้าและอาหาร</h2>
+          <h2 style={styles.sectionTitle}>หมวดหมู่สถานที่ และรายละเอียดสถานที่</h2>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>ประเภทร้านค้า *</label>
-            <button
-              type="button"
-              onClick={() => setShowTypePopup(!showTypePopup)}
-              style={styles.selectButton}
-            >
-              เลือกประเภทร้านค้า
-            </button>
-            <div style={styles.tagContainer}>
-              {selectedTypes.map(type => (
-                <span key={type.id} style={styles.tag}>
-                  {type.name}
-                  <button
-                    type="button"
-                    onClick={() => removeType(type.id)}
-                    style={styles.tagClose}
-                  >
-                    ×
-                  </button>
-                </span>
-              ))}
-            </div>
-            {showTypePopup && (
-              <div style={styles.popup}>
-                {storeTypes.map(type => (
-                  <label key={type.id} style={styles.checkboxLabel}>
-                    <input
-                      type="checkbox"
-                      checked={formData.types.includes(type.id)}
-                      onChange={() => toggleType(type.id)}
-                      style={styles.checkbox}
-                    />
+            <label style={styles.label}>หมวดหมู่สถานที่ *</label>
+            <div style={styles.selectWrapper}>
+              <button
+                type="button"
+                onClick={() => setShowTypePopup(!showTypePopup)}
+                style={styles.selectButton}
+              >
+                เลือกหมวดหมู่สถานที่
+              </button>
+              <div style={styles.tagContainer}>
+                {selectedTypes.map(type => (
+                  <span key={type.id} style={styles.tag}>
                     {type.name}
-                  </label>
+                    <button
+                      type="button"
+                      onClick={() => removeType(type.id)}
+                      style={styles.tagClose}
+                    >
+                      ×
+                    </button>
+                  </span>
                 ))}
               </div>
-            )}
+              {showTypePopup && (
+                <div style={styles.dropdownMenu}>
+                  {storeTypes.map(type => (
+                    <div
+                      key={type.id}
+                      onClick={() => selectType(type.id)}
+                      style={{
+                        ...styles.dropdownItem,
+                        backgroundColor: formData.types.includes(type.id) ? '#e6f7ff' : 'white'
+                      }}
+                    >
+                      <div style={styles.dropdownItemContent}>
+                        <span>{type.name}</span>
+                        {formData.types.includes(type.id) && (
+                          <span style={styles.checkmark}>✓</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          <div style={styles.formGroup}>
-            <label style={styles.label}>ประเภทอาหาร</label>
-            <button
-              type="button"
-              onClick={() => setShowCuisinePopup(!showCuisinePopup)}
-              style={styles.selectButton}
-            >
-              เลือกประเภทอาหาร
-            </button>
-            <div style={styles.tagContainer}>
-              {selectedCuisines.map(cuisine => (
-                <span key={cuisine.id} style={styles.tag}>
-                  {cuisine.name}
-                  <button
-                    type="button"
-                    onClick={() => removeCuisine(cuisine.id)}
-                    style={styles.tagClose}
-                  >
-                    ×
-                  </button>
-                </span>
-              ))}
-            </div>
-            {showCuisinePopup && (
-              <div style={styles.popup}>
-                {cuisineTypes.map(cuisine => (
-                  <label key={cuisine.id} style={styles.checkboxLabel}>
-                    <input
-                      type="checkbox"
-                      checked={formData.cuisines.includes(cuisine.id)}
-                      onChange={() => toggleCuisine(cuisine.id)}
-                      style={styles.checkbox}
-                    />
-                    {cuisine.name}
-                  </label>
-                ))}
+          {selectedTypes.length > 0 && getFilteredCuisines().length > 0 && (
+            <div style={styles.formGroup}>
+              <label style={styles.label}>รายละเอียดสถานที่</label>
+              <div style={styles.selectWrapper}>
+                <button
+                  type="button"
+                  onClick={() => setShowCuisinePopup(!showCuisinePopup)}
+                  style={styles.selectButton}
+                >
+                  เลือกรายละเอียดสถานที่
+                </button>
+                <div style={styles.tagContainer}>
+                  {selectedCuisines.map(cuisine => (
+                    <span key={cuisine.id} style={styles.tag}>
+                      {cuisine.name}
+                      <button
+                        type="button"
+                        onClick={() => removeCuisine(cuisine.id)}
+                        style={styles.tagClose}
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+                {showCuisinePopup && (
+                  <div style={styles.dropdownMenu}>
+                    {getFilteredCuisines().map(cuisine => (
+                      <div
+                        key={cuisine.id}
+                        onClick={() => selectCuisine(cuisine.id)}
+                        style={{
+                          ...styles.dropdownItem,
+                          backgroundColor: formData.cuisines.includes(cuisine.id) ? '#e6f7ff' : 'white'
+                        }}
+                      >
+                        <div style={styles.dropdownItemContent}>
+                          <span>{cuisine.name}</span>
+                          {formData.cuisines.includes(cuisine.id) && (
+                            <span style={styles.checkmark}>✓</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
-        {/* ตำแหน่งที่ตั้ง */}
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>ตำแหน่งที่ตั้ง</h2>
 
@@ -413,7 +473,7 @@ const PlaceRegistration = () => {
               value={searchLocation}
               onChange={(e) => setSearchLocation(e.target.value)}
               placeholder="ค้นหาสถานที่"
-              style={{...styles.input, flex: 1}}
+              style={{ ...styles.input, flex: 1 }}
             />
             <button
               type="button"
@@ -461,7 +521,6 @@ const PlaceRegistration = () => {
           </div>
         </div>
 
-        {/* ที่อยู่ร้านค้า */}
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>ที่อยู่ร้านค้า</h2>
 
@@ -557,7 +616,6 @@ const PlaceRegistration = () => {
           </div>
         </div>
 
-        {/* รูปภาพและอุปกรณ์ */}
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>รูปภาพและอุปกรณ์</h2>
 
@@ -734,15 +792,39 @@ const styles = {
     color: '#969799',
     fontWeight: '500'
   },
+  selectWrapper: {
+    position: 'relative'
+  },
   selectButton: {
     width: '100%',
     padding: '10px 12px',
     fontSize: '14px',
     border: '1px solid #d9d9d9',
     borderRadius: '6px',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'white',
     cursor: 'pointer',
     textAlign: 'left'
+  },
+  dropdownMenu: {
+    position: 'absolute',
+    top: '100%',
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    border: '1px solid #d9d9d9',
+    borderRadius: '6px',
+    marginTop: '4px',
+    zIndex: 1000,
+    maxHeight: '300px',
+    overflowY: 'auto',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+  },
+  dropdownItem: {
+    padding: '12px 16px',
+    cursor: 'pointer',
+    fontSize: '14px',
+    borderBottom: '1px solid #f0f0f0',
+    transition: 'background-color 0.2s'
   },
   tagContainer: {
     display: 'flex',
@@ -767,20 +849,6 @@ const styles = {
     cursor: 'pointer',
     fontSize: '16px',
     padding: 0
-  },
-  popup: {
-    position: 'absolute',
-    top: '100%',
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    border: '1px solid #d9d9d9',
-    borderRadius: '6px',
-    marginTop: '4px',
-    zIndex: 1000,
-    maxHeight: '200px',
-    overflowY: 'auto',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)'
   },
   checkboxLabel: {
     display: 'flex',

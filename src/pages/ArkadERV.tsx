@@ -9,15 +9,20 @@ import Footer from "../components/Footer.tsx";
 const ArkadERV: React.FC = () => {
     const images = [
         require("../images/ArkadERV.png")
-
     ];
 
     const [current, setCurrent] = useState(0);
     const prev = () => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1));
     const next = () => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1));
 
-    const [selectedModel, setSelectedModel] = useState("Arkad ERV 160T");
-    const models = ["Arkad ERV 160T", "Arkad ERV 250T"];
+    // ข้อมูลรุ่นและราคา
+    const modelData: Record<string, { price: number; area: number }> = {
+        "Arkad ERV 160T": { price: 34200, area: 32 },
+        "Arkad ERV 250T": { price: 44800, area: 50 },
+    };
+
+    const models = Object.keys(modelData);
+    const [selectedModel, setSelectedModel] = useState<string>("Arkad ERV 160T");
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -84,7 +89,9 @@ const ArkadERV: React.FC = () => {
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="bg-white rounded-xl border flex">
                                     <div className="px-6 py-3 shadow-sm">
-                                        <span className="text-4xl font-semibold text-[#00AEEF]">฿34,200</span>
+                                        <span className="text-4xl font-semibold text-[#00AEEF]">
+                                            ฿{modelData[selectedModel].price.toLocaleString()}
+                                        </span>
                                     </div>
                                     <div>
                                         <span className="text-xs text-gray-500 max-w-[220px] p-3 text-right block">
@@ -99,7 +106,7 @@ const ArkadERV: React.FC = () => {
                                     <img src={require("../images/iconarea.png")} alt="พื้นที่ใช้งาน" className="w-10 h-10 object-contain" />
                                     <div>
                                         <p className="text-sm font-semibold">พื้นที่ใช้งาน</p>
-                                        <p className="text-lg font-semibold">32</p>
+                                        <p className="text-lg font-semibold">{modelData[selectedModel].area}</p>
                                         <p className="text-lg text-gray-500">ตารางเมตร</p>
                                     </div>
                                 </div>
@@ -147,6 +154,7 @@ const ArkadERV: React.FC = () => {
                         </button>
                     </div>
                 </div>
+                
                 {/* รูปย่อยด้านล่าง */}
                 <div className="flex justify-center mt-8 gap-6">
                     <img
@@ -154,7 +162,6 @@ const ArkadERV: React.FC = () => {
                         alt="Arkad preview 1"
                         className="w-36 h-36 object-contain border rounded-xl hover:scale-105 transition"
                     />
-
                 </div>
             </div>
 
@@ -187,12 +194,12 @@ const ArkadERV: React.FC = () => {
                         <div className="text-gray-400 text-xs">
                             <img
                                 src={require("../images/ArkadERV.png")}
-                                alt="Arkad PPV"
+                                alt="Arkad ERV"
                                 className="max-w-full max-h-[200px] object-contain"
                             />
                         </div>
                     </div>
-                    <div className="text-sm font-medium">Arkad PPV</div>
+                    <div className="text-sm font-medium">Arkad ERV</div>
                 </div>
                 <div className="text-3xl font-bold text-gray-400">+</div>
                 <div className="text-center">
@@ -200,7 +207,7 @@ const ArkadERV: React.FC = () => {
                         <div className="text-gray-400 text-xs">
                             <img
                                 src={require("../images/Arkad1440.png")}
-                                alt="Arkad PPV"
+                                alt="Arkad TC"
                                 className="max-w-full max-h-[200px] object-contain"
                             />
                         </div>
@@ -209,24 +216,25 @@ const ArkadERV: React.FC = () => {
                 </div>
             </div>
 
-
-
             <div className="text-center mb-6 mt-10">
-                <div className="text-3xl text-blue-500 mb-2">฿34,200</div>
+                <div className="text-3xl text-blue-500 mb-2">
+                    ฿{modelData[selectedModel].price.toLocaleString()}
+                </div>
                 <div className="text-sm text-gray-500 bg-gray-200">
                     *ราคาต่ออุปกรณ์ควรต้องเพิ่มเติมค่าแรงติดตั้ง โปรดติดต่อตัวแทนจำหน่ายสำหรับราคาที่ดีที่สุด*
                 </div>
             </div>
+            
             <button
                 onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
                 className="w-full max-w-3xl bg-[#00AEEF] text-white font-semibold py-4 rounded-full hover:bg-[#0098d6] transition text-center"
             >
                 SHOP NOW
             </button>
+            
             {/* เส้นขีดกั้น */}
             <div className="border-t-2 border-gray-300 mt-10"></div>
 
-            <div className="border-t-2 border-gray-300 mt-10"></div>
             <Footer />
         </div>
     );

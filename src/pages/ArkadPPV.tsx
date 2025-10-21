@@ -18,9 +18,16 @@ const ArkadPPV: React.FC = () => {
     const prev = () => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1));
     const next = () => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1));
 
-    // รุ่นเครื่อง
-    const [selectedModel, setSelectedModel] = useState("Arkad PPV 160T");
-    const models = ["Arkad PPV 160T", "Arkad PPV 250T", "Arkad PPV 350T", "Arkad PPV 440T"];
+    // ข้อมูลรุ่นและราคา
+    const modelData: Record<string, { price: number; area: number }> = {
+        "Arkad PPV 160T": { price: 23400, area: 32 },
+        "Arkad PPV 250T": { price: 29700, area: 50 },
+        "Arkad PPV 350T": { price: 37200, area: 60 },
+        "Arkad PPV 440T": { price: 41500, area: 90 },
+    };
+
+    const models = Object.keys(modelData);
+    const [selectedModel, setSelectedModel] = useState<string>("Arkad PPV 160T");
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -120,9 +127,9 @@ const ArkadPPV: React.FC = () => {
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="bg-white rounded-xl border flex ">
                                     <div className="px-6 py-3 shadow-sm">
-                                        <span className="text-4xl font-semibold text-[#00AEEF]">฿23,400</span>
-
-
+                                        <span className="text-4xl font-semibold text-[#00AEEF]">
+                                            ฿{modelData[selectedModel].price.toLocaleString()}
+                                        </span>
                                     </div>
                                     <div>
                                         <span className="text-xs text-gray-500 max-w-[220px] p-3 text-right block">
@@ -130,7 +137,6 @@ const ArkadPPV: React.FC = () => {
                                         </span>
                                     </div>
                                 </div>
-
                             </div>
 
                             {/* 3 กล่องข้อมูล */}
@@ -143,7 +149,7 @@ const ArkadPPV: React.FC = () => {
                                     />
                                     <div>
                                         <p className="text-sm font-semibold">พื้นที่ใช้งาน</p>
-                                        <p className="text-lg font-semibold">32 </p>
+                                        <p className="text-lg font-semibold">{modelData[selectedModel].area}</p>
                                         <p className="text-lg text-gray-500">ตารางเมตร</p>
                                     </div>
                                 </div>
@@ -174,13 +180,9 @@ const ArkadPPV: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
-
-
                     </div>
+
                     {/* ปุ่มเลือกรุ่น + SHOP NOW */}
                     <div className=" flex flex-col items-center justify-center py-10">
                         {/* ปุ่มเลือกรุ่น */}
@@ -208,9 +210,6 @@ const ArkadPPV: React.FC = () => {
                     </div>
                 </div>
             </div>
-
-
-
 
             {/* รูปย่อยด้านล่าง */}
             <div className="flex justify-center mt-2 gap-6">
@@ -253,8 +252,6 @@ const ArkadPPV: React.FC = () => {
                 </div>
             </div>
 
-
-
             {/* Product Bundle */}
             <div className="flex items-center justify-center gap-6 mb-2 mt-16">
                 <div className="text-center">
@@ -285,7 +282,9 @@ const ArkadPPV: React.FC = () => {
             </div>
 
             <div className="text-center mb-6">
-                <div className="text-3xl  text-blue-500 mb-2">฿23,400</div>
+                <div className="text-3xl  text-blue-500 mb-2">
+                    ฿{modelData[selectedModel].price.toLocaleString()}
+                </div>
                 <div className="text-sm text-gray-500 bg-gray-200 ">
                     *ราคาต่ออุปกรณ์ควรต้องเพิ่มเติมค่าแรงติดตั้ง โปรดติดต่อตัวแทนจำหน่ายสำหรับราคาที่ดีที่สุด*
                 </div>
@@ -297,14 +296,13 @@ const ArkadPPV: React.FC = () => {
             >
                 SHOP NOW
             </button>
+
             {/* เส้นขีดกั้น */}
             <div className="border-t-2 border-gray-300 mt-10"></div>
 
             {/* Footer */}
             <Footer />
-
         </div>
-
     );
 };
 

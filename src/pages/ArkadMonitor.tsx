@@ -17,8 +17,8 @@ const ArkadMonitor: React.FC = () => {
     const prev = () => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1));
     const next = () => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1));
 
-    const [selectedModel, setSelectedModel] = useState("Dust Walker");
-    const models = ["Dust Walker", "Arkad Monitor"];
+    const [selectedModel, setSelectedModel] = useState("Arkad Monitor");
+    const models = ["Arkad Monitor"];
 
     return (
         <div className="min-h-screen bg-gray-50">

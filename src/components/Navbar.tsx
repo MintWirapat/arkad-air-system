@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { name: 'Products', href: '/' },
+    { name: 'Products', href: '/arkad-ppv' },
     { name: 'Air Quality', href: '/air-quality' },
     { name: 'About', href: '/about-us' },
     { name: 'Contact Us', href: '/contact-us' },
