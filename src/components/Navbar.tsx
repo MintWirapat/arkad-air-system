@@ -73,13 +73,13 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
             
-            <a
-              href="#signup"
+            <Link
+              to="/place-Regis"
               className="block mx-3 mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-medium text-center transition-colors duration-200"
               onClick={() => setIsOpen(false)}
             >
               ลงทะเบียนร้านค้า
-            </a>
+            </Link>
           </div>
         </div>
       )}
