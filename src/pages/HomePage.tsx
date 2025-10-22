@@ -54,7 +54,7 @@ const HomePage = () => {
     }
   ];
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 1;
   const maxSlide = Math.ceil(products.length - itemsPerPage);
 
   const nextSlide = () => {
@@ -138,7 +138,7 @@ const HomePage = () => {
           >
             <div
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * (100 / itemsPerPage)}%)` }}
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {products.map((product, index) => (
                 <div

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -104,6 +104,23 @@ const PlaceRegistration = () => {
 
   const selectedTypes = storeTypes.filter(t => formData.types.includes(t.id));
   const selectedCuisines = cuisineTypes.filter(c => formData.cuisines.includes(c.id));
+  const typeDropdownRef = useRef(null);
+  const cuisineDropdownRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (typeDropdownRef.current && !typeDropdownRef.current.contains(event.target)) {
+        setShowTypePopup(false);
+      }
+      if (cuisineDropdownRef.current && !cuisineDropdownRef.current.contains(event.target)) {
+        setShowCuisinePopup(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -367,7 +384,7 @@ const PlaceRegistration = () => {
 
           <div style={styles.formGroup}>
             <label style={styles.label}>หมวดหมู่สถานที่ *</label>
-            <div style={styles.selectWrapper}>
+            <div style={styles.selectWrapper} ref={typeDropdownRef}>
               <button
                 type="button"
                 onClick={() => setShowTypePopup(!showTypePopup)}
@@ -416,7 +433,7 @@ const PlaceRegistration = () => {
           {selectedTypes.length > 0 && getFilteredCuisines().length > 0 && (
             <div style={styles.formGroup}>
               <label style={styles.label}>รายละเอียดสถานที่</label>
-              <div style={styles.selectWrapper}>
+              <div style={styles.selectWrapper} ref={cuisineDropdownRef}>
                 <button
                   type="button"
                   onClick={() => setShowCuisinePopup(!showCuisinePopup)}
