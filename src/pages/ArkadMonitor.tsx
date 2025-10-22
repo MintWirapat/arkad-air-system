@@ -61,7 +61,11 @@ const ArkadMonitor: React.FC = () => {
                                 </>
                             )}
                             <div className="w-full">
-                                <img src={images[current]} alt="Monitor" className="w-full max-h-[200px] md:max-h-[250px] object-contain rounded-xl transition-all duration-500 drop-shadow-lg" />
+                                <img
+                                    src={images[current]}
+                                    alt="Monitor"
+                                    className="w-full max-h-[300px] md:max-h-[350px] object-contain rounded-xl transition-all duration-500 drop-shadow-lg"
+                                />
                             </div>
                             {images.length > 1 && (
                                 <div className="absolute bottom-4 flex space-x-2">
@@ -156,11 +160,10 @@ const ArkadMonitor: React.FC = () => {
                                     <button
                                         key={m}
                                         onClick={() => setSelectedModel(m)}
-                                        className={`px-4 md:px-8 py-2 md:py-3 rounded-full border text-sm md:text-base transition whitespace-nowrap ${
-                                            selectedModel === m
-                                                ? "border-blue-500 text-blue-600 font-semibold"
-                                                : "border-gray-300 text-gray-700 hover:border-gray-400"
-                                        }`}
+                                        className={`px-4 md:px-8 py-2 md:py-3 rounded-full border text-sm md:text-base transition whitespace-nowrap ${selectedModel === m
+                                            ? "border-blue-500 text-blue-600 font-semibold"
+                                            : "border-gray-300 text-gray-700 hover:border-gray-400"
+                                            }`}
                                     >
                                         {m}
                                     </button>

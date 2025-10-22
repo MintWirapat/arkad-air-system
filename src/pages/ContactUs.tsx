@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail,  Search } from 'lucide-react';
+import { MapPin, Phone, Mail, Search } from 'lucide-react';
 import Footer from '../components/Footer.tsx';
 
 const ContactUs: React.FC = () => {
@@ -222,9 +222,9 @@ const ContactUs: React.FC = () => {
 
                             <div className="flex items-center space-x-4">
                                 <img
-                                    src={require("../images/logoline.png")}
+                                    src={require("../images/7.png")}
                                     alt="Line"
-                                    className="w-8 h-8 flex-shrink-0 grayscale opacity-80"
+                                    className="w-6 h-6 text-gray-800 flex-shrink-0 object-contain"
                                 />
                                 <p className="text-gray-800">@arkad</p>
                             </div>
@@ -275,7 +275,7 @@ const ContactUs: React.FC = () => {
                         <div className="space-y-4">
                             <div className="relative h-80 bg-gray-200 rounded-lg overflow-hidden shadow-md">
                                 <img
-                                    src={require("../images/mapimage1.png")}
+                                    src={require("../images/5.png")}
                                     alt="Location Map"
                                     className="w-full h-full object-cover"
                                 />

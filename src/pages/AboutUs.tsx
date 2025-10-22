@@ -4,33 +4,27 @@ import Footer from '../components/Footer.tsx';
 const AboutUs: React.FC = () => {
     return (
         <div className="min-h-screen flex flex-col">
-            
 
-            {/* Hero Section - เพิ่ม pt-16 เพื่อหลีกเลี่ยง fixed navbar */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 pt-32 pb-16 px-4">
-                <div className="max-w-4xl mx-auto text-center space-y-4">
-                    <h1 className="text-3xl md:text-4xl  text-blue-500 ">
-                        นวัตกรรมบำบัดอากาศรูปแบบใหม่
-                    </h1>
-                    <h2 className="text-3xl md:text-4xl  text-blue-500 ">
-                        เพิ่มระดับคุณภาพชีวิตเพื่อ
-                    </h2>
-                    <h3 className="text-3xl md:text-4xl  text-blue-500 ">
-                        อากาศสะอาด และสุขภาพที่ดี
-                    </h3>
-                </div>
+
+            {/* Hero Section - ใช้รูปภาพแบบเต็มหน้าจอ ไม่มีข้อความ */}
+            <div className="relative w-full">
+                <img
+                    src={require("../images/9.png")}
+                    alt="Hero Background"
+                    className="w-full h-auto object-cover"
+                />
             </div>
 
             {/* About Us Content */}
-            <div className="flex-grow bg-white py-12 px-4">
-                <div className="max-w-4xl mx-auto">
+            <div className="flex-grow bg-white py-8 mt-[-20px]">  
+                 <div className="max-w-4xl mx-auto px-4">
                     <h2 className="text-2xl  text-center text-blue-600 mb-8">
                         About Us
                     </h2>
 
                     {/* Company Description */}
                     <div className="text-center mb-12">
-                        <p className="text-gray-800 font-semibold mb-4">
+                        <p className="text-xl  text-gray-800 mb-3">
                             บริษัท วินเซนต์ ออโตเมชั่น จำกัด
                         </p>
                         <p className="text-gray-600 text-sm leading-relaxed max-w-3xl mx-auto">
@@ -65,7 +59,7 @@ const AboutUs: React.FC = () => {
                         <div className="">
                             <h3 className="text-xl  text-gray-800 mb-3">2565</h3>
                             <p className="text-gray-600 text-sm leading-relaxed">
-                                ทางบริษัทได้สร้างพันธมิตรในการจำหน่ายสินค้าและผลิตภัณฑ์ให้ครอบคลุมทุกพื้นที่เพื่อตอบสนองความสะดวกสบายของลูกค้า 
+                                ทางบริษัทได้สร้างพันธมิตรในการจำหน่ายสินค้าและผลิตภัณฑ์ให้ครอบคลุมทุกพื้นที่เพื่อตอบสนองความสะดวกสบายของลูกค้า
                             </p>
                         </div>
 

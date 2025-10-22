@@ -174,7 +174,7 @@ const HomePage = () => {
                         <span className="text-2xl font-bold text-blue-600">
                           {product.price}
                         </span>
-                        <Link to={product.link}>  
+                        <Link to={product.link}>
                           <button className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors duration-200">
                             <ArrowRight size={20} />
                           </button>
@@ -266,12 +266,18 @@ const HomePage = () => {
         </div>
       </section>
 
+      <div className="max-w-4xl mx-auto text-center mb-10 mt-16">
+        <h2 className="p-6 text-6xl font-bold bg-white bg-opacity-20 backdrop-blur-md text-center mb-12 rounded-lg inline-block">
+          Arkad Positive Pressure
+        </h2>
+      </div>
+
 
       {/* รูป Banner2.png */}
-      <div className="mb-2 mt-16">
+      <div className="mb-2 mt-10">
         <div className="text-center">
           <img
-            src={require("../images/Banner2.png")}
+            src={require("../images/3.2.png")}
             alt="Arkad Positive Pressure System"
             className="w-full scale-110 max-w-5xl mx-auto rounded-lg "
           />
@@ -282,7 +288,7 @@ const HomePage = () => {
       <div className="mb-2 mt-16">
         <div className="text-center">
           <img
-            src={require("../images/Banner3.png")}
+            src={require("../images/3.1.png")}
             alt="Arkad Positive Pressure System"
             className="w-full scale-110 max-w-5xl mx-auto rounded-lg "
           />

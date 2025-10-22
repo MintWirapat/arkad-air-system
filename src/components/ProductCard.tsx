@@ -24,14 +24,14 @@ const ProductCard = () => {
             label: "LINE",
             url: "https://lin.ee/VjnF650",
             color: "bg-green-500",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/200px-LINE_logo.svg.png"
+            image: require("../images/logoline.png")
         },
         {
             icon: Facebook,
             label: "Facebook",
             url: "https://www.facebook.com/share/1AFdd1NQC8/",
             color: "bg-blue-600",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/120px-Facebook_Logo_%282019%29.png"
+            image: require("../images/logoface.png")
         },
         {
             icon: Music,
@@ -45,7 +45,7 @@ const ProductCard = () => {
             label: "Instagram",
             url: "https://www.instagram.com/arkadfresh?igsh=MWp1dnhnNm5vNTAwdg==",
             color: "bg-pink-500",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/120px-Instagram_icon.png"
+            image: require("../images/logoig.png")
         }
     ];
 
@@ -89,7 +89,10 @@ const ProductCard = () => {
                                     </ul>
 
                                     {/* Button */}
-                                    <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full transition-colors text-base">
+                                    <button
+                                        onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
+                                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full transition-colors text-base">
+
                                         ติดต่อสอบถาม
                                     </button>
                                 </div>
@@ -107,6 +110,7 @@ const ProductCard = () => {
                     </h3>
                     <div className="flex justify-center gap-6">
                         {socialLinks.map((social, index) => {
+                            const imageClass = social.label === 'TikTok' ? 'w-20 h-20' : 'w-16 h-16';
                             return (
                                 <a
                                     key={index}
@@ -115,23 +119,26 @@ const ProductCard = () => {
                                     rel="noopener noreferrer"
                                     className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-shadow border-2 border-gray-200"
                                 >
-                                    <img
-                                        src={social.image}
-                                        alt={social.label}
-                                        className="w-16 h-16 object-contain"
-                                    />
+                                    <div className="w-16 h-16 flex items-center justify-center">
+                                        <img
+                                            src={social.image}
+                                            alt={social.label}
+                                            className={`${imageClass} object-contain`}
+                                        />
+                                    </div>
                                 </a>
                             );
                         })}
                     </div>
                 </div>
-            </div>
+            </div >
+        
 
-            {/* ใช้ Footer component แทน */}
-            <Footer />
+        {/* ใช้ Footer component แทน */ }
+        < Footer />
 
-            {/* Black Bar */}
-            <div className="bg-black h-10"></div>
+        {/* Black Bar */ }
+        < div className = "bg-black h-10" ></div >
         </>
     );
 };

@@ -96,11 +96,13 @@ const PlaceRegistration = () => {
     { id: 801, name: 'สถานที่อื่นๆ', category: 'other' }
   ]);
 
+  
   const [showTypePopup, setShowTypePopup] = useState(false);
   const [showCuisinePopup, setShowCuisinePopup] = useState(false);
   const [searchLocation, setSearchLocation] = useState('');
   const [mapKey, setMapKey] = useState(0);
   const [message, setMessage] = useState('');
+  const [previewImages, setPreviewImages] = useState([]);
 
   const selectedTypes = storeTypes.filter(t => formData.types.includes(t.id));
   const selectedCuisines = cuisineTypes.filter(c => formData.cuisines.includes(c.id));
@@ -194,20 +196,6 @@ const PlaceRegistration = () => {
     return cuisineTypes.filter(c => categories.includes(c.category));
   };
 
-  const getCurrentLocation = () => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          updateMap(latitude, longitude);
-          setMessage('พบตำแหน่งปัจจุบันแล้ว');
-        },
-        (error) => {
-          setMessage('ไม่สามารถระบุตำแหน่งปัจจุบันได้');
-        }
-      );
-    }
-  };
 
   const updateMap = (lat, lon) => {
     setFormData(prev => ({
@@ -218,30 +206,7 @@ const PlaceRegistration = () => {
     setMapKey(k => k + 1);
   };
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length > 5) {
-      setMessage('อัพโหลดได้สูงสุด 5 รูป');
-      return;
-    }
 
-    const validFiles = files.filter(file => {
-      if (file.size > 5 * 1024 * 1024) {
-        setMessage('ไฟล์ต้องไม่เกิน 5MB');
-        return false;
-      }
-      if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-        setMessage('อนุญาตเฉพาะไฟล์ .jpg หรือ .png เท่านั้น');
-        return false;
-      }
-      return true;
-    });
-
-    setFormData(prev => ({
-      ...prev,
-      images: validFiles
-    }));
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -481,26 +446,90 @@ const PlaceRegistration = () => {
           )}
         </div>
 
+        {/* ส่วนตำแหน่งที่ตั้ง */}
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>ตำแหน่งที่ตั้ง</h2>
 
+          {/* ช่องค้นหาชื่อหรือวางลิงก์ Google Maps */}
           <div style={styles.searchRow}>
             <input
               type="text"
               value={searchLocation}
               onChange={(e) => setSearchLocation(e.target.value)}
-              placeholder="ค้นหาสถานที่"
+              placeholder="พิมพ์ชื่อสถานที่ หรือวางลิงก์ Google Maps"
               style={{ ...styles.input, flex: 1 }}
             />
+
+            {/* ปุ่มค้นหาชื่อสถานที่ */}
             <button
               type="button"
-              onClick={getCurrentLocation}
+              onClick={async () => {
+                if (!searchLocation.trim()) return alert("กรุณากรอกชื่อสถานที่หรือวางลิงก์");
+                const regex = /@([-.\d]+),([-.\d]+)/;
+                const match = searchLocation.match(regex);
+
+                if (match) {
+                  // ✅ กรณีเป็นลิงก์ Google Maps
+                  const lat = parseFloat(match[1]);
+                  const lng = parseFloat(match[2]);
+                  setFormData({ ...formData, latitude: lat, longitude: lng });
+                  setMapKey(Date.now());
+                  setMessage("อัปเดตพิกัดจากลิงก์ Google Maps แล้ว");
+                } else {
+                  // ✅ กรณีค้นหาชื่อสถานที่ด้วย Nominatim API
+                  try {
+                    const res = await fetch(
+                      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+                        searchLocation
+                      )}`
+                    );
+                    const data = await res.json();
+                    if (data.length > 0) {
+                      const { lat, lon, display_name } = data[0];
+                      setFormData({ ...formData, latitude: parseFloat(lat), longitude: parseFloat(lon) });
+                      setMapKey(Date.now());
+                      setMessage(`พบสถานที่: ${display_name}`);
+                    } else {
+                      alert("ไม่พบสถานที่ที่ค้นหา");
+                    }
+                  } catch (err) {
+                    alert("เกิดข้อผิดพลาดในการค้นหาสถานที่");
+                  }
+                }
+              }}
+              style={styles.locationButton}
+            >
+              🔍 ค้นหาสถานที่
+            </button>
+
+            {/* ปุ่มตำแหน่งปัจจุบัน */}
+            <button
+              type="button"
+              onClick={() => {
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                      const lat = pos.coords.latitude;
+                      const lng = pos.coords.longitude;
+                      setFormData({ ...formData, latitude: lat, longitude: lng });
+                      setMapKey(Date.now());
+                      setMessage("ใช้ตำแหน่งปัจจุบันแล้ว");
+                    },
+                    (err) => {
+                      alert("ไม่สามารถดึงตำแหน่งปัจจุบันได้: " + err.message);
+                    }
+                  );
+                } else {
+                  alert("เบราว์เซอร์นี้ไม่รองรับการระบุตำแหน่ง (Geolocation)");
+                }
+              }}
               style={styles.locationButton}
             >
               📍 ตำแหน่งปัจจุบัน
             </button>
           </div>
 
+          {/* แผนที่ */}
           <div style={styles.mapWrapper} key={mapKey}>
             <MapContainer
               center={[formData.latitude, formData.longitude]}
@@ -516,23 +545,24 @@ const PlaceRegistration = () => {
             </MapContainer>
           </div>
 
+          {/* พิกัด (readOnly) */}
           <div style={styles.coordRow}>
             <div style={styles.formGroup}>
               <label style={styles.label}>ละติจูด</label>
               <input
                 type="text"
-                value={formData.latitude.toFixed(4)}
+                value={formData.latitude.toFixed(6)}
                 readOnly
-                style={styles.input}
+                style={{ ...styles.input, backgroundColor: "#f5f5f5" }}
               />
             </div>
             <div style={styles.formGroup}>
               <label style={styles.label}>ลองจิจูด</label>
               <input
                 type="text"
-                value={formData.longitude.toFixed(4)}
+                value={formData.longitude.toFixed(6)}
                 readOnly
-                style={styles.input}
+                style={{ ...styles.input, backgroundColor: "#f5f5f5" }}
               />
             </div>
           </div>
@@ -642,42 +672,152 @@ const PlaceRegistration = () => {
               type="file"
               multiple
               accept="image/png,image/jpeg"
-              onChange={handleImageUpload}
+              onChange={(e) => {
+                const newFiles = Array.from(e.target.files);
+
+                // ✅ รวมไฟล์เก่ากับไฟล์ใหม่
+                const combinedFiles = [...formData.images, ...newFiles];
+
+                // ตรวจสอบจำนวนไฟล์รวมไม่เกิน 5 ไฟล์
+                if (combinedFiles.length > 5) {
+                  alert(`สามารถอัพโหลดได้สูงสุด 5 รูปเท่านั้น (คุณมีรูปอยู่แล้ว ${formData.images.length} รูป)`);
+                  e.target.value = ""; // ล้างค่า input
+                  return;
+                }
+
+                // ตรวจสอบขนาดไฟล์ไม่เกิน 5MB
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                const oversizedFiles = newFiles.filter(file => file.size > maxSize);
+
+                if (oversizedFiles.length > 0) {
+                  alert("มีไฟล์ที่มีขนาดเกิน 5MB กรุณาเลือกไฟล์ใหม่");
+                  e.target.value = ""; // ล้างค่า input
+                  return;
+                }
+
+                // สร้าง preview ใหม่จากไฟล์ใหม่
+                const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+
+                // ✅ รวม preview เก่ากับ preview ใหม่
+                const combinedPreviews = [...previewImages, ...newPreviews];
+
+                setFormData((prev) => ({
+                  ...prev,
+                  images: combinedFiles,
+                }));
+
+                setPreviewImages(combinedPreviews);
+
+                // ล้างค่า input เพื่อให้สามารถเลือกไฟล์เดิมซ้ำได้
+                e.target.value = "";
+              }}
               style={styles.fileInput}
             />
             <p style={styles.hint}>อัพโหลดได้สูงสุด 5 รูป (รูปละไม่เกิน 5MB)</p>
-            {formData.images.length > 0 && (
-              <p style={styles.hint}>เลือกแล้ว {formData.images.length} รูป</p>
+
+            {previewImages.length > 0 && (
+              <p style={styles.hint}>เลือกแล้ว {previewImages.length} รูป</p>
             )}
+
+            {/* ส่วนแสดงภาพ Preview พร้อมปุ่มลบ */}
+            {previewImages && previewImages.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "10px",
+                  marginTop: "10px",
+                }}
+              >
+                {previewImages.map((src, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      position: "relative",
+                      width: "100px",
+                      height: "100px",
+                    }}
+                  >
+                    <img
+                      src={src}
+                      alt={`preview-${index}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                        border: "1px solid #ccc",
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newImages = formData.images.filter((_, i) => i !== index);
+                        const newPreviews = previewImages.filter((_, i) => i !== index);
+
+                        URL.revokeObjectURL(src);
+
+                        setFormData((prev) => ({
+                          ...prev,
+                          images: newImages,
+                        }));
+
+                        setPreviewImages(newPreviews);
+                      }}
+                      style={{
+                        position: "absolute",
+                        top: "-5px",
+                        right: "-5px",
+                        backgroundColor: "red",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: "24px",
+                        height: "24px",
+                        cursor: "pointer",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div style={styles.formGroup}>
+              <label style={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  name="hasAirPurifier"
+                  checked={formData.hasAirPurifier}
+                  onChange={handleCheckboxChange}
+                  style={styles.checkbox}
+                />
+                เครื่องฟอกอากาศ
+              </label>
+              <label style={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  name="hasAirVentilator"
+                  checked={formData.hasAirVentilator}
+                  onChange={handleCheckboxChange}
+                  style={styles.checkbox}
+                />
+                เครื่องเติมอากาศ
+              </label>
+            </div>
           </div>
 
-          <div style={styles.formGroup}>
-            <label style={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                name="hasAirPurifier"
-                checked={formData.hasAirPurifier}
-                onChange={handleCheckboxChange}
-                style={styles.checkbox}
-              />
-              เครื่องฟอกอากาศ
-            </label>
-            <label style={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                name="hasAirVentilator"
-                checked={formData.hasAirVentilator}
-                onChange={handleCheckboxChange}
-                style={styles.checkbox}
-              />
-              เครื่องเติมอากาศ
-            </label>
-          </div>
+          <button onClick={handleSubmit} style={styles.submitButton}>
+            บันทึกข้อมูล
+          </button>
         </div>
-
-        <button onClick={handleSubmit} style={styles.submitButton}>
-          บันทึกข้อมูล
-        </button>
       </div>
     </div>
   );
