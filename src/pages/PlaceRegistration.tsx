@@ -352,7 +352,7 @@ const PlaceRegistration = () => {
         openingHours: formData.openingHours
       };
       console.log('Store Data to submit:', storeData);
-      /*const response = await fetch('https://api.arkaddee.com/api/stores', {
+      const response = await fetch('https://api.arkaddee.com/api/stores', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -367,7 +367,7 @@ const PlaceRegistration = () => {
 
       const result = await response.json();
       setPopupMessage('บันทึกข้อมูลสำเร็จ! ✓');
-      setShowPopup(true);*/
+      setShowPopup(true);
 
     } catch (error) {
       console.error('Error:', error);
