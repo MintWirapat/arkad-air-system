@@ -38,7 +38,7 @@ const ProductNavBar = () => {
   ];
 
   return (
-    <div className="relative py-6 mt-16">
+    <div className="relative py-6 mt-16 overflow-hidden">
       {/* พื้นหลัง */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
@@ -53,9 +53,18 @@ const ProductNavBar = () => {
         <div className="absolute top-0 right-0 w-32 h-32"></div>
       </div>
 
-      <div className="w-full relative z-10">
-        <div className="overflow-x-auto scrollbar-hide px-4">
-          <div className="flex justify-center md:justify-center items-center gap-6 md:gap-10 lg:gap-12 min-w-max md:min-w-0">
+      <div className="w-full relative z-10 overflow-hidden">
+        <style>{`
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+        
+        <div 
+          className="overflow-x-auto scrollbar-hide px-4" 
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          <div className="flex justify-start md:justify-center items-center gap-6 md:gap-10 lg:gap-12 max-w-full">
             {products.map((product) => {
               const isActive = location.pathname === product.path;
               
@@ -63,21 +72,21 @@ const ProductNavBar = () => {
                 <Link
                   key={product.name}
                   to={product.path}
-                  className="group flex flex-col items-center transition-all duration-300 flex-shrink-0 hover:scale-105"
+                  className="group flex flex-col items-center transition-all duration-300 flex-shrink-0"
                 >
                   <div className={`
                     bg-white/90 backdrop-blur-sm rounded-2xl p-4 md:p-4 
                     shadow-lg transition-all duration-300
                     ${isActive 
-                      ? 'ring-4 ring-inset ring-green-400 shadow-green-400/50' 
-                      : 'hover:shadow-xl group-hover:shadow-green-500/30'
+                      ? 'border-4 border-green-400 shadow-green-400/50' 
+                      : 'border-4 border-transparent hover:shadow-xl group-hover:shadow-green-500/30 group-hover:border-green-400/50'
                     }
-                    w-20 h-20 md:w-24 md:h-24 flex items-center justify-center
+                    w-20 h-20 md:w-24 md:h-24 flex items-center justify-center overflow-hidden
                   `}>
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
                   <span className={`

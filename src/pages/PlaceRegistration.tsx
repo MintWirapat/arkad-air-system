@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
+import axios from 'axios';
 import 'leaflet/dist/leaflet.css';
+import { parse } from 'ol/expr/expression';
+import { set } from 'ol/transform';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -50,64 +53,145 @@ const PlaceRegistration = () => {
     }))
   });
 
-  const [storeTypes] = useState([
-    { id: 1, name: 'ร้านกาแฟ', category: 'cafe' },
-    { id: 2, name: 'ร้านอาหาร', category: 'restaurant' },
-    { id: 3, name: 'โรงเรียน', category: 'school' },
-    { id: 4, name: 'โรงแรม', category: 'hotel' },
-    { id: 5, name: 'มหาวิทยาลัย', category: 'university' },
-    { id: 6, name: 'ฟิตเนส', category: 'fitness' },
-    { id: 7, name: 'คลินิก', category: 'clinic' },
-    { id: 8, name: 'อื่นๆ', category: 'other' }
-  ]);
+  const [storeTypes, setStoreTypes] = useState([]);
+  const [cuisineTypes, setCuisineTypes] = useState([]);
+  const [addressdata, setAddressData] = useState([]);
 
-  const [cuisineTypes] = useState([
-    { id: 101, name: 'มินิมอล (Minimalist Style)', category: 'cafe' },
-    { id: 102, name: 'โมเดิร์น (Modern Style)', category: 'cafe' },
-    { id: 103, name: 'อินดัสเทรียลลอฟท์ (Industrial & Loft Style)', category: 'cafe' },
-    { id: 104, name: 'ธรรมชาติ (Natural Cafe)', category: 'cafe' },
-    { id: 105, name: 'วินเทจ / เรโทร (Vintage / Retro Style)', category: 'cafe' },
-    { id: 106, name: 'สไตล์ญี่ปุ่น (Japanese style)', category: 'cafe' },
-    { id: 201, name: 'อาหารไทย (Thai Food)', category: 'restaurant' },
-    { id: 202, name: 'อาหารจีน (Chinese Food)', category: 'restaurant' },
-    { id: 203, name: 'อาหารญี่ปุ่น (Japanese Food)', category: 'restaurant' },
-    { id: 204, name: 'อาหารเกาหลี (Korean Food)', category: 'restaurant' },
-    { id: 205, name: 'อาหารฝรั่ง / ยุโรป (Western / European Food)', category: 'restaurant' },
-    { id: 206, name: 'อาหารสุขภาพ / มังสวิรัติ / Plant-based (Healthy / Vegetarian / Vegan Food)', category: 'restaurant' },
-    { id: 301, name: 'โรงเรียนอนุบาล (Kindergarten / Preschool)', category: 'school' },
-    { id: 302, name: 'โรงเรียนประถมศึกษา (Primary School)', category: 'school' },
-    { id: 303, name: 'โรงเรียนมัธยมศึกษา (Secondary School)', category: 'school' },
-    { id: 304, name: 'โรงเรียนอาชีวศึกษา / เทคนิค (Vocational School)', category: 'school' },
-    { id: 401, name: 'รีสอร์ท (Resort Hotel)', category: 'hotel' },
-    { id: 402, name: 'บูติก (Boutique Hotel)', category: 'hotel' },
-    { id: 403, name: 'โรงแรมหรู (Luxury Hotel)', category: 'hotel' },
-    { id: 404, name: 'วิลล่า (Villa)', category: 'hotel' },
-    { id: 405, name: 'โฮสเทล (Hostel)', category: 'hotel' },
-    { id: 501, name: 'มหาวิทยาลัยของรัฐ (Public University)', category: 'university' },
-    { id: 502, name: 'มหาวิทยาลัยเอกชน (Private University)', category: 'university' },
-    { id: 503, name: 'มหาวิทยาลัยนานาชาติ (International University)', category: 'university' },
-    { id: 601, name: 'ฟิตเนส/สถานที่ออกกำลังกายเพื่อสุขภาพ (Fitness/healthy exercise place)', category: 'fitness' },
-    { id: 701, name: 'คลินิกทั่วไป (General Clinic / Primary Care)', category: 'clinic' },
-    { id: 702, name: 'คลินิกทันตกรรม (Dental Clinic)', category: 'clinic' },
-    { id: 703, name: 'คลินิกผิวหนัง / เลเซอร์ (Dermatology / Aesthetic Clinic)', category: 'clinic' },
-    { id: 704, name: 'คลินิกศัลยกรรม (Plastic Surgery Clinic)', category: 'clinic' },
-    { id: 705, name: 'คลินิกสายตา / ตา (Ophthalmology Clinic)', category: 'clinic' },
-    { id: 706, name: 'คลินิกกายภาพ / ฟื้นฟู (Physiotherapy / Rehab)', category: 'clinic' },
-    { id: 801, name: 'สถานที่อื่นๆ', category: 'other' }
-  ]);
+  const [selectedProvinceId, setSelectedProvinceId] = useState('');
+  const [selectedDistrictId, setSelectedDistrictId] = useState('');
+  const [selectedSubDistrictId, setSelectedSubDistrictId] = useState('');
+  const [zipCode, setZipCode] = useState('');
 
-  
+
+
+
   const [showTypePopup, setShowTypePopup] = useState(false);
   const [showCuisinePopup, setShowCuisinePopup] = useState(false);
   const [searchLocation, setSearchLocation] = useState('');
   const [mapKey, setMapKey] = useState(0);
-  const [message, setMessage] = useState('');
   const [previewImages, setPreviewImages] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const selectedTypes = storeTypes.filter(t => formData.types.includes(t.id));
   const selectedCuisines = cuisineTypes.filter(c => formData.cuisines.includes(c.id));
   const typeDropdownRef = useRef(null);
   const cuisineDropdownRef = useRef(null);
+
+
+  // ดึงข้อมูลจังหวัดตอนเริ่มต้น
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await axios.get('https://api.arkaddee.com/api/addresses/provinces');
+        setAddressData(response.data);
+        setIsLoading(false);
+      } catch (error) {
+
+        console.error('Error fetching provinces:', error);
+        setIsLoading(false);
+      }
+    };
+    fetchProvinces();
+  }, []);
+
+  const province = addressdata;
+  const district = selectedProvinceId?.amphure || [];
+  const subdistrict = selectedDistrictId?.tambon || [];
+
+
+  // ดึงข้อมูลอำเภอเมื่อเลือกจังหวัด
+  const handleProvinceChange = async (e) => {
+    const provinceId = (e.target.value);
+    const provinceName = province.find(p => p.name_th === provinceId);
+    setSelectedProvinceId(provinceName);
+    setSelectedDistrictId(null);
+    setSelectedSubDistrictId(null);
+
+    setFormData(prev => ({
+      ...prev,
+      address: {
+        ...prev.address,
+        province: provinceId
+      }
+    }));
+
+  };
+
+  // ดึงข้อมูลตำบลเมื่อเลือกอำเภอ
+  const handleDistrictChange = (e) => {
+    const districtId = (e.target.value);
+    const districtName = district.find(d => d.name_th === districtId);
+    setSelectedDistrictId(districtName);
+    setSelectedSubDistrictId(null);
+
+
+    setFormData(prev => ({
+      ...prev,
+      address: {
+        ...prev.address,
+        district: districtId
+      }
+    }));
+
+
+
+  };
+
+  // เลือกตำบล
+  const handleSubDistrictChange = (e) => {
+    const subDistrictId = (e.target.value);
+    const subDistrictName = subdistrict.find(s => s.name_th === subDistrictId);
+    setSelectedSubDistrictId(subDistrictName);
+
+    setFormData(prev => ({
+      ...prev,
+      address: {
+        ...prev.address,
+        subDistrict: subDistrictId
+      }
+    }));
+
+
+    if (subDistrictName?.zip_code) {
+      setZipCode(subDistrictName.zip_code);
+
+      setFormData(prev => ({
+        ...prev,
+        address: {
+          ...prev.address,
+          zipCode: subDistrictName.zip_code
+        }
+      }));
+
+      // ดึงรหัสไปรษณีย์เมื่อเลือกตำบล
+    } else {
+      setZipCode('');
+    }
+
+
+  };
+
+
+
+
+  useEffect(() => {
+    const fetchTypesAndCuisines = async () => {
+      try {
+        const [typesRes, cuisinesRes] = await Promise.all([
+          axios.get('https://api.arkaddee.com/api/store-types'),
+          axios.get('https://api.arkaddee.com/api/cuisines')
+        ]);
+        setStoreTypes(typesRes.data.data);
+        setCuisineTypes(cuisinesRes.data.data);
+      } catch (error) {
+        console.error('Error fetching types and cuisines:', error);
+      }
+    };
+    fetchTypesAndCuisines();
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (typeDropdownRef.current && !typeDropdownRef.current.contains(event.target)) {
@@ -196,7 +280,6 @@ const PlaceRegistration = () => {
     return cuisineTypes.filter(c => categories.includes(c.category));
   };
 
-
   const updateMap = (lat, lon) => {
     setFormData(prev => ({
       ...prev,
@@ -206,25 +289,97 @@ const PlaceRegistration = () => {
     setMapKey(k => k + 1);
   };
 
-
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.name) {
-      setMessage('กรุณากรอกชื่อสถานที่');
+      setPopupMessage('กรุณากรอกชื่อสถานที่');
+      setShowPopup(true);
       return;
     }
     if (formData.types.length === 0) {
-      setMessage('กรุณาเลือกหมวดหมู่สถานที่');
+      setPopupMessage('กรุณาเลือกหมวดหมู่สถานที่');
+      setShowPopup(true);
       return;
     }
-    if (!formData.address.houseNo || !formData.address.subDistrict || !formData.address.district ||
-      !formData.address.province || !formData.address.zipCode || !formData.address.mobile) {
-      setMessage('กรุณากรอกข้อมูลที่อยู่ให้ครบถ้วน');
-      return;
+
+
+    setIsLoading(true);
+    try {
+      let imageUrls = [];
+
+      if (formData.images.length > 0) {
+        for (let i = 0; i < formData.images.length; i++) {
+          try {
+            const uploadResponse = await axios.post('https://api.arkaddee.com/api/upload/image', {
+              image: formData.images[i]
+            }, { headers: { ' Content-Type': 'multipart/form-data' } });
+
+            const responseText = await uploadResponse.data;
+
+            if (responseText.status !== 'success') {
+              throw new Error(`ไม่สามารถอัพโหลดรูปภาพที่ ${i + 1} ได้: ${uploadResponse.statusText}`);
+            }
+
+            const uploadResult = responseText.data;
+            const imageUrl = uploadResult.url || uploadResult.imageUrl || uploadResult.data?.url || uploadResult.path;
+
+            if (!imageUrl) {
+              throw new Error(`ไม่พบ URL รูปภาพที่ ${i + 1} ใน response`);
+            }
+
+            imageUrls.push(imageUrl);
+
+          } catch (uploadError) {
+            console.error(`Error uploading image ${i + 1}:`, uploadError);
+            throw new Error(`ไม่สามารถอัพโหลดรูปภาพที่ ${i + 1} ได้: ${uploadError.message}`);
+          }
+        }
+      }
+
+      const storeData = {
+        name: formData.name,
+        description: formData.description,
+        price_range: formData.price_range,
+        types: formData.types,
+        cuisines: formData.cuisines,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
+        address: formData.address,
+        images: imageUrls,
+        hasAirPurifier: formData.hasAirPurifier,
+        hasAirVentilator: formData.hasAirVentilator,
+        openingHours: formData.openingHours
+      };
+      console.log('Store Data to submit:', storeData);
+      /*const response = await fetch('https://api.arkaddee.com/api/stores', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(storeData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      }
+
+      const result = await response.json();
+      setPopupMessage('บันทึกข้อมูลสำเร็จ! ✓');
+      setShowPopup(true);*/
+
+    } catch (error) {
+      console.error('Error:', error);
+      const errorMsg = error.response?.data?.message ||
+        error.response?.data ||
+        error.message ||
+        'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+      setPopupMessage(errorMsg);
+      setShowPopup(true);
+    } finally {
+      setIsLoading(false);
     }
-    console.log('Form data:', formData);
-    setMessage('บันทึกข้อมูลสำเร็จ');
   };
 
   const MapClickHandler = () => {
@@ -242,10 +397,17 @@ const PlaceRegistration = () => {
         <h1 style={styles.title}>ลงทะเบียนร้านค้า</h1>
       </div>
 
-      {message && (
-        <div style={styles.message}>
-          {message}
-          <button onClick={() => setMessage('')} style={styles.closeMsg}>×</button>
+      {showPopup && (
+        <div style={styles.popupOverlay} onClick={() => setShowPopup(false)}>
+          <div style={styles.popupContent} onClick={(e) => e.stopPropagation()}>
+            <div style={styles.popupMessage}>{popupMessage}</div>
+            <button
+              onClick={() => setShowPopup(false)}
+              style={styles.popupButton}
+            >
+              ตกลง
+            </button>
+          </div>
         </div>
       )}
 
@@ -446,11 +608,9 @@ const PlaceRegistration = () => {
           )}
         </div>
 
-        {/* ส่วนตำแหน่งที่ตั้ง */}
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>ตำแหน่งที่ตั้ง</h2>
 
-          {/* ช่องค้นหาชื่อหรือวางลิงก์ Google Maps */}
           <div style={styles.searchRow}>
             <input
               type="text"
@@ -460,7 +620,6 @@ const PlaceRegistration = () => {
               style={{ ...styles.input, flex: 1 }}
             />
 
-            {/* ปุ่มค้นหาชื่อสถานที่ */}
             <button
               type="button"
               onClick={async () => {
@@ -469,30 +628,31 @@ const PlaceRegistration = () => {
                 const match = searchLocation.match(regex);
 
                 if (match) {
-                  // ✅ กรณีเป็นลิงก์ Google Maps
                   const lat = parseFloat(match[1]);
                   const lng = parseFloat(match[2]);
                   setFormData({ ...formData, latitude: lat, longitude: lng });
                   setMapKey(Date.now());
-                  setMessage("อัปเดตพิกัดจากลิงก์ Google Maps แล้ว");
                 } else {
-                  // ✅ กรณีค้นหาชื่อสถานที่ด้วย Nominatim API
                   try {
-                    const res = await fetch(
-                      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-                        searchLocation
-                      )}`
+                    const res = await axios.get(
+                      `https://nominatim.openstreetmap.org/search`,
+                      {
+                        params: {
+                          format: 'json',
+                          q: searchLocation
+                        }
+                      }
                     );
-                    const data = await res.json();
-                    if (data.length > 0) {
-                      const { lat, lon, display_name } = data[0];
+
+                    if (res.data.length > 0) {
+                      const { lat, lon } = res.data[0];
                       setFormData({ ...formData, latitude: parseFloat(lat), longitude: parseFloat(lon) });
                       setMapKey(Date.now());
-                      setMessage(`พบสถานที่: ${display_name}`);
                     } else {
                       alert("ไม่พบสถานที่ที่ค้นหา");
                     }
                   } catch (err) {
+                    console.error('Search error:', err);
                     alert("เกิดข้อผิดพลาดในการค้นหาสถานที่");
                   }
                 }
@@ -502,7 +662,6 @@ const PlaceRegistration = () => {
               🔍 ค้นหาสถานที่
             </button>
 
-            {/* ปุ่มตำแหน่งปัจจุบัน */}
             <button
               type="button"
               onClick={() => {
@@ -513,7 +672,6 @@ const PlaceRegistration = () => {
                       const lng = pos.coords.longitude;
                       setFormData({ ...formData, latitude: lat, longitude: lng });
                       setMapKey(Date.now());
-                      setMessage("ใช้ตำแหน่งปัจจุบันแล้ว");
                     },
                     (err) => {
                       alert("ไม่สามารถดึงตำแหน่งปัจจุบันได้: " + err.message);
@@ -529,7 +687,6 @@ const PlaceRegistration = () => {
             </button>
           </div>
 
-          {/* แผนที่ */}
           <div style={styles.mapWrapper} key={mapKey}>
             <MapContainer
               center={[formData.latitude, formData.longitude]}
@@ -545,7 +702,6 @@ const PlaceRegistration = () => {
             </MapContainer>
           </div>
 
-          {/* พิกัด (readOnly) */}
           <div style={styles.coordRow}>
             <div style={styles.formGroup}>
               <label style={styles.label}>ละติจูด</label>
@@ -605,48 +761,69 @@ const PlaceRegistration = () => {
                 style={styles.input}
               />
             </div>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>ตำบล/แขวง *</label>
-              <input
-                type="text"
-                name="address.subDistrict"
-                value={formData.address.subDistrict}
-                onChange={handleInputChange}
-                placeholder="กรุณากรอกตำบล"
-                style={styles.input}
-              />
-            </div>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>อำเภอ/เขต *</label>
-              <input
-                type="text"
-                name="address.district"
-                value={formData.address.district}
-                onChange={handleInputChange}
-                placeholder="กรุณากรอกอำเภอ"
-                style={styles.input}
-              />
-            </div>
+
+            {/* Dropdown จังหวัด */}
             <div style={styles.formGroup}>
               <label style={styles.label}>จังหวัด *</label>
-              <input
-                type="text"
-                name="address.province"
-                value={formData.address.province}
-                onChange={handleInputChange}
-                placeholder="กรุณากรอกจังหวัด"
+              <select
+                value={selectedProvinceId?.name_th || ''}
+                onChange={handleProvinceChange}
                 style={styles.input}
-              />
+              >
+                <option value="">เลือกจังหวัด</option>
+                {province.map((province) => (
+                  <option key={province.id} value={province.name_th}>
+                    {province.name_th}
+                  </option>
+                ))}
+              </select>
             </div>
+
+            {/* Dropdown อำเภอ */}
+            <div style={styles.formGroup}>
+              <label style={styles.label}>อำเภอ/เขต *</label>
+              <select
+                value={selectedDistrictId?.name_th || ''}
+                onChange={handleDistrictChange}
+                disabled={!selectedProvinceId}
+                style={styles.input}
+              >
+                <option value="">เลือกอำเภอ/เขต</option>
+                {district.map((district) => (
+                  <option key={district.id} value={district.name_th}>
+                    {district.name_th}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Dropdown ตำบล */}
+            <div style={styles.formGroup}>
+              <label style={styles.label}>ตำบล/แขวง *</label>
+              <select
+                value={selectedSubDistrictId?.name_th || ''}
+                onChange={handleSubDistrictChange}
+                disabled={!selectedDistrictId}
+                style={styles.input}
+              >
+                <option value="">เลือกตำบล/แขวง</option>
+                {subdistrict.map((subdistrict) => (
+                  <option key={subdistrict.id} value={subdistrict.name_th}>
+                    {subdistrict.name_th}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div style={styles.formGroup}>
               <label style={styles.label}>รหัสไปรษณีย์ *</label>
               <input
                 type="text"
                 name="address.zipCode"
-                value={formData.address.zipCode}
-                onChange={handleInputChange}
-                placeholder="xxxxx"
-                style={styles.input}
+                value={zipCode}
+                readOnly
+                placeholder="รหัสไปรษณีย์จะถูกกรอกอัตโนมัติ"
+                style={{ ...styles.input, backgroundColor: "#f5f5f5" }}
               />
             </div>
             <div style={styles.formGroup}>
@@ -674,31 +851,24 @@ const PlaceRegistration = () => {
               accept="image/png,image/jpeg"
               onChange={(e) => {
                 const newFiles = Array.from(e.target.files);
-
-                // ✅ รวมไฟล์เก่ากับไฟล์ใหม่
                 const combinedFiles = [...formData.images, ...newFiles];
 
-                // ตรวจสอบจำนวนไฟล์รวมไม่เกิน 5 ไฟล์
                 if (combinedFiles.length > 5) {
                   alert(`สามารถอัพโหลดได้สูงสุด 5 รูปเท่านั้น (คุณมีรูปอยู่แล้ว ${formData.images.length} รูป)`);
-                  e.target.value = ""; // ล้างค่า input
+                  e.target.value = "";
                   return;
                 }
 
-                // ตรวจสอบขนาดไฟล์ไม่เกิน 5MB
-                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                const maxSize = 5 * 1024 * 1024;
                 const oversizedFiles = newFiles.filter(file => file.size > maxSize);
 
                 if (oversizedFiles.length > 0) {
                   alert("มีไฟล์ที่มีขนาดเกิน 5MB กรุณาเลือกไฟล์ใหม่");
-                  e.target.value = ""; // ล้างค่า input
+                  e.target.value = "";
                   return;
                 }
 
-                // สร้าง preview ใหม่จากไฟล์ใหม่
                 const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
-
-                // ✅ รวม preview เก่ากับ preview ใหม่
                 const combinedPreviews = [...previewImages, ...newPreviews];
 
                 setFormData((prev) => ({
@@ -707,8 +877,6 @@ const PlaceRegistration = () => {
                 }));
 
                 setPreviewImages(combinedPreviews);
-
-                // ล้างค่า input เพื่อให้สามารถเลือกไฟล์เดิมซ้ำได้
                 e.target.value = "";
               }}
               style={styles.fileInput}
@@ -719,7 +887,6 @@ const PlaceRegistration = () => {
               <p style={styles.hint}>เลือกแล้ว {previewImages.length} รูป</p>
             )}
 
-            {/* ส่วนแสดงภาพ Preview พร้อมปุ่มลบ */}
             {previewImages && previewImages.length > 0 && (
               <div
                 style={{
@@ -789,33 +956,33 @@ const PlaceRegistration = () => {
                 ))}
               </div>
             )}
-
-            <div style={styles.formGroup}>
-              <label style={styles.checkboxLabel}>
-                <input
-                  type="checkbox"
-                  name="hasAirPurifier"
-                  checked={formData.hasAirPurifier}
-                  onChange={handleCheckboxChange}
-                  style={styles.checkbox}
-                />
-                เครื่องฟอกอากาศ
-              </label>
-              <label style={styles.checkboxLabel}>
-                <input
-                  type="checkbox"
-                  name="hasAirVentilator"
-                  checked={formData.hasAirVentilator}
-                  onChange={handleCheckboxChange}
-                  style={styles.checkbox}
-                />
-                เครื่องเติมอากาศ
-              </label>
-            </div>
           </div>
 
-          <button onClick={handleSubmit} style={styles.submitButton}>
-            บันทึกข้อมูล
+          <div style={styles.formGroup}>
+            <label style={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                name="hasAirPurifier"
+                checked={formData.hasAirPurifier}
+                onChange={handleCheckboxChange}
+                style={styles.checkbox}
+              />
+              เครื่องฟอกอากาศ
+            </label>
+            <label style={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                name="hasAirVentilator"
+                checked={formData.hasAirVentilator}
+                onChange={handleCheckboxChange}
+                style={styles.checkbox}
+              />
+              เครื่องเติมอากาศ
+            </label>
+          </div>
+
+          <button onClick={handleSubmit} style={styles.submitButton} disabled={isLoading}>
+            {isLoading ? 'กำลังบันทึก...' : 'บันทึกข้อมูล'}
           </button>
         </div>
       </div>
@@ -841,24 +1008,6 @@ const styles = {
     fontWeight: '600',
     color: '#323233',
     margin: 0
-  },
-  message: {
-    backgroundColor: '#2196F3',
-    color: 'white',
-    padding: '12px 16px',
-    borderRadius: '6px',
-    marginBottom: '16px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  closeMsg: {
-    background: 'none',
-    border: 'none',
-    color: 'white',
-    fontSize: '20px',
-    cursor: 'pointer',
-    padding: 0
   },
   form: {
     width: '100%'
@@ -983,6 +1132,15 @@ const styles = {
     borderBottom: '1px solid #f0f0f0',
     transition: 'background-color 0.2s'
   },
+  dropdownItemContent: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  checkmark: {
+    color: '#1989fa',
+    fontWeight: 'bold'
+  },
   tagContainer: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -1078,7 +1236,46 @@ const styles = {
     border: 'none',
     borderRadius: '6px',
     cursor: 'pointer',
-    marginTop: '20px'
+    marginTop: '20px',
+    opacity: 1
+  },
+  popupOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 9999
+  },
+  popupContent: {
+    backgroundColor: 'white',
+    borderRadius: '12px',
+    padding: '30px',
+    maxWidth: '400px',
+    width: '90%',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+    textAlign: 'center'
+  },
+  popupMessage: {
+    fontSize: '16px',
+    color: '#323233',
+    marginBottom: '20px',
+    lineHeight: '1.6'
+  },
+  popupButton: {
+    padding: '10px 30px',
+    fontSize: '14px',
+    fontWeight: '600',
+    backgroundColor: '#1989fa',
+    color: 'white',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    minWidth: '100px'
   }
 };
 
