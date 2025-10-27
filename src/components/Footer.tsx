@@ -35,13 +35,12 @@ const Footer: React.FC = () => {
 
     return (
         <>
-            
-         {/* Footer */}
+            {/* Footer */}
             <footer className="bg-white">
-                <div className="max-w-6xl mx-auto px-4 py-4">
-                    <div className="grid grid-cols-3 gap-8 items-center">
+                <div className="max-w-6xl mx-auto px-4 py-6 md:py-8">
+                    <div className="grid grid-cols-3 gap-4 md:gap-8 items-start md:items-center">
                         {/* Left Section */}
-                        <div className="text-xs text-gray-600 leading-tight">
+                        <div className="text-[10px] md:text-sm text-gray-600 leading-tight md:leading-relaxed">
                             <p>บริษัท วินเซนต์ ออโตเมชั่น จำกัด</p>
                             <p>178/13 หมู่ 1 ต.หางดง อ.หางดง</p>
                             <p>จ.เชียงใหม่ 50230</p>
@@ -52,14 +51,14 @@ const Footer: React.FC = () => {
                             <img
                                 src={require("../images/logoarkad.png")}
                                 alt="Arkad Logo"
-                                className="h-12 object-contain"
+                                className="h-10 md:h-16 object-contain"
                             />
                         </div>
 
                         {/* Right Section */}
-                        <div className="flex flex-col items-end gap-2">
-                            <p className="text-xs text-gray-600">arkaddee.official@gmail.com</p>
-                            <div className="flex gap-3">
+                        <div className="flex flex-col items-end gap-2 md:gap-4">
+                            <p className="text-[10px] md:text-sm text-gray-600 text-right">arkaddee.official@gmail.com</p>
+                            <div className="flex gap-2 md:gap-4">
                                 {socialLinks.map((social, index) => {
                                     return (
                                         <a
@@ -67,12 +66,12 @@ const Footer: React.FC = () => {
                                             href={social.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className=" p-2 rounded-lg hover:bg-gray-400 transition-colors border border-gray-400"
+                                            className="p-1.5 md:p-3 rounded-lg hover:bg-gray-200 transition-all duration-300 border-2 border-gray-300 hover:border-gray-500"
                                         >
                                             <img
                                                 src={social.image}
                                                 alt={social.label}
-                                                className="w-5 h-5 object-contain grayscale"
+                                                className="w-5 h-5 md:w-9 md:h-9 object-contain grayscale hover:grayscale-0 transition-all"
                                             />
                                         </a>
                                     );
@@ -82,7 +81,7 @@ const Footer: React.FC = () => {
                     </div>
 
                     {/* Copyright */}
-                    <div className="mt-3 pt-3 text-center text-xs text-gray-600">
+                    <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200 text-center text-[10px] md:text-sm text-gray-600 space-y-1">
                         <p>© 2025 บริษัท วินเซนต์ ออโตเมชั่น จำกัด. สงวนลิขสิทธิ์.</p>
                         <p>นโยบายความเป็นส่วนตัว | ข้อกำหนดการใช้งาน</p>
                     </div>

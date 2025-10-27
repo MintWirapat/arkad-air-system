@@ -57,11 +57,11 @@ const ProductCard = () => {
                     {products.map((product) => (
                         <div
                             key={product.id}
-                            className="border-2 border-gray-300 rounded-3xl p-8 bg-white shadow-sm"
+                            className="border-2 border-gray-300 rounded-3xl p-4 md:p-8 bg-white shadow-sm"
                         >
-                            <div className="flex gap-8 items-start">
+                            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
                                 {/* Image Section */}
-                                <div className="w-2/5 flex-shrink-0">
+                                <div className="w-full md:w-2/5 flex-shrink-0">
                                     <img
                                         src={require("../images/image4.png")}
                                         alt={product.title}
@@ -70,17 +70,17 @@ const ProductCard = () => {
                                 </div>
 
                                 {/* Content Section */}
-                                <div className="w-3/5">
-                                    <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                                <div className="w-full md:w-3/5">
+                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
                                         {product.title}
                                     </h2>
 
                                     {/* Features List */}
-                                    <ul className="space-y-3 mb-8">
+                                    <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8">
                                         {product.features.map((feature, index) => (
                                             <li
                                                 key={index}
-                                                className="flex items-start text-gray-700 text-base"
+                                                className="flex items-start text-gray-700 text-sm md:text-base"
                                             >
                                                 <span className="text-gray-400 mr-3 mt-1 flex-shrink-0">•</span>
                                                 <span>{feature}</span>
@@ -91,8 +91,8 @@ const ProductCard = () => {
                                     {/* Button */}
                                     <button
                                         onClick={() => window.open("https://lin.ee/VjnF650", "_blank")}
-                                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full transition-colors text-base">
-
+                                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full transition-colors text-base"
+                                    >
                                         ติดต่อสอบถาม
                                     </button>
                                 </div>
@@ -102,43 +102,41 @@ const ProductCard = () => {
                 </div>
             </div>
 
-            {/* Social Media Section */}
-            <div className="bg-gray-50 py-8 px-4">
-                <div className="max-w-6xl mx-auto">
-                    <h3 className="text-3xl font-bold text-center text-gray-800 mb-8">
+            {/* Social Media Section - แก้ไขส่วนนี้ */}
+            <div className="bg-gray-50 py-8">
+                <div className="max-w-6xl mx-auto px-4">
+                    <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-6 md:mb-8">
                         ช่องทางการติดตาม
                     </h3>
-                    <div className="flex justify-center gap-6">
-                        {socialLinks.map((social, index) => {
-                            const imageClass = social.label === 'TikTok' ? 'w-20 h-20' : 'w-16 h-16';
-                            return (
+                    <div className="flex justify-center items-center">
+                        <div className="grid grid-cols-4 gap-3 md:gap-5 justify-items-center">
+                            {socialLinks.map((social, index) => (
                                 <a
                                     key={index}
                                     href={social.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-shadow border-2 border-gray-200"
+                                    className="bg-white p-3 md:p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-2 border-gray-200 hover:border-blue-300"
                                 >
-                                    <div className="w-16 h-16 flex items-center justify-center">
+                                    <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
                                         <img
                                             src={social.image}
                                             alt={social.label}
-                                            className={`${imageClass} object-contain`}
+                                            className="w-full h-full object-contain"
                                         />
                                     </div>
                                 </a>
-                            );
-                        })}
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div >
-        
+            </div>
 
-        {/* ใช้ Footer component แทน */ }
-        < Footer />
+            {/* ใช้ Footer component */}
+            <Footer />
 
-        {/* Black Bar */ }
-        < div className = "bg-black h-10" ></div >
+            {/* Black Bar */}
+            <div className="bg-black h-10"></div>
         </>
     );
 };
