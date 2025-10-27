@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
                         {/* Right Section */}
                         <div className="flex flex-col items-end gap-2 md:gap-4">
                             <p className="text-[10px] md:text-sm text-gray-600 text-right">arkaddee.official@gmail.com</p>
-                            <div className="flex gap-2 md:gap-4">
+                            <div className="flex gap-3 md:gap-5">
                                 {socialLinks.map((social, index) => {
                                     return (
                                         <a
@@ -66,12 +66,12 @@ const Footer: React.FC = () => {
                                             href={social.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-1.5 md:p-3 rounded-lg hover:bg-gray-200 transition-all duration-300 border-2 border-gray-300 hover:border-gray-500"
+                                            className="hover:opacity-70 transition-all duration-300"
                                         >
                                             <img
                                                 src={social.image}
                                                 alt={social.label}
-                                                className="w-5 h-5 md:w-9 md:h-9 object-contain grayscale hover:grayscale-0 transition-all"
+                                                className="w-8 h-8 md:w-12 md:h-12 object-contain grayscale"
                                             />
                                         </a>
                                     );
