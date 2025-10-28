@@ -16,6 +16,7 @@ const AirQualityMap = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupContent, setPopupContent] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -138,17 +139,35 @@ const AirQualityMap = () => {
         const userLon = position.coords.longitude;
         const userLat = position.coords.latitude;
 
+        // ซูมเข้าไปที่ตำแหน่งผู้ใช้
         mapInstanceRef.current.getView().animate({
           center: fromLonLat([userLon, userLat]),
+          zoom: 15, // ซูมเข้าไปที่ระดับ 15
           duration: 1000
         });
 
         createUserLocationMarker([userLon, userLat]);
+      }, (error) => {
+        console.error('เกิดข้อผิดพลาดในการรับตำแหน่ง:', error);
+        alert('ไม่สามารถเข้าถึงตำแหน่งของคุณได้ กรุณาอนุญาตการเข้าถึงตำแหน่งในเบราว์เซอร์');
+      }, {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
       });
+    } else {
+      alert('เบราว์เซอร์ของคุณไม่รองรับการระบุตำแหน่ง');
     }
   };
 
   useEffect(() => {
+    const handleMenuToggle = (event) => {
+      console.log('Menu state received:', event.detail?.isOpen);
+      setIsMenuOpen(event.detail?.isOpen || false);
+    };
+
+    window.addEventListener('menuToggle', handleMenuToggle);
+
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -161,6 +180,7 @@ const AirQualityMap = () => {
       source: vectorSourceRef.current
     });
 
+    // สร้างแผนที่โดยเริ่มต้นที่ประเทศไทย ซูมออก
     mapInstanceRef.current = new Map({
       target: mapRef.current,
       layers: [
@@ -173,8 +193,8 @@ const AirQualityMap = () => {
         vectorLayer
       ],
       view: new View({
-        center: fromLonLat([98.9853, 18.7883]),
-        zoom: 12,
+        center: fromLonLat([100.5, 13.7]), // ใจกลางประเทศไทย (กรุงเทพฯ)
+        zoom: 6, // ซูมออกเพื่อเห็นประเทศไทยทั้งหมด
         minZoom: 5,
         maxZoom: 19
       }),
@@ -186,25 +206,8 @@ const AirQualityMap = () => {
     };
     window.addEventListener('resize', resizeHandler);
 
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const userLon = position.coords.longitude;
-        const userLat = position.coords.latitude;
-
-        mapInstanceRef.current.getView().animate({
-          center: fromLonLat([userLon, userLat]),
-          duration: 1000
-        });
-
-        createUserLocationMarker([userLon, userLat]);
-      }, (error) => {
-        console.error('เกิดข้อผิดพลาดในการรับตำแหน่ง:', error);
-      }, {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      });
-    }
+    // ไม่ต้องซูมเข้าหาตำแหน่งผู้ใช้อัตโนมัติตอนเริ่มต้น
+    // ให้รอผู้ใช้กดปุ่มเองแทน
 
     mapInstanceRef.current.on('click', (event) => {
       const feature = mapInstanceRef.current.forEachFeatureAtPixel(event.pixel, feature => feature);
@@ -224,6 +227,7 @@ const AirQualityMap = () => {
     const interval = setInterval(loadStationData, 5 * 60 * 1000);
 
     return () => {
+      window.removeEventListener('menuToggle', handleMenuToggle);
       window.removeEventListener('resize', checkScreenSize);
       window.removeEventListener('resize', resizeHandler);
       clearInterval(interval);
@@ -245,14 +249,15 @@ const AirQualityMap = () => {
           </div>
         )}
 
-        <div style={styles.dustboyLogo}>
-          <img src=
-          {
-            require("../images/cmu-ccdc.png")
-          } width="200px" alt="CMUCCDC" />
+        <div style={{ ...styles.dustboyLogo, display: isMenuOpen ? 'none' : 'block' }}>
+          <img src={require("../images/cmu-ccdc.png")} width="200px" alt="CMUCCDC" />
         </div>
 
-        <button onClick={goToUserLocation} style={styles.locationButton} title="ไปยังตำแหน่งของฉัน">
+        <button 
+          onClick={goToUserLocation} 
+          style={{ ...styles.locationButton, display: isMenuOpen ? 'none' : 'flex' }} 
+          title="ไปยังตำแหน่งของฉัน"
+        >
           📍
         </button>
 
@@ -278,13 +283,10 @@ const AirQualityMap = () => {
           ].map((item, index) => (
             <div key={index} style={{ ...styles.levelItem, backgroundColor: item.color }}>
               <div style={styles.levelValue}>{item.value}</div>
-              {/* ✅ ใช้รูปภาพแทน emoji */}
               <img src={item.Image} alt="dust level icon" style={styles.dustboyIcon} />
             </div>
           ))}
         </div>
-
-
       </div>
 
       <Footer />
@@ -299,7 +301,7 @@ const styles = {
     position: 'relative',
     overflow: 'hidden',
     fontFamily: 'Arial, sans-serif',
-    paddingTop: '64px' // เพิ่มบรรทัดนี้
+    paddingTop: '64px'
   },
   mapContainer: {
     width: '100%',
@@ -353,14 +355,15 @@ const styles = {
   },
   dustboyLogo: {
     position: 'absolute',
-    top: '10%',
+    top: '140px',
     right: '10px',
     borderRadius: '5px',
-    zIndex: 1000
+    zIndex: 1000,
+    transition: 'opacity 0.3s ease'
   },
   locationButton: {
     position: 'absolute',
-    top: '25%',
+    top: '230px',
     right: '20px',
     zIndex: 1000,
     width: '40px',
@@ -423,7 +426,6 @@ const styles = {
     fontSize: '14px'
   },
   dustboyIcon: {
-
     width: '20px',
     height: '20px'
   },

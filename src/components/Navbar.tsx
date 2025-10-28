@@ -2,15 +2,47 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onMenuToggle?: (isOpen: boolean) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    const newState = !isOpen;
+    setIsOpen(newState);
+    console.log('Menu toggled:', newState);
+    
+    // ส่ง event ไปยัง AirQualityMap
+    window.dispatchEvent(new CustomEvent('menuToggle', { 
+      detail: { isOpen: newState } 
+    }));
+    
+    if (onMenuToggle) {
+      onMenuToggle(newState);
+    }
+  };
+
+  const handleMenuItemClick = () => {
+    setIsOpen(false);
+    console.log('Menu closed');
+    
+    // ส่ง event ว่าเมนูปิดแล้ว
+    window.dispatchEvent(new CustomEvent('menuToggle', { 
+      detail: { isOpen: false } 
+    }));
+    
+    if (onMenuToggle) {
+      onMenuToggle(false);
+    }
+  };
 
   const menuItems = [
     { name: 'Products', href: '/arkad-ppv' },
     { name: 'Air Quality', href: '/air-quality' },
     { name: 'About', href: '/about-us' },
     { name: 'Contact Us', href: '/contact-us' },
-    
   ];
 
   return (
@@ -50,7 +82,7 @@ const Navbar: React.FC = () => {
 
           <div className="md:hidden">
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={handleToggle}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -67,7 +99,7 @@ const Navbar: React.FC = () => {
                 key={item.name}
                 to={item.href}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={() => setIsOpen(false)}
+                onClick={handleMenuItemClick}
               >
                 {item.name}
               </Link>
@@ -76,7 +108,7 @@ const Navbar: React.FC = () => {
             <Link
               to="/place-Regis"
               className="block mx-3 mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-medium text-center transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
+              onClick={handleMenuItemClick}
             >
               ลงทะเบียนร้านค้า
             </Link>
