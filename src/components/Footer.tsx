@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
                     <div className="grid grid-cols-3 gap-4 md:gap-8 items-start md:items-center">
                         {/* Left Section */}
                         <div className="text-[10px] md:text-sm text-gray-600 leading-tight md:leading-relaxed">
-                            <p>บริษัท วินเซนต์ ออโตเมชั่น จำกัด</p>
+                            <p className="whitespace-nowrap">บริษัท วินเซนต์ ออโตเมชั่น จำกัด</p>
                             <p>178/13 หมู่ 1 ต.หางดง อ.หางดง</p>
                             <p>จ.เชียงใหม่ 50230</p>
                         </div>
@@ -81,9 +81,9 @@ const Footer: React.FC = () => {
                     </div>
 
                     {/* Copyright */}
-                    <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200 text-center text-[10px] md:text-sm text-gray-600 space-y-1">
-                        <p>© 2025 บริษัท วินเซนต์ ออโตเมชั่น จำกัด. สงวนลิขสิทธิ์.</p>
-                        <p>นโยบายความเป็นส่วนตัว | ข้อกำหนดการใช้งาน</p>
+                    <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200 text-center text-[9px] md:text-sm text-gray-600 space-y-1 px-2">
+                        <p className="leading-tight">© 2025 บริษัท วินเซนต์ ออโตเมชั่น จำกัด. สงวนลิขสิทธิ์.</p>
+                        <p className="text-[8px] md:text-sm">นโยบายความเป็นส่วนตัว | ข้อกำหนดการใช้งาน</p>
                     </div>
                 </div>
             </footer>

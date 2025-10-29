@@ -116,9 +116,9 @@ const ProductCard = () => {
                                     href={social.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="bg-white p-3 md:p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-2 border-gray-200 hover:border-blue-300"
+                                    className="bg-white p-2 md:p-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-2 border-gray-200 hover:border-blue-300"
                                 >
-                                    <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                                    <div className="w-18 h-18 md:w-28 md:h-28 flex items-center justify-center">
                                         <img
                                             src={social.image}
                                             alt={social.label}

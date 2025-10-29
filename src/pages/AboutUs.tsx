@@ -15,7 +15,7 @@ const AboutUs: React.FC = () => {
             </div>
 
             {/* About Us Content */}
-            <div className="flex-grow bg-white py-8 md:py-12">  
+            <div className="flex-grow bg-white py-8 md:py-12">
                 <div className="max-w-4xl mx-auto px-4">
                     <h2 className="text-2xl md:text-3xl font-bold text-center text-blue-600 mb-8 md:mb-12">
                         About Us
@@ -49,7 +49,7 @@ const AboutUs: React.FC = () => {
                         <div className="pb-6 border-b border-gray-200">
                             <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">2564</h3>
                             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                                ออกแบบผลิตภัณฑ์ระบบสร้างแรงดันบวกแบบหมุนเวียนอากาศ ERV (Energy Recover Ventilation) ที่ผ่านการทดสอบมาตรฐานการกรองอากาศจาก
+                                ออกแบบผลิตภัณฑ์เครื่องเติมอากาศสะอาดแบบหมุนเวียนอากาศ ERV (Energy Recover Ventilation) ที่ผ่านการทดสอบมาตรฐานการกรองอากาศจาก
                                 หน่วยวิจัยสนามไฟฟ้าประยุกต์ในงานวิศวกรรมมหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา (RUEE LAB)
                             </p>
                         </div>

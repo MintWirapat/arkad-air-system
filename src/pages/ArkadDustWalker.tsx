@@ -140,11 +140,10 @@ const ArkadDustWalker: React.FC = () => {
                                     <button
                                         key={m}
                                         onClick={() => setSelectedModel(m)}
-                                        className={`px-4 md:px-8 py-2 md:py-3 rounded-full border text-sm md:text-base transition whitespace-nowrap ${
-                                            selectedModel === m
-                                                ? "border-blue-500 text-blue-600 font-semibold"
-                                                : "border-gray-300 text-gray-700 hover:border-gray-400"
-                                        }`}
+                                        className={`px-4 md:px-8 py-2 md:py-3 rounded-full border text-sm md:text-base transition whitespace-nowrap ${selectedModel === m
+                                            ? "border-blue-500 text-blue-600 font-semibold"
+                                            : "border-gray-300 text-gray-700 hover:border-gray-400"
+                                            }`}
                                     >
                                         {m}
                                     </button>
@@ -177,14 +176,99 @@ const ArkadDustWalker: React.FC = () => {
                 </div>
             </div>
 
-            {/* รูป Banner */}
-            <div className="mb-8 md:mb-12 mt-8 md:mt-16 px-4">
-                <div className="text-center">
-                    <img
-                        src={require("../images/infoDW.png")}
-                        alt="Arkad Dust Walker Info"
-                        className="w-full max-w-5xl mx-auto rounded-lg"
-                    />
+            {/* Product Info Section */}
+            <div className="mt-12 mb-16 px-4">
+                <div className="max-w-5xl mx-auto text-center">
+                    {/* Title */}
+                    <h2 className="text-3xl font-bold mb-3">Arkad Dust Walker</h2>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
+                        Arkad Dust Walker Air Quality Meter <br />
+                        เครื่องวัดคุณภาพอากาศ แบบพกพา<br />
+                    </p>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-10 max-w-3xl mx-auto ">
+                        PM2.5 <br />
+                        ฝุ่นละอองขนาดเล็ก มีขนาดเส้นผ่านศูนย์กลางไม่เกิน 2.5 ไมโครเมตร<br />
+                        Temp<br />
+                        แสดงค่าอุณหภูมิของอากาศในพื้นที่<br />
+                        HUM<br />
+                        ระดับความชื้นสัมพัทธ์ในอากาศ<br />
+                    </p>
+
+
+
+
+                    <h2 className="text-3xl font-bold mb-3 mt-10">คุณสมบัติ</h2>
+
+                    {/* ตารางคุณสมบัติ */}
+                    <div className="overflow-x-auto mt-10">
+                        <table className="w-full border-collapse text-sm md:text-base">
+                            <thead>
+                                <tr className="bg-gray-50">
+                                    <th className="border border-gray-300 px-4 py-2 text-left font-medium">
+                                        เครื่องวัดคุณภาพอากาศรุ่น
+                                    </th>
+                                    <th className="border border-gray-300 px-4 py-2 text-center" colSpan={3}>Arkad Dust Walker Meter</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">ขนาดห้อง</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">ย่าน</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">ความแม่นยำ</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">หน่วย</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">  PM2.5</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">0–999 µg/m³</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">±10 µg/m³</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">1 µg/m³</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">อุณหภูมิ</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">–10 – 50 °C</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">±1 °C</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">1 °C</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">ความชื้นสัมพัทธ์ (RH)</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">20%–85% RH</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">±4% RH</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">1% RH</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">ขนาดสินค้า</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}> 7 x 7 x 3.2 cm</td>
+
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">น้ำหนัก</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}> 120 g</td>
+
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">การแสดงผล</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}>LCD Screen</td>
+
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">Power</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}> Lithium battery with 800 mAh capacity<br />
+                                        5V  DC power charging Type-C port</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">Set Includes</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}> Arkad Dust Walker Meter x 1 <br />
+                                        Type-C Charging Cable x 1<br />
+                                        คู่มือ x 1 <br /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

@@ -415,7 +415,7 @@ const PlaceRegistration = () => {
           <h2 style={styles.sectionTitle}>ข้อมูลพื้นฐาน</h2>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>ชื่อสถานที่/ร้านค้า *</label>
+            <label style={{ ...styles.label, textAlign: 'left' }}>ชื่อสถานที่/ร้านค้า *</label>
             <input
               type="text"
               name="name"
@@ -427,7 +427,7 @@ const PlaceRegistration = () => {
           </div>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>รายละเอียดร้านค้า</label>
+            <label style={{ ...styles.label, textAlign: 'left' }}>รายละเอียดร้านค้า</label>
             <textarea
               name="description"
               value={formData.description}
@@ -439,7 +439,7 @@ const PlaceRegistration = () => {
           </div>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>ช่วงราคา</label>
+            <label style={{ ...styles.label, textAlign: 'left' }}>ช่วงราคา</label>
             <input
               type="text"
               name="price_range"
@@ -610,15 +610,72 @@ const PlaceRegistration = () => {
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>ตำแหน่งที่ตั้ง</h2>
 
-          <div style={styles.searchRow}>
+          {/* ช่องค้นหาขนาดใหญ่ */}
+          <div style={{
+            position: 'relative',
+            marginBottom: '12px',
+            width: '100%'
+          }}>
+            <span style={{
+              position: 'absolute',
+              left: '16px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              color: '#666',
+              fontSize: '22px',
+              pointerEvents: 'none',
+              zIndex: 1
+            }}>🔍</span>
+
             <input
               type="text"
               value={searchLocation}
               onChange={(e) => setSearchLocation(e.target.value)}
-              placeholder="พิมพ์ชื่อสถานที่ หรือวางลิงก์ Google Maps"
-              style={{ ...styles.input, flex: 1 }}
+              placeholder="ค้นหาสถานที่หรือวาง URL"
+              style={{
+                ...styles.input,
+                width: '100%',
+                fontSize: '18px',  // ใหญ่ขึ้น
+                padding: '18px 50px',  // สูงขึ้นเยอะ
+                borderRadius: '12px',
+                border: '2px solid #ddd',
+                outline: 'none',
+                boxSizing: 'border-box',
+                minHeight: '56px'  // กำหนดความสูงขั้นต่ำ
+              }}
             />
 
+            {searchLocation && (
+              <button
+                onClick={() => setSearchLocation('')}
+                type="button"
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: '#999',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '32px',  // ใหญ่ขึ้น
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  fontSize: '18px',
+                  color: '#fff',
+                  padding: 0,
+                  zIndex: 1
+                }}
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
+          {/* ปุ่มค้นหาและตำแหน่งปัจจุบัน */}
+          <div style={styles.searchRow}>
             <button
               type="button"
               onClick={async () => {
@@ -656,7 +713,12 @@ const PlaceRegistration = () => {
                   }
                 }
               }}
-              style={styles.locationButton}
+              style={{
+                ...styles.locationButton,
+                fontSize: '16px',
+                padding: '14px 20px',
+                minHeight: '50px'
+              }}
             >
               🔍 ค้นหาสถานที่
             </button>
@@ -680,7 +742,12 @@ const PlaceRegistration = () => {
                   alert("เบราว์เซอร์นี้ไม่รองรับการระบุตำแหน่ง (Geolocation)");
                 }
               }}
-              style={styles.locationButton}
+              style={{
+                ...styles.locationButton,
+                fontSize: '16px',
+                padding: '14px 20px',
+                minHeight: '50px'
+              }}
             >
               📍 ตำแหน่งปัจจุบัน
             </button>
@@ -702,24 +769,36 @@ const PlaceRegistration = () => {
           </div>
 
           <div style={styles.coordRow}>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>ละติจูด</label>
-              <input
-                type="text"
-                value={formData.latitude.toFixed(6)}
-                readOnly
-                style={{ ...styles.input, backgroundColor: "#f5f5f5" }}
-              />
-            </div>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>ลองจิจูด</label>
-              <input
-                type="text"
-                value={formData.longitude.toFixed(6)}
-                readOnly
-                style={{ ...styles.input, backgroundColor: "#f5f5f5" }}
-              />
-            </div>
+            
+              <div style={styles.formGroup}>
+                <label style={{ ...styles.label, textAlign: 'left' }}>ละติจูด</label>
+                <input
+                  type="text"
+                  value={formData.latitude.toFixed(6)}
+                  readOnly
+                  style={{
+                    ...styles.input,
+                    backgroundColor: "#f5f5f5",
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }}
+                />
+              </div>
+              <div style={styles.formGroup}>
+                <label style={{ ...styles.label, textAlign: 'left' }}>ลองจิจูด</label>
+                <input
+                  type="text"
+                  value={formData.longitude.toFixed(6)}
+                  readOnly
+                  style={{
+                    ...styles.input,
+                    backgroundColor: "#f5f5f5",
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }}
+                />
+              </div>
+            
           </div>
         </div>
 
@@ -728,7 +807,7 @@ const PlaceRegistration = () => {
 
           <div style={styles.addressGrid}>
             <div style={styles.formGroup}>
-              <label style={styles.label}>บ้านเลขที่ *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>บ้านเลขที่ *</label>
               <input
                 type="text"
                 name="address.houseNo"
@@ -739,7 +818,7 @@ const PlaceRegistration = () => {
               />
             </div>
             <div style={styles.formGroup}>
-              <label style={styles.label}>หมู่ที่</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>หมู่ที่</label>
               <input
                 type="text"
                 name="address.moo"
@@ -750,7 +829,7 @@ const PlaceRegistration = () => {
               />
             </div>
             <div style={styles.formGroup}>
-              <label style={styles.label}>ซอย</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>ซอย</label>
               <input
                 type="text"
                 name="address.soi"
@@ -763,7 +842,7 @@ const PlaceRegistration = () => {
 
             {/* Dropdown จังหวัด */}
             <div style={styles.formGroup}>
-              <label style={styles.label}>จังหวัด *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>จังหวัด *</label>
               <select
                 value={selectedProvinceId?.name_th || ''}
                 onChange={handleProvinceChange}
@@ -780,7 +859,7 @@ const PlaceRegistration = () => {
 
             {/* Dropdown อำเภอ */}
             <div style={styles.formGroup}>
-              <label style={styles.label}>อำเภอ/เขต *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>อำเภอ/เขต *</label>
               <select
                 value={selectedDistrictId?.name_th || ''}
                 onChange={handleDistrictChange}
@@ -798,7 +877,7 @@ const PlaceRegistration = () => {
 
             {/* Dropdown ตำบล */}
             <div style={styles.formGroup}>
-              <label style={styles.label}>ตำบล/แขวง *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>ตำบล/แขวง *</label>
               <select
                 value={selectedSubDistrictId?.name_th || ''}
                 onChange={handleSubDistrictChange}
@@ -815,7 +894,7 @@ const PlaceRegistration = () => {
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>รหัสไปรษณีย์ *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>รหัสไปรษณีย์ *</label>
               <input
                 type="text"
                 name="address.zipCode"
@@ -826,7 +905,7 @@ const PlaceRegistration = () => {
               />
             </div>
             <div style={styles.formGroup}>
-              <label style={styles.label}>เบอร์โทร *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>เบอร์โทร *</label>
               <input
                 type="tel"
                 name="address.mobile"
@@ -843,7 +922,7 @@ const PlaceRegistration = () => {
           <h2 style={styles.sectionTitle}>รูปภาพและอุปกรณ์</h2>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>รูปภาพร้านค้า</label>
+            <label style={{ ...styles.label, textAlign: 'left' }}>รูปภาพร้านค้า</label>
             <input
               type="file"
               multiple

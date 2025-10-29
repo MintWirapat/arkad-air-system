@@ -197,7 +197,7 @@ const ContactUs: React.FC = () => {
                             <div className="flex items-start space-x-4">
                                 <MapPin className="w-6 h-6 text-gray-800 mt-1 flex-shrink-0" />
                                 <div>
-                                    <p className="text-sm md:text-base text-gray-800 leading-relaxed">
+                                    <p className="text-sm md:text-base text-gray-800 leading-relaxed text-left">
                                         บริษัท วินเซนต์ ออโตเมชั่น จำกัด<br />
                                         178/13 หมู่ ต.หางดง อ.หางดง <br />
                                         จ.เชียงใหม่ 50230

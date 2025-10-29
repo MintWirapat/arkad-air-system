@@ -146,11 +146,10 @@ const ArkadERV: React.FC = () => {
                                     <button
                                         key={m}
                                         onClick={() => setSelectedModel(m)}
-                                        className={`px-4 md:px-8 py-2 md:py-3 rounded-full border text-sm md:text-base transition whitespace-nowrap ${
-                                            selectedModel === m
+                                        className={`px-4 md:px-8 py-2 md:py-3 rounded-full border text-sm md:text-base transition whitespace-nowrap ${selectedModel === m
                                                 ? "border-blue-500 text-blue-600 font-semibold"
                                                 : "border-gray-300 text-gray-700 hover:border-gray-400"
-                                        }`}
+                                            }`}
                                     >
                                         {m}
                                     </button>
@@ -183,14 +182,158 @@ const ArkadERV: React.FC = () => {
                 </div>
             </div>
 
-            {/* รูป Banner */}
-            <div className="mb-2 mt-2 md:mt-16 px-4">
-                <div className="text-center">
-                    <img
-                        src={require("../images/infoERV.png")}
-                        alt="Arkad Possitive Pressure Air Ventilation"
-                        className="w-full max-w-5xl mx-auto rounded-lg"
-                    />
+            {/* Product Info Section */}
+            <div className="mt-12 mb-16 px-4">
+                <div className="max-w-5xl mx-auto text-center">
+                    {/* Title */}
+                    <h2 className="text-3xl font-bold mb-3">Arkad ERV</h2>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
+                        Arkad Energy Recovery Ventilation
+                    </p>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-10 max-w-3xl mx-auto">
+                        เครื่องเติมอากาศสะอาดแบบหมุนเวียน รุ่น Arkad ERV มีคุณสมบัติในการสร้างห้องแรงดันบวก <br />
+                        กรอง ฝุ่นขนาดเล็ก PM2.5 สารระเหย สารก่อภูมิแพ้ เชื้อโรค<br />
+                        ระบบการกรองอากาศ 3 ชั้น Pre Filter , Carbon Filte , HEPA H13<br />
+                    </p>
+
+                    {/* Section - จุดเด่นของผลิตภัณฑ์ */}
+                    <div className="flex flex-row justify-center items-start gap-4 md:gap-16 mt-8 px-2 md:px-4">
+                        {/* ฝั่งซ้าย */}
+                        <div className="flex flex-col items-end w-1/2 text-gray-700">
+                            <div className="flex flex-col items-end">
+                                <img
+                                    src={require("../images/iconhome.png")}
+                                    alt="House Icon"
+                                    className="w-8 h-8 md:w-10 md:h-10 mb-2"
+                                />
+                            </div>
+                            <p className="text-gray-700 text-xs md:text-base leading-relaxed text-right">
+                                สร้างห้องแรงดันบวก<br />
+                                เติมออกซิเจนเข้าสู่ตัวบ้าน<br />
+                                ควบคุมผ่าน App Arkad<br />
+                                ลดฝุ่นและป้องกันฝุ่นเข้าบ้าน<br />
+                                ลดคาบอนไดออกไซด์สะสมภายในบ้าน<br />
+                                กรองฝุ่นขนาดเล็กกกว่า 0.1 ไมครอน 99.95%<br />
+                                แสดงคุณภาพอากาศภายในห้อง
+                            </p>
+                        </div>
+
+                        {/* เส้นคั่นตรงกลาง */}
+                        <div className="h-auto w-px bg-gray-300 self-stretch"></div>
+
+                        {/* ฝั่งขวา */}
+                        <div className="flex flex-col items-start w-1/2 text-gray-700">
+                            <div className="flex flex-col items-start">
+                                <img
+                                    src={require("../images/iconfamily.png")}
+                                    alt="Family Icon"
+                                    className="w-8 h-8 md:w-10 md:h-10 mb-2"
+                                />
+                            </div>
+                            <p className="text-gray-700 text-xs md:text-base leading-relaxed text-left">
+                                หายใจกับอากาศสะอาด<br />
+                                เพิ่มประสิทธิภาพการทำกิจกรรม<br />
+                                เสริมสร้างพัฒนาการเด็ก<br />
+                                ช่วยลดการนอนกรน<br />
+                                ลดอาการง่วงซึม<br />
+                                ลดปัจจัยการเกิดภูมิแพ้<br />
+                                ลดสารก่อมะเร็งจากมลพิษทางอากาศ
+                            </p>
+                        </div>
+                    </div>
+
+
+                    {/* การรับประกัน */}
+                    <h2 className="text-3xl font-bold mb-3 mt-10">การรับประกัน</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12 mt-10">
+                        {/* กล่องตัวเครื่อง */}
+                        <div className="flex flex-col items-center justify-center text-center border rounded-2xl py-6">
+                            <img
+                                src={require("../images/warranty1.png")}
+                                alt="ตัวเครื่องรับประกัน"
+                                className="w-12 h-12 mb-3"
+                            />
+                            <p className="text-gray-700 mb-1">ตัวเครื่องรับประกัน</p>
+                            <p className="text-blue-500 text-2xl font-bold">1 ปี</p>
+                        </div>
+
+                        {/* กล่องมอเตอร์ */}
+                        <div className="flex flex-col items-center justify-center text-center border rounded-2xl py-6">
+                            <img
+                                src={require("../images/warranty2.png")}
+                                alt="มอเตอร์รับประกัน"
+                                className="w-12 h-12 mb-3"
+                            />
+                            <p className="text-gray-700 mb-1">มอเตอร์รับประกัน</p>
+                            <p className="text-blue-500 text-2xl font-bold">3 ปี</p>
+                        </div>
+
+                        {/* กล่องจอควบคุม */}
+                        <div className="flex flex-col items-center justify-center text-center border rounded-2xl py-6">
+                            <img
+                                src={require("../images/warranty3.png")}
+                                alt="จอควบคุมรับประกัน"
+                                className="w-12 h-12 mb-3"
+                            />
+                            <p className="text-gray-700 mb-1">จอควบคุมรับประกัน</p>
+                            <p className="text-blue-500 text-2xl font-bold">1 ปี</p>
+                        </div>
+                    </div>
+                    <h2 className="text-3xl font-bold mb-3 mt-10">คุณสมบัติ</h2>
+
+                    {/* ตารางคุณสมบัติ */}
+                    <div className="overflow-x-auto mt-10">
+                        <table className="w-full border-collapse text-sm md:text-base">
+                            <thead>
+                                <tr className="bg-gray-50">
+                                    <th className="border border-gray-300 px-4 py-2 text-left font-medium">
+                                        เครื่องเติมอากาศรุ่น
+                                    </th>
+                                    <th className="border border-gray-300 px-4 py-3 text-center font-medium">PPV 160</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-center font-medium">PPV 250</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">ขนาดห้อง</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">32 ตร.ม.</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">50 ตร.ม.</td>
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">ระดับพัดลม</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center" colSpan={2}>
+                                        HIGH / LOW
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">การเติมอากาศ</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">160 / 120 cmh</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">250 / 200 cmh</td>
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">การเปลี่ยนอากาศ</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">88 / 70 cfm</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">147 / 117 cfm</td>
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">กำลังไฟ</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">45 / 30 W</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">60 / 50 W</td>
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">เสียง</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">55 / 50 dB</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">57 / 52 dB</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

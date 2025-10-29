@@ -196,14 +196,132 @@ const ArkadMonitor: React.FC = () => {
                 </div>
             </div>
 
-            {/* รูป Banner */}
-            <div className="mb-8 md:mb-12 mt-8 md:mt-16 px-4">
-                <div className="text-center">
-                    <img
-                        src={require("../images/infomonitor.png")}
-                        alt="Arkad Monitor Info"
-                        className="w-full max-w-5xl mx-auto rounded-lg"
-                    />
+            {/* Product Info Section */}
+            <div className="mt-12 mb-16 px-4">
+                <div className="max-w-5xl mx-auto text-center">
+                    {/* Title */}
+                    <h2 className="text-3xl font-bold mb-3">Monitor</h2>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
+                        Arkad Monitor Air Quality Meter<br />
+
+                        เครื่องวัดคุณภาพอากาศ แบบตั้งโต๊ะ<br />
+                    </p>
+
+
+                    {/* Section - จุดเด่นของผลิตภัณฑ์ */}
+                    <div className="flex flex-row justify-center items-start gap-4 md:gap-16 mt-8 px-2 md:px-4">
+                        {/* ฝั่งซ้าย */}
+                        <div className="flex flex-col items-end w-1/2 text-gray-700">
+
+                            <p className="text-gray-700 text-xs md:text-base leading-relaxed text-center">
+                                <span className="font-semibold">AQI</span><br />
+                                ดัชนีคุณภาพอากาศโดยรวม (Air Quality Index)<br />
+                                <span className="font-semibold">PM 2.5</span><br />
+                                ฝุ่นละอองขนาดเล็ก มีขนาดเส้นผ่านศูนย์กลางไม่เกิน 2.5 ไมโครเมตร<br />
+                                <span className="font-semibold">PM 10</span><br />
+                                ฝุ่นละอองขนาดไม่เกิน 10 ไมครอน<br />
+                                <span className="font-semibold">HCHO</span><br />
+                                สารฟอร์มาลดีไฮด์ (Formaldehyde)<br />
+                                เป็นก๊าซไม่มีสี มีกลิ่นฉุน ใช้ในอุตสาหกรรม เช่น<br />
+                                ทำพลาสติก น้ำยาฆ่าเชื้อ และสารกันบูด<br />
+                            </p>
+                        </div>
+
+                        {/* เส้นคั่นตรงกลาง */}
+                        <div className="h-auto w-px bg-gray-300 self-stretch"></div>
+
+                        {/* ฝั่งขวา */}
+                        <div className="flex flex-col items-start w-1/2 text-gray-700">
+
+                            <p className="text-gray-700 text-xs md:text-base leading-relaxed text-center">
+                                <span className="font-semibold">CO₂</span><br />
+                                คาร์บอนไดออกไซด์เกิดจากการหายใจ การเผาไหม้ และกิจกรรมอุตสาหกรรม<br />
+                                <span className="font-semibold">Temp</span><br />
+                                แสดงค่าอุณหภูมิของอากาศในพื้นที่<br />
+                                <span className="font-semibold">HUM</span><br />
+                                ระดับความชื้นสัมพัทธ์ในอากาศ<br />
+                                <span className="font-semibold">TVOC</span><br />
+                                (Total Volatile Organic Compounds)<br />
+                                ปริมาณรวมของสารอินทรีย์ระเหยง่ายในอากาศมาจากสีทาบ้าน<br />
+                                น้ำยาทำความสะอาด กาว เฟอร์นิเจอร์ ไอเสียรถยนต์<br />
+                            </p>
+                        </div>
+                    </div>
+
+                    
+
+                    <h2 className="text-3xl font-bold mb-3 mt-10">คุณสมบัติ</h2>
+
+                    {/* ตารางคุณสมบัติ */}
+                    <div className="overflow-x-auto mt-10">
+                        <table className="w-full border-collapse text-sm md:text-base">
+                            <thead>
+                                <tr className="bg-gray-50">
+                                    <th className="border border-gray-300 px-4 py-2 text-left font-medium">
+                                        เครื่องวัดคุณภาพอากาศรุ่น
+                                    </th>
+                                    <th className="border border-gray-300 px-4 py-2 text-center" colSpan={3}>Arkad Dust Walker Meter</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">ขนาดห้อง</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">ย่าน</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">ความแม่นยำ</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">หน่วย</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">  PM2.5</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">0–999 µg/m³</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">±10 µg/m³</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">1 µg/m³</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">อุณหภูมิ</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">–10 – 50 °C</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">±1 °C</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">1 °C</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">ความชื้นสัมพัทธ์ (RH)</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">20%–85% RH</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">±4% RH</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-center">1% RH</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">ขนาดสินค้า</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}> 7 x 7 x 3.2 cm</td>
+
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">น้ำหนัก</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}> 120 g</td>
+
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">การแสดงผล</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}>LCD Screen</td>
+
+
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">Power</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}> Lithium battery with 800 mAh capacity<br />
+                                        5V  DC power charging Type-C port</td>
+                                </tr>
+                                <tr>
+                                    <td className="border border-gray-300 px-4 py-2 text-left">Set Includes</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-left " colSpan={3}> Arkad Dust Walker Meter x 1 <br />
+                                        Type-C Charging Cable x 1<br />
+                                        คู่มือ x 1 <br /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
