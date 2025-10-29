@@ -377,7 +377,7 @@ const ArkadERV: React.FC = () => {
                     ฿{modelData[selectedModel].price.toLocaleString()}
                 </div>
                 <div className="text-xs md:text-sm text-gray-500 bg-gray-200 py-2 px-4 rounded">
-                    *ราคาต่ออุปกรณ์ควรต้องเพิ่มเติมค่าแรงติดตั้ง โปรดติดต่อตัวแทนจำหน่ายสำหรับราคาที่ดีที่สุด*
+                    "ราคาที่แสดงอาจมีการเปลี่ยนแปลงตามเงื่อนไข โดยยังไม่รวมค่าขนส่งและค่าติดตั้ง"
                 </div>
             </div>
 

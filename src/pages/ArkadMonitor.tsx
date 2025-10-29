@@ -105,7 +105,7 @@ const ArkadMonitor: React.FC = () => {
                                 <div>
                                     <p className="text-sm">Arkad Monitor</p>
                                     <p className="text-sm">เครื่องวัดคุณภาพอากาศแบบตั้งโต๊ะ แสดงคุณภาพอากาศแบบเรียลไทม์</p>
-                                    <p className="text-sm">พร้อมเซนเซอร์ตรวจคุณภาพอากาศแบบละเอียด ที่สามารถสามารถแสดง</p>
+                                    <p className="text-sm">พร้อมเซนเซอร์ตรวจคุณภาพอากาศแบบละเอียด ที่สามารถแสดง</p>
                                     <p className="text-sm">ข้อมูลสภาพอากาศบน APP ได้</p>
                                 </div>
                             </div>

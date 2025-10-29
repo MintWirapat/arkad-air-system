@@ -214,7 +214,7 @@ const HomePage = () => {
                 />
               </div>
               <h3 className="font-bold text-lg mb-2">เติมอากาศสะอาด</h3>
-              <p className="text-sm">ระบบกรองฝุ่น PM2.5ฝุ่นขนาดเล็ก และสารก่อภูมิแพ้</p>
+              <p className="text-sm">ระบบกรองฝุ่น PM2.5ฝุ่นขนาดเล็ก <br /> และสารก่อภูมิแพ้</p>
             </div>
 
             {/* Feature 2 */}
@@ -227,7 +227,7 @@ const HomePage = () => {
                 />
               </div>
               <h3 className="font-bold text-lg mb-2">อากาศหมุนเวียน</h3>
-              <p className="text-sm">อากาศภายในบ้านมีการหมุนเวียนแม้จะปิดประตูแหละหน้าต่าง</p>
+              <p className="text-sm">อากาศภายในบ้านมีการหมุนเวียน <br />  แม้จะปิดประตูแหละหน้าต่าง</p>
             </div>
 
             {/* Feature 3 */}
@@ -253,7 +253,7 @@ const HomePage = () => {
                 />
               </div>
               <h3 className="font-bold text-lg mb-2">บ้านอากาศสะอาด</h3>
-              <p className="text-sm">สร้างห้องแรงดันบวกให้กับบ้าน กันฝุ่นเข้าดันฝุ่นในบ้านออก</p>
+              <p className="text-sm">สร้างห้องแรงดันบวกให้กับบ้าน <br />กันฝุ่นเข้าดันฝุ่นในบ้านออก</p>
             </div>
           </div>
         </div>

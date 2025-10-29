@@ -49,7 +49,7 @@ const AboutUs: React.FC = () => {
                         <div className="pb-6 border-b border-gray-200">
                             <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">2564</h3>
                             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                                ออกแบบผลิตภัณฑ์เครื่องเติมอากาศสะอาดแบบหมุนเวียนอากาศ ERV (Energy Recover Ventilation) ที่ผ่านการทดสอบมาตรฐานการกรองอากาศจาก
+                                ออกแบบผลิตภัณฑ์เครื่องเติมอากาศสะอาดแบบหมุนเวียนอากาศ ERV (Energy Recover Ventilation) <br /> ที่ผ่านการทดสอบมาตรฐานการกรองอากาศจาก <br />
                                 หน่วยวิจัยสนามไฟฟ้าประยุกต์ในงานวิศวกรรมมหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา (RUEE LAB)
                             </p>
                         </div>
@@ -58,7 +58,8 @@ const AboutUs: React.FC = () => {
                         <div className="pb-6 border-b border-gray-200">
                             <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">2565</h3>
                             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                                ทางบริษัทได้สร้างพันธมิตรในการจำหน่ายสินค้าและผลิตภัณฑ์ให้ครอบคลุมทุกพื้นที่เพื่อตอบสนองความสะดวกสบายของลูกค้า
+                                ทางบริษัทได้สร้างพันธมิตรในการจำหน่ายสินค้าและผลิตภัณฑ์ให้ครอบคลุมทุกพื้นที่ <br />
+                                เพื่อตอบสนองความสะดวกสบายของลูกค้า
                             </p>
                         </div>
 
@@ -66,7 +67,7 @@ const AboutUs: React.FC = () => {
                         <div className="pb-6">
                             <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">2566 - ปัจจุบัน</h3>
                             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                                พัฒนาเทคโนโลยีการเชื่อมต่อระหว่างผลิตภัณฑ์และมือถือเพื่อให้ลูกค้าสามารถเข้าถึงข้อมูลคุณภาพอากาศภายในบ้าน
+                                พัฒนาเทคโนโลยีการเชื่อมต่อระหว่างผลิตภัณฑ์และมือถือเพื่อให้ลูกค้าสามารถเข้าถึงข้อมูลคุณภาพอากาศภายในบ้าน <br />
                                 ควบคุมผลิตภัณฑ์ Arkad และติดตามคุณภาพอากาศโดยรวมในประเทศ
                             </p>
                         </div>

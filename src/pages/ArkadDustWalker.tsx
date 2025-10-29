@@ -90,7 +90,7 @@ const ArkadDustWalker: React.FC = () => {
                                     </div>
                                     <div className="border-t md:border-t-0 md:border-l">
                                         <span className="text-xs text-gray-500 p-3 block text-center md:text-right">
-                                            ราคาดังกล่าวเป็นเพียงแนวทางเท่านั้น <br /> โดยยังไม่รวมค่าขนส่ง
+                                            ราคาอาจมีการเปลี่ยนแปลงตามเงื่อนไข <br /> ยังไม่รวมค่าขนส่งและค่าติดตั้ง
                                         </span>
                                     </div>
                                 </div>
