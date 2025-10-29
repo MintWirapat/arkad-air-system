@@ -100,6 +100,7 @@ const PlaceRegistration = () => {
   const subdistrict = selectedDistrictId?.tambon || [];
 
 
+
   // ดึงข้อมูลอำเภอเมื่อเลือกจังหวัด
   const handleProvinceChange = async (e) => {
     const provinceId = (e.target.value);
@@ -171,6 +172,7 @@ const PlaceRegistration = () => {
 
 
   };
+  
 
 
 
@@ -298,6 +300,37 @@ const PlaceRegistration = () => {
     }
     if (formData.types.length === 0) {
       setPopupMessage('กรุณาเลือกหมวดหมู่สถานที่');
+      setShowPopup(true);
+      return;
+    }
+    // ตรวจสอบข้อมูลที่อยู่ร้านค้า
+    if (!formData.address.houseNo) {
+      setPopupMessage('กรุณากรอกบ้านเลขที่');
+      setShowPopup(true);
+      return;
+    }
+    if (!formData.address.province) {
+      setPopupMessage('กรุณาเลือกจังหวัด');
+      setShowPopup(true);
+      return;
+    }
+    if (!formData.address.district) {
+      setPopupMessage('กรุณาเลือกอำเภอ/เขต');
+      setShowPopup(true);
+      return;
+    }
+    if (!formData.address.subDistrict) {
+      setPopupMessage('กรุณาเลือกตำบล/แขวง');
+      setShowPopup(true);
+      return;
+    }
+    if (!formData.address.zipCode) {
+      setPopupMessage('กรุณากรอกรหัสไปรษณีย์');
+      setShowPopup(true);
+      return;
+    }
+    if (!formData.address.mobile) {
+      setPopupMessage('กรุณากรอกเบอร์โทร');
       setShowPopup(true);
       return;
     }
