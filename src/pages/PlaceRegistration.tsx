@@ -448,7 +448,7 @@ const PlaceRegistration = () => {
           <h2 style={styles.sectionTitle}>ข้อมูลพื้นฐาน</h2>
 
           <div style={styles.formGroup}>
-            <label style={{ ...styles.label, textAlign: 'left' }}>ชื่อสถานที่/ร้านค้า *</label>
+            <label style={{ ...styles.label, textAlign: 'left' }}>ชื่อสถานที่/ร้านค้า  <span style={{ color: 'red' }}>*</span></label>
             <input
               type="text"
               name="name"
@@ -542,7 +542,7 @@ const PlaceRegistration = () => {
           <h2 style={styles.sectionTitle}>หมวดหมู่สถานที่ และรายละเอียดสถานที่</h2>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>หมวดหมู่สถานที่ *</label>
+            <label style={{ ...styles.label, textAlign: 'left' }}>หมวดหมู่สถานที่  <span style={{ color: 'red' }}>*</span></label>
             <div style={styles.selectWrapper} ref={typeDropdownRef}>
               <button
                 type="button"
@@ -840,7 +840,7 @@ const PlaceRegistration = () => {
 
           <div style={styles.addressGrid}>
             <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>บ้านเลขที่ *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>บ้านเลขที่ <span style={{ color: 'red' }}>*</span></label>
               <input
                 type="text"
                 name="address.houseNo"
@@ -875,7 +875,7 @@ const PlaceRegistration = () => {
 
             {/* Dropdown จังหวัด */}
             <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>จังหวัด *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>จังหวัด <span style={{ color: 'red' }}>*</span></label>
               <select
                 value={selectedProvinceId?.name_th || ''}
                 onChange={handleProvinceChange}
@@ -892,7 +892,7 @@ const PlaceRegistration = () => {
 
             {/* Dropdown อำเภอ */}
             <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>อำเภอ/เขต *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>อำเภอ/เขต <span style={{ color: 'red' }}>*</span></label>
               <select
                 value={selectedDistrictId?.name_th || ''}
                 onChange={handleDistrictChange}
@@ -910,7 +910,7 @@ const PlaceRegistration = () => {
 
             {/* Dropdown ตำบล */}
             <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>ตำบล/แขวง *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>ตำบล/แขวง <span style={{ color: 'red' }}>*</span></label>
               <select
                 value={selectedSubDistrictId?.name_th || ''}
                 onChange={handleSubDistrictChange}
@@ -927,7 +927,7 @@ const PlaceRegistration = () => {
             </div>
 
             <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>รหัสไปรษณีย์ *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>รหัสไปรษณีย์ <span style={{ color: 'red' }}>*</span></label>
               <input
                 type="text"
                 name="address.zipCode"
@@ -938,7 +938,7 @@ const PlaceRegistration = () => {
               />
             </div>
             <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>เบอร์โทร *</label>
+              <label style={{ ...styles.label, textAlign: 'left' }}>เบอร์โทร <span style={{ color: 'red' }}>*</span></label>
               <input
                 type="tel"
                 name="address.mobile"
@@ -955,7 +955,7 @@ const PlaceRegistration = () => {
           <h2 style={styles.sectionTitle}>รูปภาพและอุปกรณ์</h2>
 
           <div style={styles.formGroup}>
-            <label style={{ ...styles.label, textAlign: 'left' }}>รูปภาพร้านค้า</label>
+            <label style={{ ...styles.label, textAlign: 'left' }}>รูปภาพร้านค้า </label>
             <input
               type="file"
               multiple
@@ -1112,13 +1112,17 @@ const styles = {
   },
   header: {
     textAlign: 'center',
-    marginBottom: '30px'
+    marginBottom: '30px',
+    paddingTop: '80px',
+    paddingBottom: '10px'
+
   },
   title: {
     fontSize: '28px',
     fontWeight: '600',
     color: '#323233',
-    margin: 0
+    margin: 0,
+    padding: '10px 0'
   },
   form: {
     width: '100%'

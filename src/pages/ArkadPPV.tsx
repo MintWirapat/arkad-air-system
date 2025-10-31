@@ -127,7 +127,8 @@ const ArkadPPV: React.FC = () => {
                                     </div>
                                     <div className="border-t md:border-t-0 md:border-l">
                                         <span className="text-xs text-gray-500 p-3 block text-center md:text-right">
-                                            ราคาดังกล่าวเป็นเพียงแนวทางเท่านั้น <br /> โดยยังไม่รวมค่าขนส่งและค่าติดตั้ง
+                                            ราคาดังกล่าวเป็นราคาที่รวม Vat7% <br />
+                                            โดยยังไม่รวมค่าติดตั้งและค่าขนส่ง
                                         </span>
                                     </div>
                                 </div>
@@ -426,7 +427,8 @@ const ArkadPPV: React.FC = () => {
                     ฿{modelData[selectedModel].price.toLocaleString()}
                 </div>
                 <div className="text-xs md:text-sm text-gray-500 bg-gray-200 py-2 px-4 rounded">
-                    "ราคาที่แสดงอาจมีการเปลี่ยนแปลงตามเงื่อนไข โดยยังไม่รวมค่าขนส่งและค่าติดตั้ง"
+                    ราคาดังกล่าวเป็นราคาที่รวม Vat7%
+                    โดยยังไม่รวมค่าติดตั้งและค่าขนส่ง
                 </div>
             </div>
 

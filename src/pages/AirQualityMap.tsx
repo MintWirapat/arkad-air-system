@@ -139,10 +139,9 @@ const AirQualityMap = () => {
         const userLon = position.coords.longitude;
         const userLat = position.coords.latitude;
 
-        // ซูมเข้าไปที่ตำแหน่งผู้ใช้
         mapInstanceRef.current.getView().animate({
           center: fromLonLat([userLon, userLat]),
-          zoom: 15, // ซูมเข้าไปที่ระดับ 15
+          zoom: 15,
           duration: 1000
         });
 
@@ -180,7 +179,6 @@ const AirQualityMap = () => {
       source: vectorSourceRef.current
     });
 
-    // สร้างแผนที่โดยเริ่มต้นที่ประเทศไทย ซูมออก
     mapInstanceRef.current = new Map({
       target: mapRef.current,
       layers: [
@@ -193,8 +191,8 @@ const AirQualityMap = () => {
         vectorLayer
       ],
       view: new View({
-        center: fromLonLat([100.5, 13.7]), // ใจกลางประเทศไทย (กรุงเทพฯ)
-        zoom: 6, // ซูมออกเพื่อเห็นประเทศไทยทั้งหมด
+        center: fromLonLat([100.5, 13.7]),
+        zoom: 6,
         minZoom: 5,
         maxZoom: 19
       }),
@@ -205,9 +203,6 @@ const AirQualityMap = () => {
       mapInstanceRef.current.updateSize();
     };
     window.addEventListener('resize', resizeHandler);
-
-    // ไม่ต้องซูมเข้าหาตำแหน่งผู้ใช้อัตโนมัติตอนเริ่มต้น
-    // ให้รอผู้ใช้กดปุ่มเองแทน
 
     mapInstanceRef.current.on('click', (event) => {
       const feature = mapInstanceRef.current.forEachFeatureAtPixel(event.pixel, feature => feature);
@@ -238,7 +233,51 @@ const AirQualityMap = () => {
   return (
     <>
       <div style={styles.container}>
-        <div ref={mapRef} style={styles.mapContainer}></div>
+        <div ref={mapRef} style={isMobile ? styles.mapContainerMobile : styles.mapContainer}>
+          {/* ย้าย cmu-ccdc.png เข้ามาอยู่ใน mapContainer */}
+          <div style={{ ...styles.dustboyLogo, display: isMenuOpen ? 'none' : 'block' }}>
+            <img src={require("../images/cmu-ccdc.png")} width="200px" alt="CMUCCDC" />
+          </div>
+
+          <button
+            onClick={goToUserLocation}
+            style={{
+              ...(isMobile ? styles.locationButtonMobile : styles.locationButton),
+              display: isMenuOpen ? 'none' : 'flex'
+            }}
+            title="ไปยังตำแหน่งของฉัน"
+          >
+            <img src={require("../images/mapsflags.png")} alt="location" style={{ width: '24px', height: '24px' }} />
+          </button>
+
+          {!isMobile && (
+            <div style={styles.legend}>
+              <h3 style={styles.legendTitle}>คุณภาพอากาศ</h3>
+              {airQualityLevels.map((level, index) => (
+                <div key={index} style={styles.legendItem}>
+                  <div style={{ ...styles.colorBox, backgroundColor: level.color }}></div>
+                  <span>{level.label} ({level.range})</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div style={styles.pm25LevelBar}>
+            {[
+              { value: '0-15.0', color: 'rgb(0,191,243)', Image: require("../images/DUST_GIRL3.png") },
+              { value: '15.1-25.0', color: 'rgb(0,166,81)', Image: require("../images/DUST_GIRL2.png") },
+              { value: '25.1-37.5', color: 'rgb(253,192,78)', Image: require("../images/DUST_GIRL.png") },
+              { value: '37.6-75.0', color: 'rgb(242,101,34)', Image: require("../images/DUST_GIRL5.png") },
+              { value: '>75.0', color: 'rgb(205,0,0)', Image: require("../images/DUST_GIRL4.png") }
+            ].map((item, index) => (
+              <div key={index} style={{ ...styles.levelItem, backgroundColor: item.color }}>
+                <div style={styles.levelValue}>{item.value}</div>
+                <img src={item.Image} alt="dust level icon" style={styles.dustboyIcon} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <Footer />
 
         {popupVisible && popupContent && (
           <div style={{ ...styles.popup, backgroundColor: getColorByPM25(popupContent.pm25) }}>
@@ -248,48 +287,9 @@ const AirQualityMap = () => {
             <div style={styles.airQualityStatus}>{getAirQualityStatus(popupContent.pm25)}</div>
           </div>
         )}
-
-        <div style={{ ...styles.dustboyLogo, display: isMenuOpen ? 'none' : 'block' }}>
-          <img src={require("../images/cmu-ccdc.png")} width="200px" alt="CMUCCDC" />
-        </div>
-
-        <button 
-          onClick={goToUserLocation} 
-          style={{ ...styles.locationButton, display: isMenuOpen ? 'none' : 'flex' }} 
-          title="ไปยังตำแหน่งของฉัน"
-        >
-          📍
-        </button>
-
-        {!isMobile && (
-          <div style={styles.legend}>
-            <h3 style={styles.legendTitle}>คุณภาพอากาศ</h3>
-            {airQualityLevels.map((level, index) => (
-              <div key={index} style={styles.legendItem}>
-                <div style={{ ...styles.colorBox, backgroundColor: level.color }}></div>
-                <span>{level.label} ({level.range})</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <div style={styles.pm25LevelBar}>
-          {[
-            { value: '0-15.0', color: 'rgb(0,191,243)', Image: require("../images/DUST_GIRL3.png") },
-            { value: '15.1-25.0', color: 'rgb(0,166,81)', Image: require("../images/DUST_GIRL2.png") },
-            { value: '25.1-37.5', color: 'rgb(253,192,78)', Image: require("../images/DUST_GIRL.png") },
-            { value: '37.6-75.0', color: 'rgb(242,101,34)', Image: require("../images/DUST_GIRL5.png") },
-            { value: '>75.0', color: 'rgb(205,0,0)', Image: require("../images/DUST_GIRL4.png") }
-          ].map((item, index) => (
-            <div key={index} style={{ ...styles.levelItem, backgroundColor: item.color }}>
-              <div style={styles.levelValue}>{item.value}</div>
-              <img src={item.Image} alt="dust level icon" style={styles.dustboyIcon} />
-            </div>
-          ))}
-        </div>
       </div>
 
-      <Footer />
+
     </>
   );
 };
@@ -297,18 +297,25 @@ const AirQualityMap = () => {
 const styles = {
   container: {
     width: '100%',
-    height: '100vh',
+    height: '100vh', // เปลี่ยนจาก minHeight เป็น height
     position: 'relative',
     overflow: 'hidden',
     fontFamily: 'Arial, sans-serif',
-    paddingTop: '64px'
+    paddingTop: '64px',
+    display: 'flex',
+    flexDirection: 'column'
   },
   mapContainer: {
     width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
+    height: 'calc(79vh - 64px - 70px)',
+    position: 'relative',
+    zIndex: 1,
+    backgroundColor: '#f5f5f5'
+  },
+  mapContainerMobile: {
+    width: '100%',
+    height: '65vh', // ลดความสูงในโมบายเพื่อให้เห็น Footer
+    position: 'relative',
     zIndex: 1,
     backgroundColor: '#f5f5f5'
   },
@@ -355,7 +362,7 @@ const styles = {
   },
   dustboyLogo: {
     position: 'absolute',
-    top: '140px',
+    top: '30px',
     right: '10px',
     borderRadius: '5px',
     zIndex: 1000,
@@ -363,25 +370,43 @@ const styles = {
   },
   locationButton: {
     position: 'absolute',
-    top: '230px',
+    bottom: '90px', // เลื่อนขึ้นเพื่อไม่ให้ทับกับ legend
     right: '20px',
-    zIndex: 1000,
-    width: '40px',
-    height: '40px',
+    zIndex: 1001,
+    width: '50px',
+    height: '50px',
     borderRadius: '50%',
     border: 'none',
     backgroundColor: 'white',
-    fontSize: '20px',
     cursor: 'pointer',
     boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: 0
+  },
+  locationButtonMobile: {
+    position: 'absolute',
+    bottom: '90px', // ในโมบายวางเหนือ pm25LevelBar
+    right: '20px',
+    zIndex: 1001,
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    border: 'none',
+    backgroundColor: 'white',
+    cursor: 'pointer',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 0
   },
   legend: {
     position: 'absolute',
-    bottom: '130px',
-    right: '20px',
+    top: '50%',  // เพิ่มบรรทัดนี้ - วัดจากบนลงมา 50%
+    transform: 'translateY(-50%)',  // เปลี่ยนเป็นนี้ - เลื่อนขึ้นครึ่งนึงเพื่อให้กึ่งกลางจริงๆ
+    right: '20px',  // ชิดขวา
     background: 'white',
     padding: '10px',
     borderRadius: '5px',
@@ -428,18 +453,6 @@ const styles = {
   dustboyIcon: {
     width: '20px',
     height: '20px'
-  },
-  copyright: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#004466',
-    color: 'white',
-    textAlign: 'center',
-    padding: '5px 0',
-    fontSize: '12px',
-    zIndex: 1000
   }
 };
 

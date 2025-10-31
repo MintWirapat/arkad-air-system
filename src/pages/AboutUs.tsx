@@ -5,19 +5,12 @@ const AboutUs: React.FC = () => {
     return (
         <div className="min-h-screen flex flex-col">
 
-            {/* Hero Section - เพิ่ม padding-top เพื่อไม่ให้ติด Navbar */}
-            <div className="relative w-full pt-14 md:pt-16">
-                <img
-                    src={require("../images/9.png")}
-                    alt="Hero Background"
-                    className="w-full h-auto object-cover"
-                />
-            </div>
+
 
             {/* About Us Content */}
-            <div className="flex-grow bg-white py-8 md:py-12">
-                <div className="max-w-4xl mx-auto px-4">
-                    <h2 className="text-2xl md:text-3xl font-bold text-center text-blue-600 mb-8 md:mb-12">
+            <div className="flex-grow bg-white py-8 md:py-12 md:pb-2">
+                <div className="max-w-4xl mx-auto px-4 pt-12">
+                    <h2 className="text-2xl md:text-3xl font-bold text-center text-black mb-8 md:mb-12">
                         About Us
                     </h2>
 
@@ -71,12 +64,21 @@ const AboutUs: React.FC = () => {
                                 ควบคุมผลิตภัณฑ์ Arkad และติดตามคุณภาพอากาศโดยรวมในประเทศ
                             </p>
                         </div>
+
                     </div>
                 </div>
             </div>
+            {/* Hero Section - เพิ่ม padding-top เพื่อไม่ให้ติด Navbar */}
 
-            {/* เส้นขีดกั้น */}
-            <div className="border-t-2 border-gray-300"></div>
+            <div className="relative w-full -mt-4 md:-mt-8">
+                <img
+                    src={require("../images/9.png")}
+                    alt="Hero Background"
+                    className="w-full h-auto object-cover"
+                />
+            </div>
+
+           
 
             {/* Footer */}
             <Footer />

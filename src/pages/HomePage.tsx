@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import image1 from '../images/Banner1.png';
 import DownloadButton from '../components/DownloadApp.tsx';
@@ -6,7 +6,9 @@ import ProductCard from '../components/ProductCard.tsx';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(1);
+
   const products = [
     {
       name: 'Arkad PPV',
@@ -51,20 +53,37 @@ const HomePage = () => {
     }
   ];
 
-  const itemsPerPage = 1;
-  const maxSlide = Math.ceil(products.length - itemsPerPage);
+  // คำนวณจำนวนสินค้าที่แสดงต่อหน้าตามขนาดหน้าจอ
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth >= 1024) {
+        setItemsPerPage(3);
+      } else if (window.innerWidth >= 768) {
+        setItemsPerPage(2);
+      } else {
+        setItemsPerPage(1);
+      }
+    };
+
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    return () => window.removeEventListener('resize', updateItemsPerPage);
+  }, []);
+
+  // คำนวณ maxSlide ให้ถูกต้อง
+  // ถ้ามี 5 สินค้า แสดง 3 ชิ้น → เลื่อนได้สูงสุด 2 ครั้ง (index 0, 1, 2)
+  const maxSlide = Math.max(0, products.length - itemsPerPage);
 
   const nextSlide = () => {
-    setCurrentSlide(prev => prev < maxSlide ? prev + 1 : prev);
+    setCurrentSlide(prev => Math.min(prev + 1, maxSlide));
   };
 
   const prevSlide = () => {
-    setCurrentSlide(prev => prev > 0 ? prev - 1 : prev);
+    setCurrentSlide(prev => Math.max(prev - 1, 0));
   };
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-
       {/* Hero Section */}
       <section className="relative h-[500px] mt-16">
         <div
@@ -78,16 +97,14 @@ const HomePage = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-2">
             คิดถึงอากาศสะอาดต้อง Arkad
           </h1>
-
           <div className="w-[50%] border-t-[3px] border-white my-4"></div>
-
           <p className="text-4xl md:text-5xl font-bold text-center mb-2">
             Fresh Air Fresh Life
           </p>
         </div>
       </section>
 
-      {/* Products Section - แก้ไขส่วนนี้ */}
+      {/* Products Section */}
       <section className="w-full px-4 py-16 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="relative md:px-16">
@@ -95,9 +112,8 @@ const HomePage = () => {
             <button
               onClick={prevSlide}
               disabled={currentSlide === 0}
-              className={`hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 items-center justify-center shadow-lg border border-gray-200 transition-opacity ${
-                currentSlide === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
-              }`}
+              className={`hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 items-center justify-center shadow-lg border border-gray-200 transition-opacity ${currentSlide === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
+                }`}
             >
               <ArrowRight size={32} className="rotate-180 text-blue-500" strokeWidth={2.5} />
             </button>
@@ -105,10 +121,9 @@ const HomePage = () => {
             {/* ปุ่มเลื่อนขวา */}
             <button
               onClick={nextSlide}
-              disabled={currentSlide === maxSlide}
-              className={`hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 items-center justify-center shadow-lg border border-gray-200 transition-opacity ${
-                currentSlide === maxSlide ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
-              }`}
+              disabled={currentSlide >= maxSlide}
+              className={`hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 items-center justify-center shadow-lg border border-gray-200 transition-opacity ${currentSlide >= maxSlide ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
+                }`}
             >
               <ArrowRight size={32} className="text-blue-500" strokeWidth={2.5} />
             </button>
@@ -134,7 +149,9 @@ const HomePage = () => {
             >
               <div
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                style={{
+                  transform: `translateX(-${(currentSlide / itemsPerPage) * 100}%)`
+                }}
               >
                 {products.map((product, index) => (
                   <div

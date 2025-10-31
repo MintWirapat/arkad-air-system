@@ -93,7 +93,8 @@ const ArkadMonitor: React.FC = () => {
                                     </div>
                                     <div className="border-t md:border-t-0 md:border-l">
                                         <span className="text-xs text-gray-500 p-3 block text-center md:text-right">
-                                            ราคาอาจมีการเปลี่ยนแปลงตามเงื่อนไข <br /> ยังไม่รวมค่าขนส่งและค่าติดตั้ง
+                                            ราคาดังกล่าวเป็นราคาที่รวม Vat7% <br />
+                                            โดยยังไม่รวมค่าติดตั้งและค่าขนส่ง
                                         </span>
                                     </div>
                                 </div>
@@ -101,12 +102,11 @@ const ArkadMonitor: React.FC = () => {
 
                             {/* รายละเอียด */}
                             <div className="flex items-start gap-3 mb-4">
-                                <div className="w-2 h-2 rounded-full mt-2"></div>
-                                <div>
-                                    <p className="text-sm">Arkad Monitor</p>
-                                    <p className="text-sm">เครื่องวัดคุณภาพอากาศแบบตั้งโต๊ะ แสดงคุณภาพอากาศแบบเรียลไทม์</p>
-                                    <p className="text-sm">พร้อมเซนเซอร์ตรวจคุณภาพอากาศแบบละเอียด ที่สามารถแสดง</p>
-                                    <p className="text-sm">ข้อมูลสภาพอากาศบน APP ได้</p>
+                                <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0"></div>
+                                <div className="text-sm leading-relaxed space-y-1 min-w-0 flex-1">
+                                    <p className="font-medium">Arkad Monitor</p>
+                                    <p>เครื่องวัดคุณภาพอากาศแบบตั้งโต๊ะ แสดงคุณภาพอากาศแบบ<span className="whitespace-nowrap">เรียลไทม์</span> พร้อมเซนเซอร์ตรวจคุณภาพอากาศแบบละเอียด ที่สามารถแสดงข้อมูลสภาพอากาศบน APP ได้</p>
+                                    <p></p>
                                 </div>
                             </div>
 

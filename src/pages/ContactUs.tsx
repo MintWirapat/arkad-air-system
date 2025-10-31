@@ -33,18 +33,17 @@ const ContactUs: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Hero Section */}
-            <div className="pt-16 pb-16 px-4"></div>
+            
 
             {/* Contact Form Section */}
-            <div className="bg-white py-16">
+            <div className="bg-white py-16 pt-28">
                 <div className="max-w-4xl mx-auto px-4">
                     <h1 className="text-3xl md:text-5xl font-bold text-center mb-12 md:mb-16">Contact Us</h1>
 
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-300 p-6 md:p-12 space-y-6 md:space-y-8">
                         {/* แถวที่ 1: ชื่อ */}
                         <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center">
-                            <label className="text-sm md:text-base text-gray-900">ชื่อ</label>
+                            <label className="text-sm md:text-base text-gray-900 text-left">ชื่อ</label>
                             <input
                                 type="text"
                                 name="firstName"
@@ -57,7 +56,7 @@ const ContactUs: React.FC = () => {
 
                         {/* แถวที่ 2: อีเมล */}
                         <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center">
-                            <label className="text-sm md:text-base text-gray-900">อีเมล</label>
+                            <label className="text-sm md:text-base text-gray-900 text-left">อีเมล</label>
                             <input
                                 type="email"
                                 name="email"
@@ -70,7 +69,7 @@ const ContactUs: React.FC = () => {
 
                         {/* แถวที่ 3: หมายเลขโทรศัพท์ */}
                         <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center">
-                            <label className="text-sm md:text-base text-gray-900">หมายเลขโทรศัพท์</label>
+                            <label className="text-sm md:text-base text-gray-900 text-left">หมายเลขโทรศัพท์</label>
                             <input
                                 type="tel"
                                 name="phone"
@@ -83,7 +82,7 @@ const ContactUs: React.FC = () => {
 
                         {/* แถวที่ 4: หัวข้อ */}
                         <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center">
-                            <label className="text-sm md:text-base text-gray-900">หัวข้อ</label>
+                            <label className="text-sm md:text-base text-gray-900 text-left">หัวข้อ</label>
                             <input
                                 type="text"
                                 name="topic"

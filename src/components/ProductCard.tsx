@@ -102,35 +102,7 @@ const ProductCard = () => {
                 </div>
             </div>
 
-            {/* Social Media Section - แก้ไขส่วนนี้ */}
-            <div className="bg-gray-50 py-8">
-                <div className="max-w-6xl mx-auto px-4">
-                    <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-6 md:mb-8">
-                        ช่องทางการติดตาม
-                    </h3>
-                    <div className="flex justify-center items-center">
-                        <div className="grid grid-cols-4 gap-3 md:gap-5 justify-items-center">
-                            {socialLinks.map((social, index) => (
-                                <a
-                                    key={index}
-                                    href={social.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="bg-white p-2 md:p-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-2 border-gray-200 hover:border-blue-300"
-                                >
-                                    <div className="w-18 h-18 md:w-28 md:h-28 flex items-center justify-center">
-                                        <img
-                                            src={social.image}
-                                            alt={social.label}
-                                            className="w-full h-full object-contain"
-                                        />
-                                    </div>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
             {/* ใช้ Footer component */}
             <Footer />

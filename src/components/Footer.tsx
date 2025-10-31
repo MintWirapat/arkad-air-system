@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
                                             <img
                                                 src={social.image}
                                                 alt={social.label}
-                                                className="w-8 h-8 md:w-12 md:h-12 object-contain grayscale"
+                                                className="w-8 h-8 md:w-12 md:h-12 object-contain "
                                             />
                                         </a>
                                     );
@@ -88,8 +88,7 @@ const Footer: React.FC = () => {
                 </div>
             </footer>
 
-            {/* Black Bar */}
-            <div className="bg-black h-10"></div>
+           
         </>
     );
 };

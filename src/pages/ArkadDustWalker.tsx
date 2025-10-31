@@ -90,7 +90,8 @@ const ArkadDustWalker: React.FC = () => {
                                     </div>
                                     <div className="border-t md:border-t-0 md:border-l">
                                         <span className="text-xs text-gray-500 p-3 block text-center md:text-right">
-                                            ราคาอาจมีการเปลี่ยนแปลงตามเงื่อนไข <br /> ยังไม่รวมค่าขนส่งและค่าติดตั้ง
+                                            ราคาดังกล่าวเป็นราคาที่รวม Vat7% <br />
+                                            โดยยังไม่รวมค่าติดตั้งและค่าขนส่ง
                                         </span>
                                     </div>
                                 </div>
@@ -102,8 +103,8 @@ const ArkadDustWalker: React.FC = () => {
                                     <div className="w-2 h-2 rounded-full mt-2"></div>
                                     <div>
                                         <p className="text-sm">Arkad Dust Walker Meter</p>
-                                        <p className="text-sm">เครื่องวัดคุณภาพอากาศแบบพกพา ขนาดกะทัดรัด พกง่าย ฟังก์ชันการใช้งาน</p>
-                                        <p className="text-sm">ครบครัน ช่วยคุณติดตามคุณภาพอากาศในทุกๆการเดินทาง</p>
+                                        <p className="text-sm">เครื่องวัดคุณภาพอากาศแบบพกพา ขนาดกะทัดรัด พกง่าย ฟังก์ชันการใช้งาน ครบครัน</p>
+                                        <p className="text-sm"> ช่วยคุณติดตามคุณภาพอากาศในทุกๆการเดินทาง</p>
                                     </div>
                                 </div>
 
