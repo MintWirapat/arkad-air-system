@@ -501,56 +501,124 @@ const PlaceRegistration = () => {
         </div>
 
         <div style={styles.section}>
-          <h2 style={styles.sectionTitle}>เวลาเปิด-ปิดรายวัน</h2>
+          <h2 style={styles.sectionTitle}>เวลาเปิด-ปิด</h2>
 
-          <div style={styles.hoursGrid}>
-            {formData.openingHours.map((hour, idx) => {
-              const day = DAYS_OF_WEEK.find(d => d.value === hour.day_of_week);
-              return (
-                <div key={idx} style={styles.dayCard}>
-                  <div style={styles.dayName}>{day.label}</div>
+          <div style={{
+            overflowX: 'auto',
+            width: '100%'
+          }}>
+            <table style={{
+              width: '100%',
+              borderCollapse: 'collapse',
+              fontSize: '14px',
+              minWidth: '500px'
+            }}>
+              <thead>
+                <tr style={{
+                  borderBottom: '1px solid #e5e5e5',
+                  backgroundColor: '#fafafa'
+                }}>
+                  <th style={{
+                    padding: '12px 16px',
+                    textAlign: 'left',
+                    fontWeight: '500',
+                    color: '#323233'
+                  }}>วัน</th>
+                  <th style={{
+                    padding: '12px 16px',
+                    textAlign: 'center',
+                    fontWeight: '500',
+                    color: '#323233'
+                  }}>เวลาเปิด</th>
+                  <th style={{
+                    padding: '12px 16px',
+                    textAlign: 'center',
+                    fontWeight: '500',
+                    color: '#323233'
+                  }}>เวลาปิด</th>
+                  <th style={{
+                    padding: '12px 16px',
+                    textAlign: 'center',
+                    fontWeight: '500',
+                    color: '#323233'
+                  }}>เปิดวันนี้</th>
+                </tr>
+              </thead>
+              <tbody>
+                {formData.openingHours.map((hour, idx) => {
+                  const day = DAYS_OF_WEEK.find(d => d.value === hour.day_of_week);
+                  return (
+                    <tr key={idx} style={{
+                      borderBottom: '1px solid #e5e5e5'
+                    }}>
+                      <td style={{
+                        padding: '12px 16px',
+                        textAlign: 'left',
+                        color: '#323233'
+                      }}>{day.label}</td>
 
-                  <div style={styles.dayHourRow}>
-                    <label style={styles.smallLabel}>
-                      <input
-                        type="checkbox"
-                        checked={hour.is_open}
-                        onChange={(e) => handleOpeningHourChange(idx, 'is_open', e.target.checked)}
-                        style={styles.checkbox}
-                      />
-                      เปิดวันนี้
-                    </label>
-                  </div>
-
-                  {hour.is_open && (
-                    <div style={styles.timeInputs}>
-                      <div>
-                        <label style={styles.smallLabel}>เปิด</label>
+                      <td style={{
+                        padding: '12px 16px',
+                        textAlign: 'center'
+                      }}>
                         <input
                           type="time"
                           value={hour.open_time}
                           onChange={(e) => handleOpeningHourChange(idx, 'open_time', e.target.value)}
-                          style={styles.timeInput}
+                          disabled={!hour.is_open}
+                          style={{
+                            padding: '6px 10px',
+                            fontSize: '13px',
+                            border: '1px solid #d9d9d9',
+                            borderRadius: '4px',
+                            backgroundColor: hour.is_open ? 'white' : '#f5f5f5',
+                            color: hour.is_open ? '#323233' : '#969799',
+                            cursor: hour.is_open ? 'pointer' : 'not-allowed'
+                          }}
                         />
-                      </div>
-                      <div>
-                        <label style={styles.smallLabel}>ปิด</label>
+                      </td>
+
+                      <td style={{
+                        padding: '12px 16px',
+                        textAlign: 'center'
+                      }}>
                         <input
                           type="time"
                           value={hour.close_time}
                           onChange={(e) => handleOpeningHourChange(idx, 'close_time', e.target.value)}
-                          style={styles.timeInput}
+                          disabled={!hour.is_open}
+                          style={{
+                            padding: '6px 10px',
+                            fontSize: '13px',
+                            border: '1px solid #d9d9d9',
+                            borderRadius: '4px',
+                            backgroundColor: hour.is_open ? 'white' : '#f5f5f5',
+                            color: hour.is_open ? '#323233' : '#969799',
+                            cursor: hour.is_open ? 'pointer' : 'not-allowed'
+                          }}
                         />
-                      </div>
-                    </div>
-                  )}
+                      </td>
 
-                  {!hour.is_open && (
-                    <div style={styles.closedLabel}>ปิด</div>
-                  )}
-                </div>
-              );
-            })}
+                      <td style={{
+                        padding: '12px 16px',
+                        textAlign: 'center'
+                      }}>
+                        <input
+                          type="checkbox"
+                          checked={hour.is_open}
+                          onChange={(e) => handleOpeningHourChange(idx, 'is_open', e.target.checked)}
+                          style={{
+                            width: '18px',
+                            height: '18px',
+                            cursor: 'pointer'
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
 
