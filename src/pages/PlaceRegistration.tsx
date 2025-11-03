@@ -298,6 +298,16 @@ const PlaceRegistration = () => {
       setShowPopup(true);
       return;
     }
+    if (!formData.description) {
+      setPopupMessage('กรุณากรอกรายละเอียดร้านค้า');
+      setShowPopup(true);
+      return;
+    }
+    if (!formData.price_range) {
+      setPopupMessage('กรุณากรอกช่วงราคา');
+      setShowPopup(true);
+      return;
+    }
     if (formData.types.length === 0) {
       setPopupMessage('กรุณาเลือกหมวดหมู่สถานที่');
       setShowPopup(true);
@@ -447,39 +457,45 @@ const PlaceRegistration = () => {
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>ข้อมูลพื้นฐาน</h2>
 
-          <div style={styles.formGroup}>
-            <label style={{ ...styles.label, textAlign: 'left' }}>ชื่อสถานที่/ร้านค้า  <span style={{ color: 'red' }}>*</span></label>
+          {/* ชื่อสถานที่/ร้านค้า */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">
+              ชื่อสถานที่/ร้านค้า <span style={{ color: 'red' }}>*</span>
+            </label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              placeholder="กรุณากรอกชื่อสถานที่"
-              style={styles.input}
+              placeholder="ชื่อสถานที่/ร้านค้า"
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base"
             />
           </div>
 
-          <div style={styles.formGroup}>
-            <label style={{ ...styles.label, textAlign: 'left' }}>รายละเอียดร้านค้า</label>
+          {/* รายละเอียดร้านค้า */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">รายละเอียดร้านค้า <span style={{ color: 'red' }}>*</span></label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              placeholder="กรุณากรอกรายละเอียดร้านค้า"
-              style={{ ...styles.input, minHeight: '80px' }}
+              placeholder="รายละเอียดร้านค้า"
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 resize-none placeholder-gray-300 text-sm md:text-base"
+              style={{ minHeight: '80px' }}
               rows="3"
             />
           </div>
 
-          <div style={styles.formGroup}>
-            <label style={{ ...styles.label, textAlign: 'left' }}>ช่วงราคา</label>
+          {/* ช่วงราคา */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">ช่วงราคา <span style={{ color: 'red' }}>*</span></label>
             <input
               type="text"
               name="price_range"
               value={formData.price_range}
               onChange={handleInputChange}
               placeholder="เช่น ฿-฿฿฿ หรือ 100-300 บาท"
-              style={styles.input}
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base"
             />
           </div>
         </div>
