@@ -172,7 +172,7 @@ const PlaceRegistration = () => {
 
 
   };
-  
+
 
 
 
@@ -818,152 +818,170 @@ const PlaceRegistration = () => {
           </div>
 
           <div style={styles.coordRow}>
-            
-              <div style={styles.formGroup}>
-                <label style={{ ...styles.label, textAlign: 'left' }}>ละติจูด</label>
-                <input
-                  type="text"
-                  value={formData.latitude.toFixed(6)}
-                  readOnly
-                  style={{
-                    ...styles.input,
-                    backgroundColor: "#f5f5f5",
-                    width: '100%',
-                    boxSizing: 'border-box'
-                  }}
-                />
-              </div>
-              <div style={styles.formGroup}>
-                <label style={{ ...styles.label, textAlign: 'left' }}>ลองจิจูด</label>
-                <input
-                  type="text"
-                  value={formData.longitude.toFixed(6)}
-                  readOnly
-                  style={{
-                    ...styles.input,
-                    backgroundColor: "#f5f5f5",
-                    width: '100%',
-                    boxSizing: 'border-box'
-                  }}
-                />
-              </div>
-            
+
+            <div style={styles.formGroup}>
+              <label style={{ ...styles.label, textAlign: 'left' }}>ละติจูด</label>
+              <input
+                type="text"
+                value={formData.latitude.toFixed(6)}
+                readOnly
+                style={{
+                  ...styles.input,
+                  backgroundColor: "#f5f5f5",
+                  width: '100%',
+                  boxSizing: 'border-box'
+                }}
+              />
+            </div>
+            <div style={styles.formGroup}>
+              <label style={{ ...styles.label, textAlign: 'left' }}>ลองจิจูด</label>
+              <input
+                type="text"
+                value={formData.longitude.toFixed(6)}
+                readOnly
+                style={{
+                  ...styles.input,
+                  backgroundColor: "#f5f5f5",
+                  width: '100%',
+                  boxSizing: 'border-box'
+                }}
+              />
+            </div>
+
           </div>
         </div>
 
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>ที่อยู่ร้านค้า</h2>
 
-          <div style={styles.addressGrid}>
-            <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>บ้านเลขที่ <span style={{ color: 'red' }}>*</span></label>
-              <input
-                type="text"
-                name="address.houseNo"
-                value={formData.address.houseNo}
-                onChange={handleInputChange}
-                placeholder="กรุณากรอกบ้านเลขที่"
-                style={styles.input}
-              />
-            </div>
-            <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>หมู่ที่</label>
-              <input
-                type="text"
-                name="address.moo"
-                value={formData.address.moo}
-                onChange={handleInputChange}
-                placeholder="กรุณากรอกหมู่ที่"
-                style={styles.input}
-              />
-            </div>
-            <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>ซอย</label>
-              <input
-                type="text"
-                name="address.soi"
-                value={formData.address.soi}
-                onChange={handleInputChange}
-                placeholder="กรุณากรอกซอย"
-                style={styles.input}
-              />
-            </div>
+          {/* บ้านเลขที่ */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">
+              บ้านเลขที่ <span style={{ color: 'red' }}>*</span>
+            </label>
+            <input
+              type="text"
+              name="address.houseNo"
+              value={formData.address.houseNo}
+              onChange={handleInputChange}
+              placeholder="กรุณากรอกบ้านเลขที่"
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base"
+            />
+          </div>
 
-            {/* Dropdown จังหวัด */}
-            <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>จังหวัด <span style={{ color: 'red' }}>*</span></label>
-              <select
-                value={selectedProvinceId?.name_th || ''}
-                onChange={handleProvinceChange}
-                style={styles.input}
-              >
-                <option value="">เลือกจังหวัด</option>
-                {province.map((province) => (
-                  <option key={province.id} value={province.name_th}>
-                    {province.name_th}
-                  </option>
-                ))}
-              </select>
-            </div>
+          {/* หมู่ที่ */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">หมู่ที่</label>
+            <input
+              type="text"
+              name="address.moo"
+              value={formData.address.moo}
+              onChange={handleInputChange}
+              placeholder="กรุณากรอกหมู่ที่"
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base"
+            />
+          </div>
 
-            {/* Dropdown อำเภอ */}
-            <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>อำเภอ/เขต <span style={{ color: 'red' }}>*</span></label>
-              <select
-                value={selectedDistrictId?.name_th || ''}
-                onChange={handleDistrictChange}
-                disabled={!selectedProvinceId}
-                style={styles.input}
-              >
-                <option value="">เลือกอำเภอ/เขต</option>
-                {district.map((district) => (
-                  <option key={district.id} value={district.name_th}>
-                    {district.name_th}
-                  </option>
-                ))}
-              </select>
-            </div>
+          {/* ซอย */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">ซอย</label>
+            <input
+              type="text"
+              name="address.soi"
+              value={formData.address.soi}
+              onChange={handleInputChange}
+              placeholder="กรุณากรอกซอย"
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base"
+            />
+          </div>
 
-            {/* Dropdown ตำบล */}
-            <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>ตำบล/แขวง <span style={{ color: 'red' }}>*</span></label>
-              <select
-                value={selectedSubDistrictId?.name_th || ''}
-                onChange={handleSubDistrictChange}
-                disabled={!selectedDistrictId}
-                style={styles.input}
-              >
-                <option value="">เลือกตำบล/แขวง</option>
-                {subdistrict.map((subdistrict) => (
-                  <option key={subdistrict.id} value={subdistrict.name_th}>
-                    {subdistrict.name_th}
-                  </option>
-                ))}
-              </select>
-            </div>
+          {/* จังหวัด */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">
+              จังหวัด <span style={{ color: 'red' }}>*</span>
+            </label>
+            <select
+              value={selectedProvinceId?.name_th || ''}
+              onChange={handleProvinceChange}
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base bg-transparent"
+            >
+              <option value="">เลือกจังหวัด</option>
+              {province.map((province) => (
+                <option key={province.id} value={province.name_th}>
+                  {province.name_th}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>รหัสไปรษณีย์ <span style={{ color: 'red' }}>*</span></label>
-              <input
-                type="text"
-                name="address.zipCode"
-                value={zipCode}
-                readOnly
-                placeholder="รหัสไปรษณีย์จะถูกกรอกอัตโนมัติ"
-                style={{ ...styles.input, backgroundColor: "#f5f5f5" }}
-              />
-            </div>
-            <div style={styles.formGroup}>
-              <label style={{ ...styles.label, textAlign: 'left' }}>เบอร์โทร <span style={{ color: 'red' }}>*</span></label>
-              <input
-                type="tel"
-                name="address.mobile"
-                value={formData.address.mobile}
-                onChange={handleInputChange}
-                placeholder="กรุณากรอกเบอร์โทร"
-                style={styles.input}
-              />
-            </div>
+          {/* อำเภอ/เขต */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">
+              อำเภอ/เขต <span style={{ color: 'red' }}>*</span>
+            </label>
+            <select
+              value={selectedDistrictId?.name_th || ''}
+              onChange={handleDistrictChange}
+              disabled={!selectedProvinceId}
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base bg-transparent disabled:opacity-50"
+            >
+              <option value="">เลือกอำเภอ/เขต</option>
+              {district.map((district) => (
+                <option key={district.id} value={district.name_th}>
+                  {district.name_th}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* ตำบล/แขวง */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">
+              ตำบล/แขวง <span style={{ color: 'red' }}>*</span>
+            </label>
+            <select
+              value={selectedSubDistrictId?.name_th || ''}
+              onChange={handleSubDistrictChange}
+              disabled={!selectedDistrictId}
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base bg-transparent disabled:opacity-50"
+            >
+              <option value="">เลือกตำบล/แขวง</option>
+              {subdistrict.map((subdistrict) => (
+                <option key={subdistrict.id} value={subdistrict.name_th}>
+                  {subdistrict.name_th}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* รหัสไปรษณีย์ */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">
+              รหัสไปรษณีย์ <span style={{ color: 'red' }}>*</span>
+            </label>
+            <input
+              type="text"
+              name="address.zipCode"
+              value={zipCode}
+              readOnly
+              placeholder="รหัสไปรษณีย์จะถูกกรอกอัตโนมัติ"
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base bg-gray-50"
+            />
+          </div>
+
+          {/* เบอร์โทร */}
+          <div className="flex flex-col md:grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 md:items-center mb-6 md:mb-8">
+            <label className="text-sm md:text-base text-gray-900 text-left">
+              เบอร์โทร <span style={{ color: 'red' }}>*</span>
+            </label>
+            <input
+              type="tel"
+              name="address.mobile"
+              value={formData.address.mobile}
+              onChange={handleInputChange}
+              placeholder="กรุณากรอกเบอร์โทร"
+              className="w-full px-0 py-3 border-0 border-b border-gray-200 focus:outline-none focus:border-gray-400 placeholder-gray-300 text-sm md:text-base"
+            />
           </div>
         </div>
 
