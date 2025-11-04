@@ -262,7 +262,7 @@ const AirQualityMap = () => {
             </div>
           )}
 
-          <div style={styles.pm25LevelBar}>
+          <div style={isMobile ? styles.pm25LevelBarMobile : styles.pm25LevelBar}>
             {[
               { value: '0-15.0', color: 'rgb(0,191,243)', Image: require("../images/DUST_GIRL3.png") },
               { value: '15.1-25.0', color: 'rgb(0,166,81)', Image: require("../images/DUST_GIRL2.png") },
@@ -288,8 +288,6 @@ const AirQualityMap = () => {
           </div>
         )}
       </div>
-
-
     </>
   );
 };
@@ -297,7 +295,7 @@ const AirQualityMap = () => {
 const styles = {
   container: {
     width: '100%',
-    height: '100vh', // เปลี่ยนจาก minHeight เป็น height
+    height: '100vh',
     position: 'relative',
     overflow: 'hidden',
     fontFamily: 'Arial, sans-serif',
@@ -307,17 +305,19 @@ const styles = {
   },
   mapContainer: {
     width: '100%',
-    height: 'calc(79vh - 64px - 70px)',
+    height: 'calc(100vh - 64px)',
     position: 'relative',
     zIndex: 1,
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#f5f5f5',
+    flex: 1
   },
   mapContainerMobile: {
     width: '100%',
-    height: '65vh', // ลดความสูงในโมบายเพื่อให้เห็น Footer
+    height: 'calc(100vh - 64px)',
     position: 'relative',
     zIndex: 1,
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#f5f5f5',
+    flex: 1
   },
   popup: {
     position: 'absolute',
@@ -370,7 +370,7 @@ const styles = {
   },
   locationButton: {
     position: 'absolute',
-    bottom: '90px', // เลื่อนขึ้นเพื่อไม่ให้ทับกับ legend
+    bottom: '90px',
     right: '20px',
     zIndex: 1001,
     width: '50px',
@@ -387,7 +387,7 @@ const styles = {
   },
   locationButtonMobile: {
     position: 'absolute',
-    bottom: '90px', // ในโมบายวางเหนือ pm25LevelBar
+    bottom: '70px',
     right: '20px',
     zIndex: 1001,
     width: '50px',
@@ -404,9 +404,9 @@ const styles = {
   },
   legend: {
     position: 'absolute',
-    top: '50%',  // เพิ่มบรรทัดนี้ - วัดจากบนลงมา 50%
-    transform: 'translateY(-50%)',  // เปลี่ยนเป็นนี้ - เลื่อนขึ้นครึ่งนึงเพื่อให้กึ่งกลางจริงๆ
-    right: '20px',  // ชิดขวา
+    top: '50%',
+    transform: 'translateY(-50%)',
+    right: '20px',
     background: 'white',
     padding: '10px',
     borderRadius: '5px',
@@ -430,13 +430,24 @@ const styles = {
   },
   pm25LevelBar: {
     position: 'absolute',
-    bottom: '0%',
+    bottom: '0',
     left: 0,
     right: 0,
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: '#004466',
     padding: '5px 0',
+    zIndex: 1000
+  },
+  pm25LevelBarMobile: {
+    position: 'absolute',
+    bottom: '0',
+    left: 0,
+    right: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: '#004466',
+    padding: '3px 0',
     zIndex: 1000
   },
   levelItem: {

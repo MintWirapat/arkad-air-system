@@ -503,15 +503,12 @@ const PlaceRegistration = () => {
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>เวลาเปิด-ปิด</h2>
 
-          <div style={{
-            overflowX: 'auto',
-            width: '100%'
-          }}>
+          {/* แสดงแบบตารางสำหรับ Desktop */}
+          <div className="hidden md:block">
             <table style={{
               width: '100%',
               borderCollapse: 'collapse',
-              fontSize: '14px',
-              minWidth: '500px'
+              fontSize: '14px'
             }}>
               <thead>
                 <tr style={{
@@ -541,7 +538,7 @@ const PlaceRegistration = () => {
                     textAlign: 'center',
                     fontWeight: '500',
                     color: '#323233'
-                  }}>เปิดวันนี้</th>
+                  }}>เปิดทำการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -619,6 +616,118 @@ const PlaceRegistration = () => {
                 })}
               </tbody>
             </table>
+          </div>
+
+          {/* แสดงแบบการ์ดสำหรับ Mobile */}
+          <div className="block md:hidden">
+            {formData.openingHours.map((hour, idx) => {
+              const day = DAYS_OF_WEEK.find(d => d.value === hour.day_of_week);
+              return (
+                <div key={idx} style={{
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  padding: '16px',
+                  marginBottom: '12px',
+                  backgroundColor: '#fafafa'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '12px'
+                  }}>
+                    <span style={{
+                      fontSize: '15px',
+                      fontWeight: '600',
+                      color: '#323233'
+                    }}>{day.label}</span>
+                    <label style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      fontSize: '13px',
+                      color: '#646566'
+                    }}>
+                      <input
+                        type="checkbox"
+                        checked={hour.is_open}
+                        onChange={(e) => handleOpeningHourChange(idx, 'is_open', e.target.checked)}
+                        style={{
+                          width: '18px',
+                          height: '18px',
+                          cursor: 'pointer'
+                        }}
+                      />
+                      เปิดทำการ
+                    </label>
+                  </div>
+
+                  {hour.is_open ? (
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr',
+                      gap: '12px'
+                    }}>
+                      <div>
+                        <label style={{
+                          display: 'block',
+                          fontSize: '12px',
+                          color: '#646566',
+                          marginBottom: '6px'
+                        }}>เวลาเปิด</label>
+                        <input
+                          type="time"
+                          value={hour.open_time}
+                          onChange={(e) => handleOpeningHourChange(idx, 'open_time', e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '8px',
+                            fontSize: '14px',
+                            border: '1px solid #d9d9d9',
+                            borderRadius: '4px',
+                            backgroundColor: 'white',
+                            boxSizing: 'border-box'
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{
+                          display: 'block',
+                          fontSize: '12px',
+                          color: '#646566',
+                          marginBottom: '6px'
+                        }}>เวลาปิด</label>
+                        <input
+                          type="time"
+                          value={hour.close_time}
+                          onChange={(e) => handleOpeningHourChange(idx, 'close_time', e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '8px',
+                            fontSize: '14px',
+                            border: '1px solid #d9d9d9',
+                            borderRadius: '4px',
+                            backgroundColor: 'white',
+                            boxSizing: 'border-box'
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{
+                      textAlign: 'center',
+                      padding: '12px',
+                      backgroundColor: '#f5f5f5',
+                      borderRadius: '4px',
+                      fontSize: '13px',
+                      color: '#969799'
+                    }}>
+                      ปิดทำการ
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -1337,7 +1446,7 @@ const styles = {
     border: '1px solid #d9d9d9',
     borderRadius: '6px',
     marginTop: '4px',
-    zIndex: 1000,
+    zIndex: 2000,
     maxHeight: '300px',
     overflowY: 'auto',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
