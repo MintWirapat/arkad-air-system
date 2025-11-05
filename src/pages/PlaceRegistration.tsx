@@ -74,9 +74,16 @@ const PlaceRegistration = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const selectedTypes = storeTypes.filter(t => formData.types.includes(t.id));
-  const selectedCuisines = cuisineTypes.filter(c => formData.cuisines.includes(c.id));
   const typeDropdownRef = useRef(null);
   const cuisineDropdownRef = useRef(null);
+
+
+
+  const [selectedCuisines, setSelectedCuisines] = useState([]);
+
+
+
+
 
 
   // ดึงข้อมูลจังหวัดตอนเริ่มต้น
@@ -193,6 +200,8 @@ const PlaceRegistration = () => {
     fetchTypesAndCuisines();
   }, []);
 
+
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (typeDropdownRef.current && !typeDropdownRef.current.contains(event.target)) {
@@ -242,7 +251,14 @@ const PlaceRegistration = () => {
         ? prev.types.filter(t => t !== typeId)
         : [...prev.types, typeId]
     }));
+    console.log('formData.types after setFormData:', typeId);
+    console.log('cuisineTypes:', cuisineTypes);
+
+
+
+
   };
+
 
   const selectCuisine = (cuisineId) => {
     setFormData(prev => ({
@@ -275,10 +291,13 @@ const PlaceRegistration = () => {
   const getFilteredCuisines = () => {
     if (formData.types.length === 0) return [];
     const categories = formData.types.map(typeId => {
-      const type = storeTypes.find(t => t.id === typeId);
-      return type?.category;
+      const selectedcuis = cuisineTypes.filter(c => {
+        return c.store_type_id === typeId;
+      });
+      return selectedcuis;
     });
-    return cuisineTypes.filter(c => categories.includes(c.category));
+    console.log('Filtered Cuisines:', categories.flat());
+    return categories.flat();
   };
 
   const updateMap = (lat, lon) => {
