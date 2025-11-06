@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
                         {/* Left Section */}
                         <div className="text-[10px] md:text-sm text-gray-600 leading-tight md:leading-relaxed">
                             <p className="whitespace-nowrap">บริษัท วินเซนต์ ออโตเมชั่น จำกัด</p>
-                            <p>178/13 หมู่ 1 ต.หางดง อ.หางดง</p>
+                            <p>178/13 หมู่ 1 ต.หางดง&nbsp;อ.หางดง</p>
                             <p>จ.เชียงใหม่ 50230</p>
                         </div>
 
