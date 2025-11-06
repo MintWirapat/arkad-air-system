@@ -40,9 +40,9 @@ const Footer: React.FC = () => {
                 <div className="max-w-6xl mx-auto px-4 py-6 md:py-8">
                     <div className="grid grid-cols-3 gap-4 md:gap-8 items-start md:items-center">
                         {/* Left Section */}
-                        <div className="text-[10px] md:text-sm text-gray-600 leading-tight md:leading-relaxed">
+                        <div className="text-[10px] text-left md:text-sm text-gray-600 leading-tight md:leading-relaxed">
                             <p className="whitespace-nowrap">บริษัท วินเซนต์ ออโตเมชั่น จำกัด</p>
-                            <p>178/13 หมู่ 1 ต.หางดง&nbsp;อ.หางดง</p>
+                            <p className="whitespace-nowrap">178/13 หมู่ 1 ต.หางดง อ.หางดง</p>
                             <p>จ.เชียงใหม่ 50230</p>
                         </div>
 
