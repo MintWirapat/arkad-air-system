@@ -236,7 +236,11 @@ const AirQualityMap = () => {
         <div ref={mapRef} style={isMobile ? styles.mapContainerMobile : styles.mapContainer}>
           {/* ย้าย cmu-ccdc.png เข้ามาอยู่ใน mapContainer */}
           <div style={{ ...styles.dustboyLogo, display: isMenuOpen ? 'none' : 'block' }}>
-            <img src={require("../images/cmu-ccdc.png")} width="200px" alt="CMUCCDC" />
+            <img
+              src={require("../images/CCDC2.png")}
+              style={{ width: isMobile ? '130px' : '200px', height: 'auto' }}
+              alt="CMUCCDC"
+            />
           </div>
 
           <button

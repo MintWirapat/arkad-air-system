@@ -8,11 +8,9 @@ const AboutUs: React.FC = () => {
 
 
             {/* About Us Content */}
-            <div className="flex-grow bg-white py-8 md:py-12 md:pb-2">
-                <div className="max-w-4xl mx-auto px-4 pt-12">
-                    <h2 className="text-2xl md:text-3xl font-bold text-center text-black mb-8 md:mb-12">
-                        About Us
-                    </h2>
+            <div className="flex-grow bg-white py-18  md:py-12 md:pb-2">
+                <div className="max-w-4xl mx-auto px-4 pt-16 ">
+                    <h1 className="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">About Us</h1>
 
                     {/* Company Description */}
                     <div className="text-center mb-12 md:mb-16">
@@ -33,7 +31,7 @@ const AboutUs: React.FC = () => {
                         <div className="pb-6 border-b border-gray-200">
                             <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">2563</h3>
                             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                                ก่อตั้ง บริษัท วินเซนต์ ออโตเมชั่น จำกัด โดยประกอบธุรกิจจำหน่ายอุปกรณ์บำบัดอากาศสะอาดด้วยระบบความดันบวก PPV (Positive Pressure Air Purifier)
+                                ก่อตั้ง บริษัท วินเซนต์ ออโตเมชั่น จำกัด โดยประกอบธุรกิจจำหน่ายอุปกรณ์บำบัดอากาศสะอาดด้วยระบบแรงดันบวก PPV (Positive Pressure Air Purifier)
                                 โดยเริ่มจากการออกแบบและติดตั้งระบบเครื่องสร้างอากาศสะอาดให้กับที่พักอาศัยทั่วไป
                             </p>
                         </div>

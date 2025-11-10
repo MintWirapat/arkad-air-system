@@ -126,7 +126,7 @@ const ArkadPPV: React.FC = () => {
                                         </span>
                                     </div>
                                     <div className="border-t md:border-t-0 md:border-l">
-                                        <span className="text-xs text-gray-500 p-3 block text-center md:text-right">
+                                        <span className="text-xs text-gray-500 p-3 block text-center md:text-left">
                                             ราคาดังกล่าวเป็นราคาที่รวม Vat7% <br />
                                             โดยยังไม่รวมค่าติดตั้งและค่าขนส่ง
                                         </span>
@@ -321,66 +321,99 @@ const ArkadPPV: React.FC = () => {
                         </div>
                     </div>
 
-                    <h2 className="text-3xl font-bold mb-3 mt-10">คุณสมบัติ</h2>
 
-                    {/* ตารางคุณสมบัติ */}
-                    <div className="overflow-x-auto mt-10">
-                        <table className="w-full border-collapse text-sm md:text-base">
-                            <thead>
-                                <tr className="bg-gray-50">
-                                    <th className="border border-gray-300 px-4 py-2 text-left font-medium">
-                                        เครื่องเติมอากาศรุ่น
-                                    </th>
-                                    <th className="border border-gray-300 px-4 py-3 text-center font-medium">PPV 160</th>
-                                    <th className="border border-gray-300 px-4 py-3 text-center font-medium">PPV 250</th>
-                                    <th className="border border-gray-300 px-4 py-3 text-center font-medium">PPV 350</th>
-                                    <th className="border border-gray-300 px-4 py-3 text-center font-medium">PPV 440</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="border border-gray-300 px-4 py-2 text-left">ขนาดห้อง</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">32 ตร.ม.</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">50 ตร.ม.</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">60 ตร.ม.</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">90 ตร.ม.</td>
-                                </tr>
-                                <tr>
-                                    <td className="border border-gray-300 px-4 py-2 text-left">ระดับพัดลม</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center" colSpan={4}>
-                                        HIGH / LOW
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="border border-gray-300 px-4 py-2 text-left">การเติมอากาศ</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">160 / 120 cmh</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">250 / 200 cmh</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">350 / 290 cmh</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">440 / 350 cmh</td>
-                                </tr>
-                                <tr>
-                                    <td className="border border-gray-300 px-4 py-2 text-left">การเปลี่ยนอากาศ</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">88 / 70 cfm</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">147 / 117 cfm</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">206 / 170 cfm</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">258 / 206 cfm</td>
-                                </tr>
-                                <tr>
-                                    <td className="border border-gray-300 px-4 py-2 text-left">กำลังไฟ</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">45 / 30 W</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">60 / 50 W</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">75 / 55 W</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">85 / 70 W</td>
-                                </tr>
-                                <tr>
-                                    <td className="border border-gray-300 px-4 py-2 text-left">เสียง</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">55 / 50 dB</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">57 / 52 dB</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">60 / 55 dB</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">67 / 60 dB</td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                    <div className="max-w-6xl mx-auto p-4 md:p-8">
+                        <div className="text-center">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-8">คุณสมบัติ</h2>
+                            <div className="overflow-x-auto">
+                                <table className="w-full border-collapse text-[10px] xs:text-xs sm:text-sm md:text-base">
+                                    <thead>
+                                        <tr className="bg-gray-100">
+                                            <th className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-left font-semibold text-[10px] xs:text-xs sm:text-sm md:text-base">
+                                                เครื่องเติมอากาศรุ่น
+                                            </th>
+                                            <th className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold text-[10px] xs:text-xs sm:text-sm md:text-base" colSpan={2}>
+                                                PPV 160
+                                            </th>
+                                            <th className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold text-[10px] xs:text-xs sm:text-sm md:text-base" colSpan={2}>
+                                                PPV 250
+                                            </th>
+                                            <th className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold text-[10px] xs:text-xs sm:text-sm md:text-base" colSpan={2}>
+                                                PPV 350
+                                            </th>
+                                            <th className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold text-[10px] xs:text-xs sm:text-sm md:text-base" colSpan={2}>
+                                                PPV 440
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="bg-white">
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-left">ขนาดห้อง</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center" colSpan={2}>32 ตร.ม.</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center" colSpan={2}>50 ตร.ม.</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center" colSpan={2}>60 ตร.ม.</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center" colSpan={2}>90 ตร.ม.</td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-left">ระดับพัดลม</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold">HIGH</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold">LOW</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold">HIGH</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold">LOW</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold">HIGH</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold">LOW</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold">HIGH</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center font-semibold">LOW</td>
+                                        </tr>
+                                        <tr className="bg-white">
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-left">การเติมอากาศ</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">160 cmh</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">120 cmh</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">250 cmh</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">200 cmh</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">350 cmh</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">290 cmh</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">440 cmh</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">350 cmh</td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-left">การเติมอากาศ</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">88 cfm</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">70 cfm</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">147 cfm</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">117 cfm</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">206 cfm</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">170 cfm</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">258 cfm</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">206 cfm</td>
+                                        </tr>
+                                        <tr className="bg-white">
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-left">กำลังไฟ</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">45 W</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">30 W</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">60 W</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">50 W</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">75 W</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">55 W</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">85</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">70</td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-left">เสียง</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">55 dB</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">50 dB</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">57 dB</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">52 dB</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">60 dB</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">55 dB</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">67 dB</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">60 dB</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

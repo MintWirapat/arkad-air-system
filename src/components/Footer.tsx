@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
                         {/* Right Section */}
                         <div className="flex flex-col items-end gap-2 md:gap-4">
                             <p className="text-[10px] md:text-sm text-gray-600 text-right">arkaddee.official@gmail.com</p>
-                            <div className="flex gap-3 md:gap-5">
+                            <div className="flex gap-1 md:gap-5">
                                 {socialLinks.map((social, index) => {
                                     return (
                                         <a

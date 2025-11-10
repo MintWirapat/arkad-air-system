@@ -38,7 +38,7 @@ const ContactUs: React.FC = () => {
             {/* Contact Form Section */}
             <div className="bg-white py-16 pt-28">
                 <div className="max-w-4xl mx-auto px-4">
-                    <h1 className="text-3xl md:text-5xl font-bold text-center mb-12 md:mb-16">Contact Us</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">Contact Us</h1>
 
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-300 p-6 md:p-12 space-y-6 md:space-y-8">
                         {/* แถวที่ 1: ชื่อ */}

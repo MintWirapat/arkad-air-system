@@ -453,9 +453,11 @@ const PlaceRegistration = () => {
   };
 
   return (
-    <div style={styles.container}>
+    <div style={{ ...styles.container, paddingTop: '3rem' }} >
       <div style={styles.header}>
-        <h1 style={styles.title}>ลงทะเบียนร้านค้า</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">
+          ลงทะเบียนร้านค้า
+        </h1>
       </div>
 
       {showPopup && (
@@ -531,8 +533,8 @@ const PlaceRegistration = () => {
             }}>
               <thead>
                 <tr style={{
-                  borderBottom: '1px solid #e5e5e5',
-                  backgroundColor: '#fafafa'
+                  borderBottom: '1px solid #ffffffff',
+                  backgroundColor: '#ffffffff'
                 }}>
                   <th style={{
                     padding: '12px 16px',
@@ -1336,9 +1338,9 @@ const styles = {
     maxWidth: '800px',
     margin: '0 auto',
     padding: '20px',
-    backgroundColor: '#f7f8fa',
+    backgroundColor: '#ffffff',
     minHeight: '100vh',
-    fontFamily: 'Arial, sans-serif'
+    fontFamily: "'Noto Sans Thai', sans-serif"
   },
   header: {
     textAlign: 'center',
@@ -1362,7 +1364,8 @@ const styles = {
     borderRadius: '12px',
     padding: '20px',
     marginBottom: '20px',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+    border: '1px solid #e0e0e0'  // เพิ่มบรรทัดนี้
   },
   sectionTitle: {
     fontSize: '16px',

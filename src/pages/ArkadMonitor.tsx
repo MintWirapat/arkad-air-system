@@ -92,7 +92,7 @@ const ArkadMonitor: React.FC = () => {
                                         <span className="text-2xl md:text-4xl font-semibold text-[#00AEEF]">฿6,500</span>
                                     </div>
                                     <div className="border-t md:border-t-0 md:border-l">
-                                        <span className="text-xs text-gray-500 p-3 block text-center md:text-right">
+                                        <span className="text-xs text-gray-500 p-3 block text-center md:text-left">
                                             ราคาดังกล่าวเป็นราคาที่รวม Vat7% <br />
                                             โดยยังไม่รวมค่าติดตั้งและค่าขนส่ง
                                         </span>
