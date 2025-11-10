@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import axios from 'axios';
 import 'leaflet/dist/leaflet.css';
-import TimePicker from  '../components/TimePicker.tsx';
+import TimePicker from '../components/TimePicker.tsx';
 
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -185,6 +185,7 @@ const PlaceRegistration = () => {
 
 
 
+
   useEffect(() => {
     const fetchTypesAndCuisines = async () => {
       try {
@@ -260,6 +261,12 @@ const PlaceRegistration = () => {
 
   };
 
+
+  // เพิ่ม useEffect เพื่อ sync selectedCuisines กับ formData.cuisines
+  useEffect(() => {
+    const selected = cuisineTypes.filter(c => formData.cuisines.includes(c.id));
+    setSelectedCuisines(selected);
+  }, [formData.cuisines, cuisineTypes]);
 
   const selectCuisine = (cuisineId) => {
     setFormData(prev => ({
