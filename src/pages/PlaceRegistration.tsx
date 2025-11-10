@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import axios from 'axios';
 import 'leaflet/dist/leaflet.css';
+import TimePicker from  '../components/TimePicker.tsx';
 
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -579,20 +580,10 @@ const PlaceRegistration = () => {
                         padding: '12px 16px',
                         textAlign: 'center'
                       }}>
-                        <input
-                          type="time"
+                        <TimePicker
                           value={hour.open_time}
-                          onChange={(e) => handleOpeningHourChange(idx, 'open_time', e.target.value)}
+                          onChange={(time) => handleOpeningHourChange(idx, 'open_time', time)}
                           disabled={!hour.is_open}
-                          style={{
-                            padding: '6px 10px',
-                            fontSize: '13px',
-                            border: '1px solid #d9d9d9',
-                            borderRadius: '4px',
-                            backgroundColor: hour.is_open ? 'white' : '#f5f5f5',
-                            color: hour.is_open ? '#323233' : '#969799',
-                            cursor: hour.is_open ? 'pointer' : 'not-allowed'
-                          }}
                         />
                       </td>
 
@@ -600,20 +591,10 @@ const PlaceRegistration = () => {
                         padding: '12px 16px',
                         textAlign: 'center'
                       }}>
-                        <input
-                          type="time"
+                        <TimePicker
                           value={hour.close_time}
-                          onChange={(e) => handleOpeningHourChange(idx, 'close_time', e.target.value)}
+                          onChange={(time) => handleOpeningHourChange(idx, 'close_time', time)}
                           disabled={!hour.is_open}
-                          style={{
-                            padding: '6px 10px',
-                            fontSize: '13px',
-                            border: '1px solid #d9d9d9',
-                            borderRadius: '4px',
-                            backgroundColor: hour.is_open ? 'white' : '#f5f5f5',
-                            color: hour.is_open ? '#323233' : '#969799',
-                            cursor: hour.is_open ? 'pointer' : 'not-allowed'
-                          }}
                         />
                       </td>
 
@@ -696,19 +677,10 @@ const PlaceRegistration = () => {
                           color: '#646566',
                           marginBottom: '6px'
                         }}>เวลาเปิด</label>
-                        <input
-                          type="time"
+                        <TimePicker
                           value={hour.open_time}
-                          onChange={(e) => handleOpeningHourChange(idx, 'open_time', e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '8px',
-                            fontSize: '14px',
-                            border: '1px solid #d9d9d9',
-                            borderRadius: '4px',
-                            backgroundColor: 'white',
-                            boxSizing: 'border-box'
-                          }}
+                          onChange={(time) => handleOpeningHourChange(idx, 'open_time', time)}
+                          disabled={false}
                         />
                       </div>
                       <div>
@@ -718,19 +690,10 @@ const PlaceRegistration = () => {
                           color: '#646566',
                           marginBottom: '6px'
                         }}>เวลาปิด</label>
-                        <input
-                          type="time"
+                        <TimePicker
                           value={hour.close_time}
-                          onChange={(e) => handleOpeningHourChange(idx, 'close_time', e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '8px',
-                            fontSize: '14px',
-                            border: '1px solid #d9d9d9',
-                            borderRadius: '4px',
-                            backgroundColor: 'white',
-                            boxSizing: 'border-box'
-                          }}
+                          onChange={(time) => handleOpeningHourChange(idx, 'close_time', time)}
+                          disabled={false}
                         />
                       </div>
                     </div>
