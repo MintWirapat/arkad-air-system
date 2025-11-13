@@ -1,10 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const ProductNavBar = () => {
   const location = useLocation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const activeItemRef = useRef<HTMLAnchorElement>(null);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
 
   const products = [
     {
@@ -39,57 +42,38 @@ const ProductNavBar = () => {
     },
   ];
 
-  // Scroll ไปที่รายการที่ active เมื่อ location เปลี่ยน (เฉพาะเมื่อจำเป็น)
-  useEffect(() => {
-    if (activeItemRef.current && scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const activeItem = activeItemRef.current;
+  // จัดการ mouse/touch events
+  const handlePointerDown = (e: React.PointerEvent) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    
+    isDraggingRef.current = true;
+    startXRef.current = e.pageX - container.offsetLeft;
+    scrollLeftRef.current = container.scrollLeft;
+    container.style.cursor = 'grabbing';
+    container.style.userSelect = 'none';
+  };
 
-      // เช็คว่า container มี scroll ได้จริงหรือไม่
-      const hasScroll = container.scrollWidth > container.clientWidth;
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDraggingRef.current) return;
+    e.preventDefault();
+    
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startXRef.current) * 2; // คูณ 2 เพื่อให้เลื่อนเร็วขึ้น
+    container.scrollLeft = scrollLeftRef.current - walk;
+  };
 
-      // ถ้าไม่มี scroll (รายการแสดงได้หมดอยู่แล้ว) ก็ไม่ต้องทำอะไร
-      if (!hasScroll) {
-        return;
-      }
-
-      // เช็คว่ารายการ active และรายการข้างๆ มองเห็นได้หรือไม่
-      const itemRect = activeItem.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-
-      // เพิ่ม margin เพื่อให้เห็นรายการข้างๆ ด้วย (ประมาณ 1-2 รายการ)
-      const margin = 150; // พื้นที่สำหรับรายการข้างๆ
-
-      const needsScrollLeft = itemRect.left < containerRect.left + margin;
-      const needsScrollRight = itemRect.right > containerRect.right - margin;
-
-      // ถ้ารายการอยู่ในมุมมองที่ดี (มีพื้นที่สำหรับรายการข้างๆ) ไม่ต้อง scroll
-      if (!needsScrollLeft && !needsScrollRight) {
-        return;
-      }
-
-      // คำนวณตำแหน่งที่ต้อง scroll
-      const containerWidth = container.clientWidth;
-      const itemLeft = activeItem.offsetLeft;
-      const itemWidth = activeItem.offsetWidth;
-
-      // ถ้าอยู่ใกล้ท้าย ให้ scroll ไปท้ายสุด
-      const isNearEnd = itemLeft + itemWidth + margin * 2 > container.scrollWidth;
-      if (isNearEnd) {
-        container.scrollTo({
-          left: container.scrollWidth - containerWidth,
-          behavior: 'smooth'
-        });
-      } else {
-        // scroll ให้อยู่ตรงกลาง แต่เว้นพื้นที่สำหรับรายการข้างๆ
-        const scrollPosition = itemLeft - (containerWidth / 2) + (itemWidth / 2);
-        container.scrollTo({
-          left: scrollPosition,
-          behavior: 'smooth'
-        });
-      }
+  const handlePointerUp = () => {
+    isDraggingRef.current = false;
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.style.cursor = 'grab';
+      container.style.userSelect = 'auto';
     }
-  }, [location.pathname]);
+  };
 
   return (
     <div className="relative py-6 mt-16 overflow-hidden">
@@ -112,14 +96,33 @@ const ProductNavBar = () => {
           .scrollbar-hide::-webkit-scrollbar {
             display: none;
           }
+          
+          .product-scroll-container {
+            cursor: grab;
+          }
+          
+          .product-scroll-container:active {
+            cursor: grabbing;
+          }
         `}</style>
 
         <div
           ref={scrollContainerRef}
-          className="overflow-x-auto scrollbar-hide px-4"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="product-scroll-container overflow-x-auto scrollbar-hide px-4"
+          style={{ 
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+            touchAction: 'pan-x pan-y',
+            overscrollBehaviorX: 'contain',
+            scrollSnapType: 'none'
+          }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
         >
-          <div className="flex justify-start md:justify-center items-center gap-6 md:gap-10 lg:gap-12 max-w-full">
+          <div className="flex justify-start md:justify-center items-center gap-6 md:gap-10 lg:gap-12 min-w-max">
             {products.map((product) => {
               const isActive = location.pathname === product.path;
 
@@ -129,6 +132,13 @@ const ProductNavBar = () => {
                   to={product.path}
                   ref={isActive ? activeItemRef : null}
                   className="group flex flex-col items-center transition-all duration-300 flex-shrink-0"
+                  onClick={(e) => {
+                    // ถ้ากำลัง drag อยู่ ยกเลิกการคลิก
+                    if (isDraggingRef.current || Math.abs(scrollLeftRef.current - (scrollContainerRef.current?.scrollLeft || 0)) > 5) {
+                      e.preventDefault();
+                    }
+                  }}
+                  style={{ pointerEvents: isDraggingRef.current ? 'none' : 'auto' }}
                 >
                   <div className={`
                    bg-white/90 backdrop-blur-sm rounded-2xl p-5 md:p-6 
@@ -143,6 +153,7 @@ const ProductNavBar = () => {
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
+                      draggable="false"
                     />
                   </div>
                   <span className={`

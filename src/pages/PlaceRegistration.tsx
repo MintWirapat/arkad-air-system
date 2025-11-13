@@ -461,7 +461,49 @@ const PlaceRegistration = () => {
   };
 
   return (
-    <div style={{ ...styles.container, paddingTop: '3rem' }} >
+    <>
+      <style>{`
+        /* ปรับปรุง scrolling สำหรับ mobile */
+        html, body {
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior-y: none;
+        }
+        
+        * {
+          -webkit-tap-highlight-color: transparent;
+        }
+        
+        input, select, textarea, button {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+        }
+        
+        /* เพิ่ม momentum scrolling ให้ทุก element */
+        * {
+          -webkit-overflow-scrolling: touch;
+        }
+        
+        /* แก้ปัญหา scroll ติดบนมือถือ */
+        body {
+          position: relative;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+        
+        /* Fix for input focus on iOS */
+        input:focus, select:focus, textarea:focus {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
+      
+      <div style={{ 
+        ...styles.container, 
+        paddingTop: '3rem',
+        WebkitOverflowScrolling: 'touch',
+        overscrollBehavior: 'none'
+      }} >
       <div style={styles.header}>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">
           ลงทะเบียนร้านค้า
@@ -637,7 +679,8 @@ const PlaceRegistration = () => {
                   borderRadius: '8px',
                   padding: '16px',
                   marginBottom: '12px',
-                  backgroundColor: '#fafafa'
+                  backgroundColor: '#fafafa',
+                  WebkitTapHighlightColor: 'transparent'
                 }}>
                   <div style={{
                     display: 'flex',
@@ -1300,6 +1343,7 @@ const PlaceRegistration = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
@@ -1335,7 +1379,7 @@ const styles = {
     padding: '20px',
     marginBottom: '20px',
     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
-    border: '1px solid #e0e0e0'  // เพิ่มบรรทัดนี้
+    border: '1px solid #e0e0e0'
   },
   sectionTitle: {
     fontSize: '16px',

@@ -1,47 +1,36 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
-const TimePicker = ({ value, onChange, disabled }) => {
+interface TimePickerProps {
+  value: string;
+  onChange: (time: string) => void;
+  disabled?: boolean;
+}
+
+const TimePicker: React.FC<TimePickerProps> = ({ value, onChange, disabled = false }) => {
   const [showPicker, setShowPicker] = useState(false);
-  const [selectedHour, setSelectedHour] = useState('10');
+  const [selectedHour, setSelectedHour] = useState('00');
   const [selectedMinute, setSelectedMinute] = useState('00');
-  const pickerRef = useRef(null);
-  const hourScrollRef = useRef(null);
-  const minuteScrollRef = useRef(null);
+  
+  const hourRef = useRef<HTMLDivElement>(null);
+  const minuteRef = useRef<HTMLDivElement>(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
 
-  // สร้างรายการชั่วโมงและนาที
+  // สร้างตัวเลือกชั่วโมงและนาที
   const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
   const minutes = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0'));
 
-  // แปลงค่าเวลาที่รับเข้ามา
   useEffect(() => {
     if (value) {
       const [hour, minute] = value.split(':');
-      setSelectedHour(hour);
-      setSelectedMinute(minute);
+      setSelectedHour(hour || '00');
+      setSelectedMinute(minute || '00');
     }
   }, [value]);
 
-  // Scroll ไปที่ตำแหน่งที่เลือกเมื่อเปิด picker
+  // ปิด picker เมื่อคลิกนอก
   useEffect(() => {
-    if (showPicker && hourScrollRef.current && minuteScrollRef.current) {
-      setTimeout(() => {
-        const hourIndex = hours.indexOf(selectedHour);
-        const minuteIndex = minutes.indexOf(selectedMinute);
-        
-        if (hourScrollRef.current) {
-          hourScrollRef.current.scrollTop = hourIndex * 40;
-        }
-        if (minuteScrollRef.current) {
-          minuteScrollRef.current.scrollTop = minuteIndex * 40;
-        }
-      }, 50);
-    }
-  }, [showPicker, selectedHour, selectedMinute]);
-
-  // ปิด picker เมื่อคลิกข้างนอก
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
         setShowPicker(false);
       }
     };
@@ -57,309 +46,315 @@ const TimePicker = ({ value, onChange, disabled }) => {
     };
   }, [showPicker]);
 
+  // Scroll ไปที่ค่าที่เลือกเมื่อเปิด picker
+  useEffect(() => {
+    if (showPicker) {
+      setTimeout(() => {
+        if (hourRef.current) {
+          const hourIndex = hours.indexOf(selectedHour);
+          hourRef.current.scrollTop = hourIndex * 40;
+        }
+        if (minuteRef.current) {
+          const minuteIndex = minutes.indexOf(selectedMinute);
+          minuteRef.current.scrollTop = minuteIndex * 40;
+        }
+      }, 10);
+    }
+  }, [showPicker, selectedHour, selectedMinute]);
+
+  const handleSelectHour = (hour: string) => {
+    setSelectedHour(hour);
+    onChange(`${hour}:${selectedMinute}`);
+  };
+
+  const handleSelectMinute = (minute: string) => {
+    setSelectedMinute(minute);
+    onChange(`${selectedHour}:${minute}`);
+  };
+
   const handleConfirm = () => {
     onChange(`${selectedHour}:${selectedMinute}`);
     setShowPicker(false);
   };
 
-  const handleCancel = () => {
-    const [hour, minute] = value.split(':');
-    setSelectedHour(hour);
-    setSelectedMinute(minute);
-    setShowPicker(false);
-  };
-
-  const handleScroll = (ref, items, setter) => {
-    if (!ref.current) return;
-    
-    const scrollTop = ref.current.scrollTop;
-    const itemHeight = 40;
-    const index = Math.round(scrollTop / itemHeight);
-    const validIndex = Math.max(0, Math.min(index, items.length - 1));
-    
-    setter(items[validIndex]);
-    
-    // Snap to position
-    ref.current.scrollTop = validIndex * itemHeight;
-  };
-
   return (
-    <div style={styles.container} ref={pickerRef}>
+    <div ref={pickerRef} style={{ position: 'relative', width: '100%' }}>
+      {/* Input Display */}
       <button
         type="button"
-        onClick={() => !disabled && setShowPicker(true)}
+        onClick={() => !disabled && setShowPicker(!showPicker)}
         disabled={disabled}
         style={{
-          ...styles.input,
+          width: '100%',
+          padding: '10px 12px',
+          fontSize: '14px',
+          border: '1px solid #d9d9d9',
+          borderRadius: '6px',
           backgroundColor: disabled ? '#f5f5f5' : 'white',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          textAlign: 'center',
           color: disabled ? '#969799' : '#323233',
-          cursor: disabled ? 'not-allowed' : 'pointer'
+          fontFamily: 'inherit'
         }}
       >
         {value || '00:00'}
       </button>
 
-      {showPicker && (
-        <>
-          <div style={styles.overlay} onClick={() => setShowPicker(false)} />
-          <div style={styles.pickerModal}>
-            <div style={styles.pickerHeader}>
+      {/* Picker Modal */}
+      {showPicker && !disabled && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'center'
+          }}
+          onClick={() => setShowPicker(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '100%',
+              maxWidth: '500px',
+              backgroundColor: 'white',
+              borderTopLeftRadius: '16px',
+              borderTopRightRadius: '16px',
+              padding: '20px',
+              animation: 'slideUp 0.3s ease-out'
+            }}
+          >
+            <style>{`
+              @keyframes slideUp {
+                from {
+                  transform: translateY(100%);
+                }
+                to {
+                  transform: translateY(0);
+                }
+              }
+
+              .time-column {
+                height: 200px;
+                overflow-y: auto;
+                scroll-snap-type: y mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+              }
+
+              .time-column::-webkit-scrollbar {
+                display: none;
+              }
+
+              .time-item {
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                scroll-snap-align: center;
+                transition: all 0.2s ease;
+                cursor: pointer;
+                font-size: 16px;
+              }
+
+              .time-item:hover {
+                background-color: #f0f0f0;
+              }
+
+              .time-item.selected {
+                color: #1989fa;
+                font-weight: 600;
+                font-size: 18px;
+              }
+
+              .time-column-wrapper {
+                position: relative;
+              }
+
+              .time-column-wrapper::before,
+              .time-column-wrapper::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                height: 80px;
+                pointer-events: none;
+                z-index: 1;
+              }
+
+              .time-column-wrapper::before {
+                top: 0;
+                background: linear-gradient(to bottom, white, transparent);
+              }
+
+              .time-column-wrapper::after {
+                bottom: 0;
+                background: linear-gradient(to top, white, transparent);
+              }
+
+              .selection-indicator {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                height: 40px;
+                margin-top: -20px;
+                border-top: 1px solid #e0e0e0;
+                border-bottom: 1px solid #e0e0e0;
+                background-color: rgba(25, 137, 250, 0.05);
+                pointer-events: none;
+                z-index: 2;
+              }
+            `}</style>
+
+            {/* Header */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '20px',
+              paddingBottom: '15px',
+              borderBottom: '1px solid #f0f0f0'
+            }}>
               <button
                 type="button"
-                onClick={handleCancel}
-                style={styles.cancelButton}
+                onClick={() => setShowPicker(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#969799',
+                  fontSize: '15px',
+                  cursor: 'pointer',
+                  padding: '5px 10px'
+                }}
               >
                 ยกเลิก
               </button>
-              <span style={styles.pickerTitle}>เลือกเวลา</span>
+              <span style={{
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#323233'
+              }}>
+                เลือกเวลา
+              </span>
               <button
                 type="button"
                 onClick={handleConfirm}
-                style={styles.confirmButton}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#1989fa',
+                  fontSize: '15px',
+                  cursor: 'pointer',
+                  padding: '5px 10px',
+                  fontWeight: '600'
+                }}
               >
                 ตกลง
               </button>
             </div>
 
-            <div style={styles.pickerBody}>
-              {/* เส้นไฮไลท์ */}
-              <div style={styles.highlightBar} />
-
-              {/* Column ชั่วโมง */}
-              <div style={styles.columnWrapper}>
+            {/* Time Picker */}
+            <div style={{
+              display: 'flex',
+              gap: '20px',
+              justifyContent: 'center',
+              position: 'relative'
+            }}>
+              {/* Hour Column */}
+              <div className="time-column-wrapper" style={{ flex: 1, position: 'relative' }}>
+                <div className="selection-indicator"></div>
                 <div
-                  ref={hourScrollRef}
-                  style={styles.scrollColumn}
-                  onScroll={() => handleScroll(hourScrollRef, hours, setSelectedHour)}
+                  ref={hourRef}
+                  className="time-column"
+                  onScroll={(e) => {
+                    const scrollTop = e.currentTarget.scrollTop;
+                    const index = Math.round(scrollTop / 40);
+                    if (index >= 0 && index < hours.length) {
+                      handleSelectHour(hours[index]);
+                    }
+                  }}
                 >
-                  <div style={styles.spacer} />
+                  <div style={{ height: '80px' }}></div>
                   {hours.map((hour) => (
                     <div
                       key={hour}
-                      style={{
-                        ...styles.timeItem,
-                        color: hour === selectedHour ? '#323233' : '#969799',
-                        fontWeight: hour === selectedHour ? '600' : '400',
-                        fontSize: hour === selectedHour ? '18px' : '16px'
-                      }}
-                      onClick={() => {
-                        setSelectedHour(hour);
-                        const index = hours.indexOf(hour);
-                        hourScrollRef.current.scrollTop = index * 40;
-                      }}
+                      className={`time-item ${hour === selectedHour ? 'selected' : ''}`}
+                      onClick={() => handleSelectHour(hour)}
                     >
                       {hour}
                     </div>
                   ))}
-                  <div style={styles.spacer} />
+                  <div style={{ height: '80px' }}></div>
                 </div>
-                <div style={styles.columnLabel}>ชั่วโมง</div>
+                <div style={{
+                  textAlign: 'center',
+                  marginTop: '8px',
+                  fontSize: '13px',
+                  color: '#969799'
+                }}>
+                  ชั่วโมง
+                </div>
               </div>
 
-              {/* เครื่องหมายคั่น */}
-              <div style={styles.separator}>:</div>
+              {/* Separator */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                fontSize: '24px',
+                fontWeight: '600',
+                color: '#323233',
+                paddingBottom: '30px'
+              }}>
+                :
+              </div>
 
-              {/* Column นาที */}
-              <div style={styles.columnWrapper}>
+              {/* Minute Column */}
+              <div className="time-column-wrapper" style={{ flex: 1, position: 'relative' }}>
+                <div className="selection-indicator"></div>
                 <div
-                  ref={minuteScrollRef}
-                  style={styles.scrollColumn}
-                  onScroll={() => handleScroll(minuteScrollRef, minutes, setSelectedMinute)}
+                  ref={minuteRef}
+                  className="time-column"
+                  onScroll={(e) => {
+                    const scrollTop = e.currentTarget.scrollTop;
+                    const index = Math.round(scrollTop / 40);
+                    if (index >= 0 && index < minutes.length) {
+                      handleSelectMinute(minutes[index]);
+                    }
+                  }}
                 >
-                  <div style={styles.spacer} />
+                  <div style={{ height: '80px' }}></div>
                   {minutes.map((minute) => (
                     <div
                       key={minute}
-                      style={{
-                        ...styles.timeItem,
-                        color: minute === selectedMinute ? '#323233' : '#969799',
-                        fontWeight: minute === selectedMinute ? '600' : '400',
-                        fontSize: minute === selectedMinute ? '18px' : '16px'
-                      }}
-                      onClick={() => {
-                        setSelectedMinute(minute);
-                        const index = minutes.indexOf(minute);
-                        minuteScrollRef.current.scrollTop = index * 40;
-                      }}
+                      className={`time-item ${minute === selectedMinute ? 'selected' : ''}`}
+                      onClick={() => handleSelectMinute(minute)}
                     >
                       {minute}
                     </div>
                   ))}
-                  <div style={styles.spacer} />
+                  <div style={{ height: '80px' }}></div>
                 </div>
-                <div style={styles.columnLabel}>นาที</div>
+                <div style={{
+                  textAlign: 'center',
+                  marginTop: '8px',
+                  fontSize: '13px',
+                  color: '#969799'
+                }}>
+                  นาที
+                </div>
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
 };
-
-const styles = {
-  container: {
-    position: 'relative',
-    width: '100%'
-  },
-  input: {
-    width: '100%',
-    padding: '8px 12px',
-    fontSize: '14px',
-    border: '1px solid #d9d9d9',
-    borderRadius: '4px',
-    textAlign: 'center',
-    fontFamily: 'inherit'
-  },
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex: 9998,
-    animation: 'fadeIn 0.2s ease'
-  },
-  pickerModal: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    borderTopLeftRadius: '16px',
-    borderTopRightRadius: '16px',
-    zIndex: 9999,
-    animation: 'slideUp 0.3s ease',
-    boxShadow: '0 -2px 20px rgba(0, 0, 0, 0.1)',
-    maxWidth: '600px',
-    margin: '0 auto'
-  },
-  pickerHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '16px 20px',
-    borderBottom: '1px solid #f0f0f0'
-  },
-  cancelButton: {
-    background: 'none',
-    border: 'none',
-    color: '#969799',
-    fontSize: '16px',
-    cursor: 'pointer',
-    padding: '4px 8px'
-  },
-  pickerTitle: {
-    fontSize: '16px',
-    fontWeight: '600',
-    color: '#323233'
-  },
-  confirmButton: {
-    background: 'none',
-    border: 'none',
-    color: '#1989fa',
-    fontSize: '16px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    padding: '4px 8px'
-  },
-  pickerBody: {
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '20px',
-    height: '280px'
-  },
-  highlightBar: {
-    position: 'absolute',
-    top: '50%',
-    left: '20px',
-    right: '20px',
-    height: '40px',
-    transform: 'translateY(-50%)',
-    backgroundColor: '#f7f8fa',
-    borderRadius: '8px',
-    border: '1px solid #e5e5e5',
-    pointerEvents: 'none',
-    zIndex: 1
-  },
-  columnWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    position: 'relative',
-    zIndex: 2
-  },
-  scrollColumn: {
-    height: '240px',
-    overflowY: 'scroll',
-    scrollSnapType: 'y mandatory',
-    scrollBehavior: 'smooth',
-    WebkitOverflowScrolling: 'touch',
-    width: '80px',
-    maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
-    WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
-    scrollbarWidth: 'none',
-    msOverflowStyle: 'none'
-  },
-  timeItem: {
-    height: '40px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    scrollSnapAlign: 'center',
-    userSelect: 'none'
-  },
-  spacer: {
-    height: '100px'
-  },
-  separator: {
-    fontSize: '20px',
-    fontWeight: '600',
-    color: '#323233',
-    margin: '0 10px',
-    paddingBottom: '30px'
-  },
-  columnLabel: {
-    fontSize: '12px',
-    color: '#969799',
-    marginTop: '8px'
-  }
-};
-
-// เพิ่ม CSS animations
-const styleSheet = document.styleSheets[0];
-if (styleSheet) {
-  try {
-    styleSheet.insertRule(`
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-    `, styleSheet.cssRules.length);
-    
-    styleSheet.insertRule(`
-      @keyframes slideUp {
-        from { transform: translateY(100%); }
-        to { transform: translateY(0); }
-      }
-    `, styleSheet.cssRules.length);
-  } catch (e) {
-    // Ignore errors in case rules already exist
-  }
-}
-
-// ซ่อน scrollbar
-const style = document.createElement('style');
-style.textContent = `
-  .scrollColumn::-webkit-scrollbar {
-    display: none;
-  }
-`;
-document.head.appendChild(style);
 
 export default TimePicker;
