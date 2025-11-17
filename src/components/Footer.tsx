@@ -35,30 +35,30 @@ const Footer: React.FC = () => {
 
     return (
         <>
-            {/* Footer */}
+            {/* Footer - ลดขนาดลงให้กระทัดรัด */}
             <footer className="bg-white">
-                <div className="max-w-6xl mx-auto px-4 py-6 md:py-8">
-                    <div className="grid grid-cols-3 gap-4 md:gap-8 items-start md:items-center">
-                        {/* Left Section */}
-                        <div className="text-[10px] text-left md:text-sm text-gray-600 leading-tight md:leading-relaxed">
+                <div className="max-w-6xl mx-auto px-4 py-3 md:py-4">
+                    <div className="grid grid-cols-3 gap-3 md:gap-6 items-center">
+                        {/* Left Section - ลดขนาดฟอนต์ */}
+                        <div className="text-[9px] text-left md:text-xs text-gray-600 leading-tight">
                             <p className="whitespace-nowrap">บริษัท วินเซนต์ ออโตเมชั่น จำกัด</p>
                             <p className="whitespace-nowrap">178/13 หมู่ 1 ต.หางดง อ.หางดง</p>
                             <p>จ.เชียงใหม่ 50230</p>
                         </div>
 
-                        {/* Center Section - Logo */}
+                        {/* Center Section - Logo ลดขนาด */}
                         <div className="flex justify-center">
                             <img
                                 src={require("../images/logoarkad.png")}
                                 alt="Arkad Logo"
-                                className="h-10 md:h-16 object-contain"
+                                className="h-8 md:h-12 object-contain"
                             />
                         </div>
 
-                        {/* Right Section */}
-                        <div className="flex flex-col items-end gap-2 md:gap-4">
-                            <p className="text-[10px] md:text-sm text-gray-600 text-right">arkaddee.official@gmail.com</p>
-                            <div className="flex gap-1 md:gap-5">
+                        {/* Right Section - ลดขนาด */}
+                        <div className="flex flex-col items-end gap-1 md:gap-2">
+                            <p className="text-[9px] md:text-xs text-gray-600 text-right">arkaddee.official@gmail.com</p>
+                            <div className="flex gap-1 md:gap-3">
                                 {socialLinks.map((social, index) => {
                                     return (
                                         <a
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
                                             <img
                                                 src={social.image}
                                                 alt={social.label}
-                                                className="w-8 h-8 md:w-12 md:h-12 object-contain "
+                                                className="w-6 h-6 md:w-9 md:h-9 object-contain"
                                             />
                                         </a>
                                     );
@@ -80,15 +80,13 @@ const Footer: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Copyright */}
-                    <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200 text-center text-[9px] md:text-sm text-gray-600 space-y-1 px-2">
+                    {/* Copyright - ลด padding และขนาดฟอนต์ */}
+                    <div className="mt-2 md:mt-3 pt-2 md:pt-3 border-t border-gray-200 text-center text-[8px] md:text-xs text-gray-600 space-y-0.5 px-2">
                         <p className="leading-tight">© 2025 บริษัท วินเซนต์ ออโตเมชั่น จำกัด. สงวนลิขสิทธิ์.</p>
-                        <p className="text-[8px] md:text-sm">นโยบายความเป็นส่วนตัว | ข้อกำหนดการใช้งาน</p>
+                        <p className="text-[7px] md:text-xs">นโยบายความเป็นส่วนตัว | ข้อกำหนดการใช้งาน</p>
                     </div>
                 </div>
             </footer>
-
-           
         </>
     );
 };

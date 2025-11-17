@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const ProductNavBar = () => {
@@ -36,11 +36,31 @@ const ProductNavBar = () => {
       image: require('../images/ArkadIPV.png')
     },
     {
-      name: 'Equipment',
-      path: '',
+      name: 'Manual',
+      path: '/manual',
       image: require('../images/boxicon.png')
     },
   ];
+
+  // กู้คืน scroll position เมื่อ component mount
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    // อ่านตำแหน่งจาก sessionStorage
+    const savedScrollLeft = sessionStorage.getItem('productNavBarScrollLeft');
+    if (savedScrollLeft) {
+      container.scrollLeft = parseInt(savedScrollLeft, 10);
+    }
+  }, []);
+
+  // บันทึก scroll position เมื่อ scroll
+  const handleScroll = () => {
+    const container = scrollContainerRef.current;
+    if (container && !isDraggingRef.current) {
+      sessionStorage.setItem('productNavBarScrollLeft', container.scrollLeft.toString());
+    }
+  };
 
   // จัดการ mouse/touch events
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -117,6 +137,7 @@ const ProductNavBar = () => {
             overscrollBehaviorX: 'contain',
             scrollSnapType: 'none'
           }}
+          onScroll={handleScroll}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}

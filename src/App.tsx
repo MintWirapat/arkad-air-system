@@ -11,6 +11,8 @@ import ArkadDustWalker from './pages/ArkadDustWalker.tsx';
 import ArkadMonitor from './pages/ArkadMonitor.tsx';
 import ArkadIPV from './pages/ArkadIPV.tsx';
 import PlaceRegistration from './pages/PlaceRegistration.tsx';
+// Import NEW ManualPage
+import ManualPage from './pages/ManualPage.tsx';
 import './App.css';
 
 
@@ -32,7 +34,8 @@ const App: React.FC = () => {
           <Route path="/arkad-dust-walker" element={<ArkadDustWalker />} />
           <Route path="/arkad-monitor" element={<ArkadMonitor />} />
           <Route path="/arkad-ipv" element={<ArkadIPV />} />
-
+          {/* NEW Route สำหรับ ManualPage */}
+          <Route path="/manual" element={<ManualPage />} />
         </Routes>
       </div>
     </Router>

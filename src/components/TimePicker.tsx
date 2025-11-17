@@ -160,6 +160,15 @@ const TimePicker: React.FC<TimePickerProps> = ({ value, onChange, disabled = fal
                 transition: all 0.2s ease;
                 cursor: pointer;
                 font-size: 16px;
+                font-variant-numeric: tabular-nums;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+              }
+              
+              .time-item > span {
+                transform: translateY(13px);
               }
 
               .time-item:hover {
@@ -170,6 +179,12 @@ const TimePicker: React.FC<TimePickerProps> = ({ value, onChange, disabled = fal
                 color: #1989fa;
                 font-weight: 600;
                 font-size: 18px;
+                font-variant-numeric: tabular-nums;
+                padding: 0;
+              }
+              
+              .time-item.selected > span {
+                transform: translateY(13px);
               }
 
               .time-column-wrapper {
@@ -203,7 +218,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ value, onChange, disabled = fal
                 left: 0;
                 right: 0;
                 height: 40px;
-                margin-top: -20px;
+                transform: translateY(-50%);
                 border-top: 1px solid #e0e0e0;
                 border-bottom: 1px solid #e0e0e0;
                 background-color: rgba(25, 137, 250, 0.05);
@@ -287,7 +302,13 @@ const TimePicker: React.FC<TimePickerProps> = ({ value, onChange, disabled = fal
                       className={`time-item ${hour === selectedHour ? 'selected' : ''}`}
                       onClick={() => handleSelectHour(hour)}
                     >
-                      {hour}
+                      <span style={{ 
+                        display: 'inline-block',
+                        lineHeight: '1',
+                        verticalAlign: 'middle'
+                      }}>
+                        {hour}
+                      </span>
                     </div>
                   ))}
                   <div style={{ height: '80px' }}></div>
@@ -335,7 +356,13 @@ const TimePicker: React.FC<TimePickerProps> = ({ value, onChange, disabled = fal
                       className={`time-item ${minute === selectedMinute ? 'selected' : ''}`}
                       onClick={() => handleSelectMinute(minute)}
                     >
-                      {minute}
+                      <span style={{ 
+                        display: 'inline-block',
+                        lineHeight: '1',
+                        verticalAlign: 'middle'
+                      }}>
+                        {minute}
+                      </span>
                     </div>
                   ))}
                   <div style={{ height: '80px' }}></div>

@@ -23,8 +23,8 @@ export default function DownloadButton() {
 
   const downloadApp = (platform: 'ios' | 'android') => {
     const urls = {
-      ios: 'https://apps.apple.com/app/arkad',
-      android: 'https://play.google.com/store/apps/details?id=com.appmatrixdevelopment.arkad'
+      ios: 'https://apps.apple.com/th/app/arkad/id6745466731?l=th',
+      android: 'https://play.google.com/store/apps/details?id=com.appmatrixdevelopment.arkad&pcampaignid=web_share'
     };
 
     window.open(urls[platform], '_blank');
@@ -34,17 +34,36 @@ export default function DownloadButton() {
   return (
     <>
       {/* Download Button */}
-      <div
-        onClick={showDownloadOptions}
-        className="fixed bottom-5 right-5 bg-blue-500 rounded-xl px-4 py-3 cursor-pointer shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all z-[99] md:bottom-20"
-      >
-        <div className="flex items-center gap-3">
-          <img
-            src={require('../images/logo1.png')}
-            alt="Download App"
-            className="w-8 h-8 rounded-lg md:w-12 md:h-12"
-          />
-          {!isSmallScreen && (
+      {isSmallScreen ? (
+        // Mobile View - แสดงเฉพาะไอคอนพร้อมข้อความ Download App
+        <div
+          onClick={showDownloadOptions}
+          className="fixed bottom-5 right-5 z-[80] cursor-pointer"
+          style={{ width: '80px', maxWidth: '90vw' }}
+        >
+          <div className="text-center mb-2">
+            <p className="text-black text-xs font-semibold whitespace-nowrap">Download App</p>
+          </div>
+          <div className="bg-blue-600 rounded-xl p-1.5 flex items-center justify-center hover:bg-blue-700 transition-all hover:shadow-lg">
+            <img
+              src={require('../images/logo1.png')}
+              alt="Download App"
+              className="w-14 h-14 rounded-lg"
+            />
+          </div>
+        </div>
+      ) : (
+        // Desktop View - แสดงแบบเต็ม
+        <div
+          onClick={showDownloadOptions}
+          className="fixed bottom-5 right-5 bg-blue-600 rounded-xl px-4 py-3 cursor-pointer shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all z-[80]"
+        >
+          <div className="flex items-center gap-3">
+            <img
+              src={require('../images/logo1.png')}
+              alt="Download App"
+              className="w-12 h-12 rounded-lg"
+            />
             <div className="flex flex-col">
               <span className="text-white text-sm font-semibold">
                 ดาวน์โหลด Arkad
@@ -53,9 +72,9 @@ export default function DownloadButton() {
                 ใช้งานง่ายกว่าบนแอพ
               </span>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Download Options Popup */}
       {showPopup && (
@@ -69,9 +88,12 @@ export default function DownloadButton() {
           {/* Popup */}
           <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 z-[101] animate-slide-up">
             <div className="max-w-md mx-auto">
-              <h3 className="text-center text-xl font-semibold text-gray-800 mb-6">
-                ดาวน์โหลด Arkad App
-              </h3>
+              {/* Logo และชื่อแอพ */}
+              <div className="flex flex-col items-center mb-6">
+                <h3 className="text-xl font-semibold text-gray-800">
+                  ดาวน์โหลด Arkad App
+                </h3>
+              </div>
 
               <div className="flex flex-col gap-4 mb-6">
                 {/* iOS Button */}
@@ -113,7 +135,7 @@ export default function DownloadButton() {
         </>
       )}
 
-      <style >{`
+      <style>{`
         @keyframes slide-up {
           from {
             transform: translateY(100%);

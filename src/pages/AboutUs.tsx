@@ -75,9 +75,6 @@ const AboutUs: React.FC = () => {
                     className="w-full h-auto object-cover"
                 />
             </div>
-
-           
-
             {/* Footer */}
             <Footer />
         </div>

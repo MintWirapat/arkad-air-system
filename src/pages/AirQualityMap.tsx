@@ -237,7 +237,7 @@ const AirQualityMap = () => {
           {/* ย้าย cmu-ccdc.png เข้ามาอยู่ใน mapContainer */}
           <div style={{ ...styles.dustboyLogo, display: isMenuOpen ? 'none' : 'block' }}>
             <img
-              src={require("../images/CCDC2.png")}
+              src={require("../images/CCDC1.png")}
               style={{ width: isMobile ? '130px' : '200px', height: 'auto' }}
               alt="CMUCCDC"
             />
@@ -281,7 +281,11 @@ const AirQualityMap = () => {
             ))}
           </div>
         </div>
-        <Footer />
+        
+        {/* Footer ที่ปรับขนาดแล้ว */}
+        <div style={styles.footerWrapper}>
+          <Footer />
+        </div>
 
         {popupVisible && popupContent && (
           <div style={{ ...styles.popup, backgroundColor: getColorByPM25(popupContent.pm25) }}>
@@ -309,19 +313,24 @@ const styles = {
   },
   mapContainer: {
     width: '100%',
-    height: 'calc(100vh - 64px)',
+    flex: 1,
     position: 'relative',
     zIndex: 1,
     backgroundColor: '#f5f5f5',
-    flex: 1
+    minHeight: 0 // สำคัญ! ให้ flex ทำงานได้ดี
   },
   mapContainerMobile: {
     width: '100%',
-    height: 'calc(100vh - 64px)',
+    flex: 1,
     position: 'relative',
     zIndex: 1,
     backgroundColor: '#f5f5f5',
-    flex: 1
+    minHeight: 0
+  },
+  footerWrapper: {
+    flexShrink: 0, // ป้องกัน Footer ถูกบีบ
+    width: '100%',
+    zIndex: 10
   },
   popup: {
     position: 'absolute',
