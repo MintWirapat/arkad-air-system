@@ -396,8 +396,8 @@ const ArkadPPV: React.FC = () => {
                                             <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">50 W</td>
                                             <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">75 W</td>
                                             <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">55 W</td>
-                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">85</td>
-                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">70</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">85 W</td>
+                                            <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-center">70 W</td>
                                         </tr>
                                         <tr className="bg-gray-50">
                                             <td className="border border-gray-400 px-1 sm:px-2 md:px-4 py-2 md:py-3 text-left">เสียง</td>
