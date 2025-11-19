@@ -473,12 +473,23 @@ const PlaceRegistration = () => {
           -webkit-tap-highlight-color: transparent;
         }
         
-        input, select, textarea, button {
+        
+        input:not([type="checkbox"]), select, textarea, button {
           -webkit-appearance: none;
           -moz-appearance: none;
           appearance: none;
         }
         
+        /* Force checkbox appearance */
+        input[type="checkbox"] {
+          -webkit-appearance: checkbox !important;
+          -moz-appearance: checkbox !important;
+          appearance: checkbox !important;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+          accent-color: #1989fa;
+        }
         /* เพิ่ม momentum scrolling ให้ทุก element */
         * {
           -webkit-overflow-scrolling: touch;
@@ -575,11 +586,12 @@ const PlaceRegistration = () => {
           <h2 style={styles.sectionTitle}>เวลาเปิด-ปิด</h2>
 
           {/* แสดงแบบตารางสำหรับ Desktop */}
-          <div className="hidden md:block">
+          <div className="hidden md:block" style={{ overflowX: "auto", width: "100%" }}>
             <table style={{
               width: '100%',
               borderCollapse: 'collapse',
-              fontSize: '14px'
+              fontSize: '14px',
+              minWidth: '650px'
             }}>
               <thead>
                 <tr style={{
@@ -656,9 +668,13 @@ const PlaceRegistration = () => {
                           checked={hour.is_open}
                           onChange={(e) => handleOpeningHourChange(idx, 'is_open', e.target.checked)}
                           style={{
-                            width: '18px',
-                            height: '18px',
-                            cursor: 'pointer'
+                            width: '20px',
+                            height: '20px',
+                            cursor: 'pointer',
+                            accentColor: '#1989fa',
+                            transform: 'scale(1.3)',
+                            WebkitAppearance: 'checkbox',
+                            appearance: 'checkbox'
                           }}
                         />
                       </td>
@@ -705,9 +721,13 @@ const PlaceRegistration = () => {
                         checked={hour.is_open}
                         onChange={(e) => handleOpeningHourChange(idx, 'is_open', e.target.checked)}
                         style={{
-                          width: '18px',
-                          height: '18px',
-                          cursor: 'pointer'
+                          width: '20px',
+                          height: '20px',
+                          cursor: 'pointer',
+                          accentColor: '#1989fa',
+                          transform: 'scale(1.3)',
+                          WebkitAppearance: 'checkbox',
+                          appearance: 'checkbox'
                         }}
                       />
                       เปิดทำการ
@@ -1536,9 +1556,13 @@ const styles = {
     gap: '8px'
   },
   checkbox: {
-    width: '16px',
-    height: '16px',
-    cursor: 'pointer'
+    width: '20px',
+    height: '20px',
+    cursor: 'pointer',
+    accentColor: '#1989fa',
+    transform: 'scale(1.3)',
+    WebkitAppearance: 'checkbox',
+    appearance: 'checkbox'
   },
   searchRow: {
     display: 'flex',

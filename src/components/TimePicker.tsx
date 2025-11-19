@@ -171,9 +171,6 @@ const TimePicker: React.FC<TimePickerProps> = ({ value, onChange, disabled = fal
                 transform: translateY(13px);
               }
 
-              .time-item:hover {
-                background-color: #f0f0f0;
-              }
 
               .time-item.selected {
                 color: #1989fa;
